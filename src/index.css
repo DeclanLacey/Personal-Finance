@@ -1,0 +1,29 @@
+:root {
+  --green: #277C78;
+  --dark-grey: #201F24;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+img {
+  display: block;
+  width: 100%;
+}
+
+body {
+  margin: 0px;
+  padding: 0px;
+  font-family: "Public Sans", sans-serif;
+}
+
+body {
+  background-color: #F2F3F7;
+}
