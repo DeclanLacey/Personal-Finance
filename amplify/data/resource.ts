@@ -6,12 +6,55 @@ adding a new "isDone" field as a boolean. The authorization rule below
 specifies that any unauthenticated user can "create", "read", "update", 
 and "delete" any "Todo" records.
 =========================================================================*/
+// const schema = a.schema({
+//   Todo: a
+//     .model({
+//       content: a.string(),
+//     })
+//     .authorization((allow) => [allow.owner()]),
+//   Stuff: a
+//     .model({
+//       content: a.string(),
+//     })
+//     .authorization((allow) => [allow.owner()])
+// });
+
 const schema = a.schema({
-  Todo: a
+  Balance: a
     .model({
-      content: a.string(),
+      current: a.float(),
+      income: a.float(),
+      expenses: a.float()
     })
-    .authorization((allow) => [allow.guest()]),
+    .authorization((allow) => [allow.owner()]),
+
+  Transaction: a
+    .model({
+      avatar: a.string(),
+      name: a.string(),
+      category: a.string(),
+      date: a.date(),
+      amount: a.float(),
+      recurring: a.boolean()
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Budget: a 
+    .model({
+      category: a.string(),
+      maximum: a.float(),
+      theme: a.string()
+    })
+    .authorization((allow) => [allow.owner()]),
+
+  Pot: a
+    .model({
+      name: a.string(),
+      target: a.float(),
+      total: a.float(),
+      theme: a.string()
+    })
+    .authorization((allow) => [allow.owner()])
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -22,6 +65,17 @@ export const data = defineData({
     defaultAuthorizationMode: 'iam',
   },
 });
+
+// export const data = defineData({
+//   schema,
+//   authorizationModes: {
+//     defaultAuthorizationMode: "identityPool",
+//     // API Key is used for a.allow.public() rules
+//     apiKeyAuthorizationMode: {
+//       expiresInDays: 30,
+//     },
+//   },
+// });
 
 /*== STEP 2 ===============================================================
 Go to your frontend source code. From your client-side code, generate a

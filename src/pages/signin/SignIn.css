@@ -20,6 +20,8 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
+    width: 100%;
+
 }
 
 .sign_in-header {
@@ -40,8 +42,6 @@
 }
 
 .sign_in-authenticator-container {
-    padding-left: 10px;
-    padding-right: 10px;
     margin-top: 140px;
     margin-bottom: 90px;
 }

@@ -1,9 +1,9 @@
+import {getPots, getTransactions, getBalances, getBudgets} from "../../utils/clientCalls"
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { type Schema } from "@/../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
-import React from 'react'
 
 const client = generateClient<Schema>({
   authMode: "userPool",
@@ -20,20 +20,23 @@ export default function Overview() {
     }
   }, [authStatus])
 
-  const fetchData = async () => {
-    const { data, errors } = await client.models.Todo.list();
-    if (errors) {
-      console.log(errors);
-    } else {
-      console.log(data);
-    }
-  };
+  //// Calls all of the utility functions that connect to the backend
+  // const getData = async () => {
+  //   console.log(await getPots())
+  //   console.log(await getTransactions())
+  //   console.log(await getBalances())
+  //   console.log(await getBudgets())
+  // }
 
-  fetchData()
+  // getData()
+
+  
 
   return (
     <div>
-      
+      Overview Page
     </div>
   )
 }
+
+
