@@ -1,0 +1,49 @@
+.overview-container {
+    width: 100%;
+}
+
+.overview-content-container {
+    width: 90%;
+    margin: 0 auto;
+    border: 1px solid var(--beige-100);
+}
+
+.overview-title {
+    margin-bottom: 25px;
+    margin-top: 25px;
+    font-size: 3.2rem;
+}
+
+.ct-series-a .ct-bar, .ct-series-a .ct-line, .ct-series-a .ct-point, .ct-series-a .ct-slice-donut {
+    stroke: #0CC162;
+}
+
+/* ///////////// stroke colors for bar chart ////////////// */
+
+.green {
+    stroke: #277C78;
+}
+
+.yellow {
+    stroke: #F2CDAC
+}
+
+.cyan {
+    stroke: #82C9D7
+}
+
+.navy {
+    stroke: #626070
+}
+
+.red {
+    stroke: #C94736
+}
+
+.purple {
+    stroke: #826CB0
+}
+
+.turquoise {
+    stroke: #597C7C
+}

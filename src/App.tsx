@@ -6,11 +6,10 @@ import Pots from './pages/pots/Pots'
 import RecurringBills from './pages/recurringBills/RecurringBills'
 import Transactions from './pages/transactions/Transactions'
 import './App.css'
-import Nav from './components/nav/Nav'
 
 function App() {
   return (
-    <div>
+    <div className='app'>
       <Routes>
         <Route path="/" element={<SignIn />}/>
         <Route path="/overview" element={<Overview />} />
