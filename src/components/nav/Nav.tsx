@@ -10,19 +10,19 @@ export default function Nav() {
             <img className='nav-link-img' src='/assets/icon-nav-overview.svg' />
         </NavLink>
 
-        <NavLink className='nav-link' to={"/"}> 
+        <NavLink className='nav-link' to={"/transactions"}> 
             <img className='nav-link-img' src='/assets/icon-nav-transactions.svg' />
         </NavLink>
 
-        <NavLink className='nav-link' to={"/"}> 
+        <NavLink className='nav-link' to={"/budgets"}> 
             <img className='nav-link-img' src='/assets/icon-nav-budgets.svg' />
         </NavLink>
 
-        <NavLink className='nav-link' to={"/"}> 
+        <NavLink className='nav-link' to={"/pots"}> 
             <img className='nav-link-img' src='/assets/icon-nav-pots.svg' />
         </NavLink>
 
-        <NavLink className='nav-link' to={"/"}> 
+        <NavLink className='nav-link' to={"/recurring-bills"}> 
             <img className='nav-link-img' src='/assets/icon-nav-recurring-bills.svg' />
         </NavLink>
     </nav>
