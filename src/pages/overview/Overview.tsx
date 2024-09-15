@@ -9,6 +9,7 @@ import BalancesOverview from "../../components/balancesOveriew/BalancesOverview"
 import BudgetsOverview from "../../components/budgetsOverview/BudgetsOverview";
 import Nav from "../../components/nav/Nav";
 import "./Overview.css"
+import PotsOverview from "../../components/potsOverview/PotsOverview";
 
 
 const client = generateClient<Schema>({
@@ -70,6 +71,7 @@ export default function Overview() {
       <section className="overview-content-container">
         <h1 className="overview-title">Overview</h1>
         <BalancesOverview></BalancesOverview>
+        <PotsOverview></PotsOverview>
         {/* <BudgetsOverview></BudgetsOverview> */}
       </section>
       

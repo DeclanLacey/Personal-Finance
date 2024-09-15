@@ -4,7 +4,6 @@ import data from "../../data/data.json"
 import "./BalancesOverview.css"
 
 export default function BalancesOverview() {
-
   const [balanceData, setBalanceData] = useState(data.balance)
   
   return (
