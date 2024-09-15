@@ -4,6 +4,7 @@ import { type Schema } from "@/../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
+import Nav from "../../components/nav/Nav";
 
 const client = generateClient<Schema>({
   authMode: "userPool",
@@ -34,6 +35,7 @@ export default function Overview() {
 
   return (
     <div>
+      <Nav></Nav>
       Overview Page
     </div>
   )
