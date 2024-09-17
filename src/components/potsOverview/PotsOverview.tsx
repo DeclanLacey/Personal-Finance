@@ -9,7 +9,7 @@ export default function PotsOverview() {
 
   const potElements = potsData.map((pot, index) => {
     return (
-      <div className='pots_overview-pot'>
+      <div key={index} className='pots_overview-pot'>
         <div className='pots_overview-colored-line' style={{backgroundColor: `${pot.theme}`}}></div>
         <div className='pots_overview-pot-content-container'>
           <p className='pots_overview-pot-name'>{pot.name}</p>
@@ -36,7 +36,6 @@ export default function PotsOverview() {
     return totalSavings
   }
 
-  console.log(potsData)
   return (
     <section className='pots_overview-container'>
       <div className='pots_overview-title-container'>

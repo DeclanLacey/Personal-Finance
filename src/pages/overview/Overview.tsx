@@ -4,6 +4,7 @@ import { type Schema } from "@/../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
+import { deleteUser } from "aws-amplify/auth";
 
 import BalancesOverview from "../../components/balancesOveriew/BalancesOverview";
 import BudgetsOverview from "../../components/budgetsOverview/BudgetsOverview";
@@ -28,42 +29,43 @@ export default function Overview() {
     }
   }, [authStatus])
 
+
+  // async function handleDeleteUser() {
+  //   try {
+  //     await deleteUser();
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  // handleDeleteUser()
   
 
   //// Calls all of the utility functions that connect to the backend
-  // const getData = async () => {
-  //    console.log(await getBalances())
-  //    console.log(await getPots())
-  //    console.log(await getTransactions())
-  //    console.log(await getBudgets())
-  // }
+  const getData = async () => {
+     console.log(await getBalances())
+     console.log(await getPots())
+     console.log(await getTransactions())
+     console.log(await getBudgets())
 
-  // getData()
+    const getUserProfile = async () => {
+      const { data, errors } = await client.models.UserProfile.list();
+      if (errors) {
+        console.log(errors);
+      } else {
+        return data;
+      }
+    };
+
+    console.log(await getUserProfile())
+  }
+
+
+  useEffect(() => {
+    getData()
+  }, [])
   
 
-  // useCallback(() => {
-  //   new PieChart('.ct-chart', {
-  //     series: [20, 10, 30, 40]
-  //   }, {
-  //     donut: true,
-  //     donutWidth: 60,
-  //     startAngle: 270,
-  //     showLabel: true
-  //   });
-  // }, [])
-
-  // const chart = new PieChart(
-  //   '#chart',
-    // {
-    //   series: [20, 10, 30, 40]
-    // },
-    // {
-    //   donut: true,
-    //   donutWidth: 60,
-    //   startAngle: 270,
-    //   showLabel: true
-    // }
-  // );
 
 
   return (

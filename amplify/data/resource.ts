@@ -1,4 +1,5 @@
 import { type ClientSchema, a, defineData } from '@aws-amplify/backend';
+import { postConfirmation } from '../auth/post-confirmation/resource';
 
 /*== STEP 1 ===============================================================
 The section below creates a Todo database table with a "content" field. Try
@@ -20,6 +21,14 @@ and "delete" any "Todo" records.
 // });
 
 const schema = a.schema({
+  UserProfile: a
+      .model({
+        email: a.string(),
+        profileOwner: a.string(),
+      })
+      .authorization((allow) => [
+        allow.ownerDefinedIn("profileOwner"),
+      ]),
   Balance: a
     .model({
       current: a.float(),
@@ -33,7 +42,7 @@ const schema = a.schema({
       avatar: a.string(),
       name: a.string(),
       category: a.string(),
-      date: a.date(),
+      date: a.string(),
       amount: a.float(),
       recurring: a.boolean()
     })
@@ -55,7 +64,8 @@ const schema = a.schema({
       theme: a.string()
     })
     .authorization((allow) => [allow.owner()])
-});
+})
+.authorization(allow => [allow.resource(postConfirmation)]);
 
 export type Schema = ClientSchema<typeof schema>;
 

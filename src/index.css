@@ -55,11 +55,13 @@ body {
   color: var(--grey-900);
 }
 
-html {
+html{
   font-size: 62.5%; /* (62.5/100) * 16px = 10px */
   -webkit-text-size-adjust: none; /* for iOS Safari */
   text-size-adjust: none; /* for other mobile browsers */
 }
+
+
 
 @media (prefers-reduced-motion: no-preference) {
 html {
