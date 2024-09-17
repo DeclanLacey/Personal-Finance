@@ -1,9 +1,10 @@
 .pots_overview-container {
     background-color: var(--white);
     padding: 20px;
-    margin-top: 30px;
+    margin-top: 20px;
     border-radius: 10px;
     padding-top: 5px;
+    margin-bottom: 20px;
 }
 
 .pots_overview-title-container {

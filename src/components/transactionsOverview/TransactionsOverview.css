@@ -1,0 +1,95 @@
+.transaction_overview-container {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 20px;
+    padding-top: 5px;
+}
+
+.transaction_overview-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0px;
+}
+
+.transaction_overview-title {
+    font-size: 2rem;
+}
+
+.transaction_overview-link-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: row;
+}
+
+.transaction_overview-caret {
+    height: 8px;
+}
+
+.transaction_overview-link {
+    white-space: nowrap;
+    margin-right: 10px;
+    font-size: 1.4rem;
+    text-decoration: none;
+    color: var(--grey-500);
+}
+
+/* /////////////// transaction styling //////////////// */
+
+.transaction_overview-transaction {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.border-bottom {
+    border-bottom: 1px solid var(--grey-100);
+}
+
+.transaction_overview-transaction-name-container {
+    display: flex;
+    align-items: center;
+}
+
+.transaction_overview-transaction-img {
+    height: 32px;
+    width: 32px;
+    border-radius: 100px;
+    margin-right: 15px;
+}
+
+.transaction_overview-transaction-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    max-width: 140px;
+    line-height: 15px;
+}
+
+.transaction_overview-transaction-amount {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: right;
+    margin-bottom: 0px;
+}
+
+.transaction_overview-transaction-date {
+    text-align: right;
+    margin-top: 5px;
+    font-size: 1.2rem;
+    color: var(--grey-500);
+}
+
+.positive  {
+    color: var(--green);
+}
+
+/* //////////////////// media query ////////////////// */
+
+@media (min-width: 450px) {
+    .transaction_overview-transaction-name {
+       
+        max-width: initial;
+    }
+}

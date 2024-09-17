@@ -11,6 +11,7 @@ import BudgetsOverview from "../../components/budgetsOverview/BudgetsOverview";
 import Nav from "../../components/nav/Nav";
 import "./Overview.css"
 import PotsOverview from "../../components/potsOverview/PotsOverview";
+import TransactionsOverview from "../../components/transactionsOverview/TransactionsOverview";
 
 
 const client = generateClient<Schema>({
@@ -61,9 +62,9 @@ export default function Overview() {
   }
 
 
-  useEffect(() => {
-    getData()
-  }, [])
+  // useEffect(() => {
+  //   getData()
+  // }, [])
   
 
 
@@ -74,6 +75,7 @@ export default function Overview() {
         <h1 className="overview-title">Overview</h1>
         <BalancesOverview></BalancesOverview>
         <PotsOverview></PotsOverview>
+        <TransactionsOverview></TransactionsOverview>
         {/* <BudgetsOverview></BudgetsOverview> */}
       </section>
       
