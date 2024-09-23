@@ -62,9 +62,9 @@ export default function Overview() {
   }
 
 
-  useEffect(() => {
-    getData()
-  }, [])
+  // useEffect(() => {
+  //   getData()
+  // }, [])
   
 
   return (

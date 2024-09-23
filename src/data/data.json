@@ -161,7 +161,7 @@
     "budgets": [
         {
             "category": "Entertainment",
-            "maximum": 250.00,
+            "maximum": 50.00,
             "theme": "green"
         },
         {
