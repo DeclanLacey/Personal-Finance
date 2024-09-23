@@ -6,27 +6,27 @@ const client = generateClient<Schema>({
     authMode: "userPool",
 });
 
-// export const addBalanceData = async () => {
-//     client.models.Balance.create(initialData.balance)
-// }
+export const addBalanceData = async () => {
+    client.models.Balance.create(initialData.balance)
+}
 
-// export const addPotData = async () => {
-//     for (let i = 0; i < initialData.pots.length; i++) {
-//         client.models.Pot.create(initialData.pots[i])
-//     }
-// }
+export const addPotData = async () => {
+    for (let i = 0; i < initialData.pots.length; i++) {
+        client.models.Pot.create(initialData.pots[i])
+    }
+}
 
-// export const addTransactionData = async () => {
-//     for (let i = 0; i < initialData.transactions.length; i++) {
-//         client.models.Transaction.create(initialData.transactions[i])
-//     }
-// }
+export const addTransactionData = async () => {
+    for (let i = 0; i < initialData.transactions.length; i++) {
+        client.models.Transaction.create(initialData.transactions[i])
+    }
+}
 
-// export const addBudgetData = async () => {
-//     for (let i = 0; i < initialData.budgets.length; i++) {
-//         client.models.Budget.create(initialData.budgets[i])
-//     }
-// }
+export const addBudgetData = async () => {
+    for (let i = 0; i < initialData.budgets.length; i++) {
+        client.models.Budget.create(initialData.budgets[i])
+    }
+}
 
 export const getBalances = async () => {
     const { data, errors } = await client.models.Balance.list();

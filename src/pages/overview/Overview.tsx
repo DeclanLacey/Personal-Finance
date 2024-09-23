@@ -1,4 +1,4 @@
-import {getPots, getTransactions, getBalances, getBudgets} from "../../utils/clientCalls"
+import {getPots, getTransactions, getBalances, getBudgets, addBudgetData} from "../../utils/clientCalls"
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { type Schema } from "@/../../amplify/data/resource";
 import { generateClient } from "aws-amplify/data";
@@ -62,12 +62,10 @@ export default function Overview() {
   }
 
 
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    getData()
+  }, [])
   
-
-
 
   return (
     <div className="overview-container">

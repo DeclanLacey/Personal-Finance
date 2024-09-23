@@ -35,7 +35,9 @@ const schema = a.schema({
       income: a.float(),
       expenses: a.float()
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [
+      allow.ownerDefinedIn("profileOwner"),
+    ]),
 
   Transaction: a
     .model({
@@ -46,7 +48,9 @@ const schema = a.schema({
       amount: a.float(),
       recurring: a.boolean()
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [
+      allow.ownerDefinedIn("profileOwner"),
+    ]),
 
   Budget: a 
     .model({
@@ -54,7 +58,9 @@ const schema = a.schema({
       maximum: a.float(),
       theme: a.string()
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [
+      allow.ownerDefinedIn("profileOwner"),
+    ]),
 
   Pot: a
     .model({
@@ -63,7 +69,9 @@ const schema = a.schema({
       total: a.float(),
       theme: a.string()
     })
-    .authorization((allow) => [allow.owner()])
+    .authorization((allow) => [
+      allow.ownerDefinedIn("profileOwner"),
+    ]),
 })
 .authorization(allow => [allow.resource(postConfirmation)]);
 
