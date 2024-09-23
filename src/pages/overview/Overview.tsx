@@ -74,7 +74,7 @@ export default function Overview() {
         <BalancesOverview></BalancesOverview>
         <PotsOverview></PotsOverview>
         <TransactionsOverview></TransactionsOverview>
-        {/* <BudgetsOverview></BudgetsOverview> */}
+        <BudgetsOverview></BudgetsOverview>
       </section>
       
       <Nav></Nav>

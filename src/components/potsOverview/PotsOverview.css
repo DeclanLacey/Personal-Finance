@@ -21,20 +21,20 @@
     height: 8px;
 }
 
-.pots_overview-link-container{
+/* .pots_overview-link-container{
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-}
+} */
 
-.pots_overview-link {
+/* .pots_overview-link {
     white-space: nowrap;
     margin-right: 10px;
     font-size: 1.4rem;
     text-decoration: none;
     color: var(--grey-500);
-}
+} */
 
 /* ////////////////// pots total container /////////////// */
 

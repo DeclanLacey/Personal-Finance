@@ -82,3 +82,55 @@ summary,
 [type=checkbox] {
 cursor: pointer;
 }
+
+
+/* //////////////// color classes for budget bar chart ////////////////// */
+
+.green {
+  stroke: #277C78;
+}
+
+.yellow {
+  stroke: #F2CDAC
+}
+
+.cyan {
+  stroke: #82C9D7
+}
+
+.navy {
+  stroke: #626070
+}
+
+.red {
+  stroke: #C94736
+}
+
+.purple {
+  stroke: #826CB0
+}
+
+.turquoise {
+  stroke: #597C7C
+}
+
+/* //////////////////////// shared styles ////////////////////// */
+
+.see-details-link-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+}
+
+.see-details-caret {
+  height: 8px;
+}
+
+.see-details-link {
+  white-space: nowrap;
+  margin-right: 10px;
+  font-size: 1.4rem;
+  text-decoration: none;
+  color: var(--grey-500);
+}

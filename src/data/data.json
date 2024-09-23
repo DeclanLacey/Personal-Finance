@@ -161,23 +161,23 @@
     "budgets": [
         {
             "category": "Entertainment",
-            "maximum": 50.00,
-            "theme": "#277C78"
+            "maximum": 250.00,
+            "theme": "green"
         },
         {
             "category": "Bills",
             "maximum": 750.00,
-            "theme": "#82C9D7"
+            "theme": "cyan"
         },
         {
             "category": "Dining Out",
             "maximum": 75.00,
-            "theme": "#F2CDAC"
+            "theme": "navy"
         },
         {
             "category": "Personal Care",
             "maximum": 100.00,
-            "theme": "#626070"
+            "theme": "turquoise"
         }
     ],
     "pots": [

@@ -16,24 +16,24 @@
     font-size: 2rem;
 }
 
-.transaction_overview-link-container {
+/* .transaction_overview-link-container {
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: row;
-}
+} */
 
 .transaction_overview-caret {
     height: 8px;
 }
 
-.transaction_overview-link {
+/* .transaction_overview-link {
     white-space: nowrap;
     margin-right: 10px;
     font-size: 1.4rem;
     text-decoration: none;
     color: var(--grey-500);
-}
+} */
 
 /* /////////////// transaction styling //////////////// */
 

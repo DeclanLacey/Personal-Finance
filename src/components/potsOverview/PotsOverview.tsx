@@ -40,9 +40,9 @@ export default function PotsOverview() {
     <section className='pots_overview-container'>
       <div className='pots_overview-title-container'>
         <h2 className='pots_overview-title'>Pots</h2>
-        <div className='pots_overview-link-container'>
-          <NavLink className="pots_overview-link" to={"/pots"}>See Details </NavLink>
-          <img className='pots_overview-caret' src='/assets/icon-caret-right.svg' />
+        <div className='see-details-link-container'>
+          <NavLink className="see-details-link" to={"/pots"}>See Details </NavLink>
+          <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
         </div>
       </div>
 
