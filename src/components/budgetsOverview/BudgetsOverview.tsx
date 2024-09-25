@@ -4,7 +4,8 @@ import data from "../../data/data.json"
 import 'chartist/dist/index.css';
 import { NavLink } from 'react-router-dom';
 import { PieChartSeries, SpendPerBudget, Transaction } from '../../types/types';
-import { currencyFormatNoCents } from '../../utils/utils';
+import { currencyFormatCents, currencyFormatNoCents } from '../../utils/utils';
+import "./BudgetsOverview.css"
 
 export default function BudgetsOverview() {
   const [budgets, setBudgets]  = useState(data.budgets)
@@ -31,9 +32,11 @@ export default function BudgetsOverview() {
           },
           {
             donut: true,
-            donutWidth: 25,
-            startAngle: 290,
-            showLabel: false
+            donutWidth: 40,
+            startAngle: 360,
+            showLabel: false,
+            width: "280px",
+            height: "250px"
           }
           
       );
@@ -46,7 +49,7 @@ export default function BudgetsOverview() {
       totalBudgetSpend += budgetSpendPerCategory[i].amount
     }
 
-    return totalBudgetSpend / -1
+    return totalBudgetSpend
   }
 
   function calculateSpendPerBudgetCategory() {
@@ -103,17 +106,21 @@ export default function BudgetsOverview() {
 
   function renderBudgetSummaries() {
     const spendPerBudgetCategory = calculateSpendPerBudgetCategory()
-    const categorySummaryElements = spendPerBudgetCategory.map((budget) => {
-      return (  
-        <div>
-          <div></div>
-          <div>
-            <p>{budget.name}</p>
+    const categorySummaryElements = spendPerBudgetCategory.map((budget, index) => {
+      let categoryColor : string = ""
 
-            <div>
-              <p>{currencyFormatNoCents(budget.amount)}</p>
-              <p>of {currencyFormatNoCents(getCategoryMaximum(budget.name))}</p>
-            </div>
+      for (let i = 0; i < data.budgets.length; i++) {
+        if (data.budgets[i].category === budget.name) {
+          categoryColor = data.budgets[i].theme
+        }
+      }
+
+      return (  
+        <div className='budgets_overview-category' key={index}>
+          <div className={`budgets_overview-category-color-line ${categoryColor}`} ></div>
+          <div className='budgets_overview-category-content-container'>
+            <p className='budgets_overview-category-name'>{budget.name}</p>
+            <p className='budgets_overview-category-spend'>{currencyFormatCents(Math.round(budget.amount))}</p>
           </div>
         </div>
       )
@@ -123,25 +130,27 @@ export default function BudgetsOverview() {
   }
 
   return (
-    <section>
-      <div>
-        <h2>Budgets</h2>
+    <section className='budgets_overview-container'>
+      <div className='budgets_overview-title-container'>
+        <h2 className='budgets_overview-title'>Budgets</h2>
         <div className='see-details-link-container'>
           <NavLink className="see-details-link" to="/budgets"> See Details</NavLink>
           <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
         </div>
       </div>
-      <div>
-        <div>
-          <p>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
-          <p>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
+      <div className='budgets_overview-chart-container'>
+        <div className='budgets_overview-spend-container'>
+          <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
+          <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
         </div>
-        <div id="chart" ref={chart}></div>
+        <div className='budgets_overview-chart' id="chart" ref={chart}></div>
       </div>
 
       <div>
-        <h3>Spending Summary</h3>
-        {renderBudgetSummaries()}
+        <h3 className='budgets_overview-subtitle'>Spending Summary</h3>
+        <div className='budgets_overview-categories-container'>
+          {renderBudgetSummaries()}
+        </div>
       </div>
     </section>
   )

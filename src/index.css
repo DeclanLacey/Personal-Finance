@@ -88,30 +88,37 @@ cursor: pointer;
 
 .green {
   stroke: #277C78;
+  background-color: #277C78;
 }
 
 .yellow {
-  stroke: #F2CDAC
+  stroke: #F2CDAC;
+  background-color: #F2CDAC
 }
 
 .cyan {
-  stroke: #82C9D7
+  stroke: #82C9D7;
+  background-color: #82C9D7;
 }
 
 .navy {
-  stroke: #626070
+  stroke: #626070;
+  background-color: #626070;
 }
 
 .red {
-  stroke: #C94736
+  stroke: #C94736;   
+  background-color: #C94736;
 }
 
 .purple {
-  stroke: #826CB0
+  stroke: #826CB0;
+  background-color: #826CB0;
 }
 
 .turquoise {
-  stroke: #597C7C
+  stroke: #597C7C;
+  background-color: #597C7C;
 }
 
 /* //////////////////////// shared styles ////////////////////// */
@@ -129,7 +136,7 @@ cursor: pointer;
 
 .see-details-link {
   white-space: nowrap;
-  margin-right: 10px;
+  margin-right: 15px;
   font-size: 1.4rem;
   text-decoration: none;
   color: var(--grey-500);
