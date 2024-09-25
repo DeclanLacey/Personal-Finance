@@ -8,7 +8,7 @@ import { currencyFormatCents, currencyFormatNoCents } from '../../utils/utils';
 import "./BudgetsOverview.css"
 
 export default function BudgetsOverview() {
-  const [budgets, setBudgets]  = useState(data.budgets)
+  const [budgets]  = useState(data.budgets)
 
   function setPieChartColorsAndValues() {
     const budgetPieChartData : PieChartSeries[] = budgets.map((budget) => {
@@ -93,16 +93,16 @@ export default function BudgetsOverview() {
     return totalBudgetLimit
   }
 
-  function getCategoryMaximum(budgetName : string) {
-    let maximum : number = 0
-    for (let i = 0; i < data.budgets.length; i++) {
-      if (data.budgets[i].category === budgetName) {
-        maximum = data.budgets[i].maximum
-        break
-      }
-    }
-    return maximum
-  }
+  // function getCategoryMaximum(budgetName : string) {
+  //   let maximum : number = 0
+  //   for (let i = 0; i < data.budgets.length; i++) {
+  //     if (data.budgets[i].category === budgetName) {
+  //       maximum = data.budgets[i].maximum
+  //       break
+  //     }
+  //   }
+  //   return maximum
+  // }
 
   function renderBudgetSummaries() {
     const spendPerBudgetCategory = calculateSpendPerBudgetCategory()
