@@ -132,11 +132,12 @@ cursor: pointer;
 
 .see-details-caret {
   height: 8px;
+  margin-left: 12px;
 }
 
 .see-details-link {
   white-space: nowrap;
-  margin-right: 15px;
+  /* margin-right: 15px; */
   font-size: 1.4rem;
   text-decoration: none;
   color: var(--grey-500);

@@ -133,10 +133,10 @@ export default function BudgetsOverview() {
     <section className='budgets_overview-container'>
       <div className='budgets_overview-title-container'>
         <h2 className='budgets_overview-title'>Budgets</h2>
-        <div className='see-details-link-container'>
-          <NavLink className="see-details-link" to="/budgets"> See Details</NavLink>
+        <NavLink to="/budgets" className='see-details-link-container see-details-link'>
+          <p className="see-details-link"> See Details</p>
           <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
-        </div>
+        </NavLink>
       </div>
       <div className='budgets_overview-chart-container'>
         <div className='budgets_overview-spend-container'>

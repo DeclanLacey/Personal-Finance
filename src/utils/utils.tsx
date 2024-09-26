@@ -19,9 +19,7 @@ export function getRecurringBillTotals(transactions: Transaction[]) {
         if (transactions[i].recurring === true) {
             if (transactionDate.getDate() < currentDate.getDate()) {
                 paidBills += transactions[i].amount
-            }else if (transactionDate.getDate() >= (currentDate.getDate() - 5) && (transactionDate.getDate() > currentDate.getDate()) === false) {
-                console.log("CurrentDate - 5", (currentDate.getDate() - 5))
-                console.log("Transaction Date", transactionDate.getDate())
+            }else if (transactionDate.getDate() <= currentDate.getDate() || transactionDate.getDate() >= (currentDate.getDate() - 5)) {
                 dueSoon += transactions[i].amount
                 totalUpcoming += transactions[i].amount
             }else if (transactionDate.getDate() > currentDate.getDate()) {

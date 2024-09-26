@@ -62,10 +62,10 @@ export default function TransactionsOverview() {
     <section className='transaction_overview-container'>
       <div className='transaction_overview-title-container'>
         <h2 className='transaction_overview-title'>Transactions</h2>
-        <div className='see-details-link-container'>
-          <NavLink className="see-details-link" to="/transactions">View All</NavLink>
+        <NavLink to="/transactions" className='see-details-link-container see-details-link'>
+          <p className="see-details-link">View All</p>
           <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
-        </div>
+        </NavLink>
       </div>
 
       <div className='transaction_overview-transactions-container'>
