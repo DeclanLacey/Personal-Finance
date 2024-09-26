@@ -12,6 +12,7 @@ import Nav from "../../components/nav/Nav";
 import "./Overview.css"
 import PotsOverview from "../../components/potsOverview/PotsOverview";
 import TransactionsOverview from "../../components/transactionsOverview/TransactionsOverview";
+import RecurringBillsOverview from "../../components/recurringBillsOverview/RecurringBillsOverview";
 
 
 const client = generateClient<Schema>({
@@ -75,6 +76,7 @@ export default function Overview() {
         <PotsOverview></PotsOverview>
         <TransactionsOverview></TransactionsOverview>
         <BudgetsOverview></BudgetsOverview>
+        <RecurringBillsOverview></RecurringBillsOverview>
       </section>
       
       <Nav></Nav>

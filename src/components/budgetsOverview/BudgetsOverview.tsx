@@ -147,7 +147,6 @@ export default function BudgetsOverview() {
       </div>
 
       <div>
-        <h3 className='budgets_overview-subtitle'>Spending Summary</h3>
         <div className='budgets_overview-categories-container'>
           {renderBudgetSummaries()}
         </div>
