@@ -7,6 +7,12 @@ export type Transaction = {
     recurring: boolean
 }
 
+export type Balance = {
+    current: number,
+    income: number,
+    expenses: number
+}
+
 export type PieChartSeries = {
     value: number,
     className: String
