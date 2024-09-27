@@ -1,24 +1,36 @@
 import { NavLink } from 'react-router-dom'
-import data from "../../data/data.json"
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { currencyFormatNoCents } from '../../utils/utils'
 import "./PotsOverview.css"
+import { getPots } from '../../utils/clientCalls'
 
 export default function PotsOverview() {
-  const [potsData, setPotsData] = useState(data.pots)
+  const [potsData, setPotsData] = useState<any[] | undefined>()
+  let potElements : any
 
-  const potElements = potsData.map((pot, index) => {
-    return (
-      <div key={index} className='pots_overview-pot'>
-        <div className='pots_overview-colored-line' style={{backgroundColor: `${pot.theme}`}}></div>
-        <div className='pots_overview-pot-content-container'>
-          <p className='pots_overview-pot-name'>{pot.name}</p>
-          <p className='pots_overview-pot-total'>{currencyFormatNoCents(pot.total)}</p>
+  useEffect(() => {
+    async function getData() {
+      const data = await getPots()
+      setPotsData(data)
+    }
+
+    getData()
+  }, [])
+
+  if (potsData) {
+    potElements = potsData.map((pot, index) => {
+      return (
+        <div key={index} className='pots_overview-pot'>
+          <div className='pots_overview-colored-line' style={{backgroundColor: `${pot.theme}`}}></div>
+          <div className='pots_overview-pot-content-container'>
+            <p className='pots_overview-pot-name'>{pot.name}</p>
+            <p className='pots_overview-pot-total'>{currencyFormatNoCents(pot.total)}</p>
+          </div>
         </div>
-      </div>
-    )
-  })
-
+      )
+    })
+  }
+  
   function returnFirstFourPotElements() {
     while (potElements.length > 4) {
       potElements.pop()
@@ -29,6 +41,7 @@ export default function PotsOverview() {
 
   function calculateTotalSavings(): number {
     let totalSavings = 0
+    if (potsData)
     for (let i = 0; i < potsData.length; i++) {
       totalSavings += potsData[i].total
     }
@@ -50,12 +63,17 @@ export default function PotsOverview() {
         <img className='pots_overview-total-icon' src='/assets/icon-pot.svg' />
         <div className='pots_overview-total-container'>
           <h3 className='pots_overview-total-title'>Total Saved</h3>
-          <p className='pots_overview-total'>{currencyFormatNoCents(calculateTotalSavings())}</p>
+          {
+            potsData ?
+              <p className='pots_overview-total'>{currencyFormatNoCents(calculateTotalSavings())}</p>
+            : 
+              <p className='pots_overview-total'>{currencyFormatNoCents(0)}</p>
+          }
         </div>
       </div>
 
       <div className='pots_overview-pots-container'>
-        {returnFirstFourPotElements()}
+        {potsData ? returnFirstFourPotElements() : <></>}
       </div>
 
     </section>
