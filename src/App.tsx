@@ -6,8 +6,13 @@ import Pots from './pages/pots/Pots'
 import RecurringBills from './pages/recurringBills/RecurringBills'
 import Transactions from './pages/transactions/Transactions'
 import './App.css'
+import AddDataModal from './components/addDataModal/AddDataModal'
+import { getTransactions } from './utils/clientCalls'
+import { useState } from 'react'
 
 function App() {
+  const [addOwnDataChosen, setAddOwnDataChosen] = useState(false)
+
   return (
     <div className='app'>
       <Routes>
@@ -18,6 +23,8 @@ function App() {
         <Route path="/recurring-bills" element={<RecurringBills />} />
         <Route path="/transactions" element={<Transactions />} />
       </Routes>
+      
+      
     </div>
   )
 }
