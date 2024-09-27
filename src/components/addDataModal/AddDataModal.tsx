@@ -4,11 +4,11 @@ import "./AddDataModal.css"
 
 export default function AddDataModal(props: { setAddOwnDataChosen: (arg0: boolean) => void }) {
 
-  function handleAddStarterDataClick() {
-    addBalanceData()
-    addPotData()
-    addTransactionData()
-    addBudgetData()
+  async function handleAddStarterDataClick() {
+    await addBalanceData()
+    await addPotData()
+    await addTransactionData()
+    await addBudgetData()
   }
 
   function handleAddOwnDataClick() {

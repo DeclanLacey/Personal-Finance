@@ -23,7 +23,7 @@ export default function BalancesOverview() {
         <h2 className='balances_overview-type'>Current Balance</h2>
         {
           balanceData ?
-            <p className='balances_overview-amount'>{currencyFormatCents(balanceData[0]?.current)}</p>
+            <p className='balances_overview-amount'>{balanceData.length > 0 ? currencyFormatCents(balanceData[0]?.current) : currencyFormatCents(0)}</p>
           :
           <p className='balances_overview-amount'>{currencyFormatCents(0)}</p>
         }
@@ -33,7 +33,7 @@ export default function BalancesOverview() {
         <h2 className='balances_overview-type'>Income</h2>
         {
           balanceData ?
-          <p className='balances_overview-amount'>{currencyFormatCents(balanceData[0]?.income)}</p>
+          <p className='balances_overview-amount'>{balanceData.length > 0 ? currencyFormatCents(balanceData[0]?.income) : currencyFormatCents(0)}</p>
           :
           <p className='balances_overview-amount'>{currencyFormatCents(0)}</p>
         }
@@ -43,7 +43,7 @@ export default function BalancesOverview() {
         <h2 className='balances_overview-type'>Expenses</h2>
         {
           balanceData ?
-          <p className='balances_overview-amount'>{currencyFormatCents(balanceData[0]?.expenses)}</p>
+          <p className='balances_overview-amount'>{balanceData.length > 0 ? currencyFormatCents(balanceData[0]?.expenses) : currencyFormatCents(0)}</p>
           :
           <p className='balances_overview-amount'>{currencyFormatCents(0)}</p>
         }

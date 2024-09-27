@@ -24,7 +24,7 @@ function App() {
         <Route path="/transactions" element={<Transactions />} />
       </Routes>
       
-      
+      {/* <AddDataModal></AddDataModal> */}
     </div>
   )
 }
