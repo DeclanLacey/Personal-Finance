@@ -34,6 +34,7 @@ export default function BalancesOverview() {
   }
 
   /////// You need to write logic to calculate the current balances based off of the data
+  ////// You should write this logic elsewhere, for example when a transaction is added, it should either add to the income total or the expenses total
   
   return (
     <section className='balances_overview-container'>
