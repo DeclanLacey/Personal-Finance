@@ -4,7 +4,11 @@ export type Transaction = {
     category: string,
     date: string,
     amount: number,
-    recurring: boolean
+    recurring: boolean,
+    createdAt: string,
+    id: string,
+    profileOwner: string,
+    updatedAt: string
 }
 
 export type Balance = {
