@@ -1,46 +1,55 @@
-import { useCallback, useState } from 'react'
-import { PieChart } from 'chartist';
+import { useCallback, useEffect, useState } from 'react'
+import { FlatSeries, PieChart } from 'chartist';
 import data from "../../data/data.json"
 import 'chartist/dist/index.css';
 import { NavLink } from 'react-router-dom';
-import { PieChartSeries, SpendPerBudget, Transaction } from '../../types/types';
+import { SpendPerBudget, Transaction } from '../../types/types';
 import { currencyFormatCents, currencyFormatNoCents } from '../../utils/utils';
 import "./BudgetsOverview.css"
+import { getBudgets } from '../../utils/clientCalls';
 
 export default function BudgetsOverview() {
-  const [budgets]  = useState(data.budgets)
+  const [budgets, setBudgets]  = useState<any[]>()
 
   function setPieChartColorsAndValues() {
-    const budgetPieChartData : PieChartSeries[] = budgets.map((budget) => {
-      return (
-        {
-          value: budget.maximum,
-          className: budget.theme
-        }
-      )
-    })
+    if (budgets) {
+      const budgetPieChartData : any = budgets.map((budget) => {
+        return (
+          {
+            value: budget.maximum,
+            className: budget.theme
+          }
+        )
+      })
 
-    return budgetPieChartData
+      return budgetPieChartData
+    }
   }
 
   const chart = useCallback(() => {
-      new PieChart(
-          '#chart',
-          {
-            series: setPieChartColorsAndValues(),
-            labels: []
-          },
-          {
-            donut: true,
-            donutWidth: 40,
-            startAngle: 360,
-            showLabel: false,
-            width: "280px",
-            height: "250px"
-          }
-          
-      );
-  }, []);
+    if (budgets)
+    new PieChart(
+        '#chart',
+        {
+          series: setPieChartColorsAndValues(),
+          labels: []
+        },
+        {
+          donut: true,
+          donutWidth: 40,
+          startAngle: 360,
+          showLabel: false,
+          width: "280px",
+          height: "250px"
+        }
+        
+    );
+  }, [budgets]);
+
+  function renderChart() {
+    console.log("ran")
+    return <div className='budgets_overview-chart' id="chart" ref={chart}></div>
+  }
 
   function calculateTotalBudgetSpend() {
     let totalBudgetSpend : number = 0
@@ -86,6 +95,7 @@ export default function BudgetsOverview() {
   function calculateTotalBudgetLimit() {
     let totalBudgetLimit : number = 0
 
+    if (budgets)
     for (let i = 0; i < budgets.length; i++) {
       totalBudgetLimit += budgets[i].maximum
     }
@@ -129,6 +139,15 @@ export default function BudgetsOverview() {
     return categorySummaryElements
   }
 
+  useEffect(() => {
+    async function getData() {
+      const data = await getBudgets()
+      setBudgets(data)
+    }
+
+    getData()
+  }, [])
+
   return (
     <section className='budgets_overview-container'>
       <div className='budgets_overview-title-container'>
@@ -140,10 +159,23 @@ export default function BudgetsOverview() {
       </div>
       <div className='budgets_overview-chart-container'>
         <div className='budgets_overview-spend-container'>
-          <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
-          <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
+          {
+            budgets ?
+              <>
+              <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
+              <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
+              </> 
+            :
+              <></>
+          }
+        
         </div>
-        <div className='budgets_overview-chart' id="chart" ref={chart}></div>
+        {
+          budgets ?
+            renderChart()
+          : 
+            <></>
+        }
       </div>
 
       <div>

@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import data from "../../data/data.json"
 import { NavLink } from 'react-router-dom'
 import currency from 'currency.js'
 import "./TransactionsOverview.css"
