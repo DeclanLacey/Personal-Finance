@@ -1,16 +1,46 @@
-import { useCallback, useEffect, useState } from 'react'
-import { FlatSeries, PieChart } from 'chartist';
-import data from "../../data/data.json"
-import 'chartist/dist/index.css';
+import { useEffect, useState } from 'react'
+import { PieChart } from 'chartist';
 import { NavLink } from 'react-router-dom';
-import { SpendPerBudget, Transaction } from '../../types/types';
+import { SpendPerBudget } from '../../types/types';
 import { currencyFormatCents, currencyFormatNoCents } from '../../utils/utils';
+import { getBudgets, getTransactions } from '../../utils/clientCalls';
+import 'chartist/dist/index.css';
 import "./BudgetsOverview.css"
-import { getBudgets } from '../../utils/clientCalls';
 
 export default function BudgetsOverview() {
   const [budgets, setBudgets]  = useState<any[]>()
+  const [transactions, setTransactions] = useState<any[]>()
+  const [loading, setLoading] = useState<Boolean>(false)
 
+  useEffect(() => {
+    //// Calls utility functions to get the data from the backend
+    async function getData() {
+      try {
+        setLoading(true)
+        const budgetData = await getBudgets()
+        const transactionData = await getTransactions()
+        setBudgets(budgetData)
+        setTransactions(transactionData)
+        setLoading(false)
+      }catch(error) {
+        setLoading(false)
+        console.log(error)
+      }
+    }
+    getData()
+  }, [])
+
+  /// Checks if the data is currently loading
+  if (loading) {
+    return <div></div>
+  }
+
+  //// Checks if the budgets or transactions are falsey values
+  if (!budgets && !transactions) {
+    return <div></div>
+  }
+
+  //// Returns an array of objects that are passed into the chart when it is created
   function setPieChartColorsAndValues() {
     if (budgets) {
       const budgetPieChartData : any = budgets.map((budget) => {
@@ -26,8 +56,8 @@ export default function BudgetsOverview() {
     }
   }
 
-  const chart = useCallback(() => {
-    if (budgets)
+  //// The pie chart used in the UI
+  const chart = () => {
     new PieChart(
         '#chart',
         {
@@ -44,13 +74,9 @@ export default function BudgetsOverview() {
         }
         
     );
-  }, [budgets]);
+  };
 
-  function renderChart() {
-    console.log("ran")
-    return <div className='budgets_overview-chart' id="chart" ref={chart}></div>
-  }
-
+  ////// Calculates the total amount spent for all of the different budgets combined
   function calculateTotalBudgetSpend() {
     let totalBudgetSpend : number = 0
     let budgetSpendPerCategory = calculateSpendPerBudgetCategory()
@@ -61,37 +87,40 @@ export default function BudgetsOverview() {
     return totalBudgetSpend
   }
 
+  ////// Calculates the total amount spent for each individual category
   function calculateSpendPerBudgetCategory() {
     const budgetNames = getBudgetCategoryNames()
-    const transactions : Transaction[] = data.transactions
+    const transactionsData : any = transactions
     const spendPerBudgetCategory : SpendPerBudget[] = []
 
-    for (let i = 0; i < transactions.length; i++) {
-      if (budgetNames.includes(transactions[i].category)) {
-        const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactions[i].category)
-        if (findIndexResult !== -1) {
-          spendPerBudgetCategory[findIndexResult].amount += transactions[i].amount / -1
-        }else {
-          spendPerBudgetCategory.push({
-            name: transactions[i].category,
-            amount: transactions[i].amount / -1
-          })
-        }
-      }
+    for (let i = 0; i < budgetNames.length; i++) {
+      spendPerBudgetCategory.push({
+        name: budgetNames[i],
+        amount: 0
+      })
     }
   
+    for (let i = 0; i < transactionsData.length; i++) {
+      if (budgetNames.includes(transactionsData[i].category)) {
+        const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactionsData[i].category)
+        spendPerBudgetCategory[findIndexResult].amount += transactionsData[i].amount / -1
+      }
+    }
+
     return spendPerBudgetCategory
   }
 
+  ////// Returns an array of the current category names
   function getBudgetCategoryNames() {
     const budgetNames : string[] = []
-    for (let i = 0; i < data.budgets.length; i++) {
-      budgetNames.push(data.budgets[i].category)
+    if (budgets)
+    for (let i = 0; i < budgets.length; i++) {
+      budgetNames.push(budgets[i].category)
     }
-
     return budgetNames
   }
 
+  ////// Calculates the total limit of all of the budget limits combined
   function calculateTotalBudgetLimit() {
     let totalBudgetLimit : number = 0
 
@@ -103,25 +132,16 @@ export default function BudgetsOverview() {
     return totalBudgetLimit
   }
 
-  // function getCategoryMaximum(budgetName : string) {
-  //   let maximum : number = 0
-  //   for (let i = 0; i < data.budgets.length; i++) {
-  //     if (data.budgets[i].category === budgetName) {
-  //       maximum = data.budgets[i].maximum
-  //       break
-  //     }
-  //   }
-  //   return maximum
-  // }
-
+  //// Returns the budgets summary elements
   function renderBudgetSummaries() {
     const spendPerBudgetCategory = calculateSpendPerBudgetCategory()
     const categorySummaryElements = spendPerBudgetCategory.map((budget, index) => {
       let categoryColor : string = ""
 
-      for (let i = 0; i < data.budgets.length; i++) {
-        if (data.budgets[i].category === budget.name) {
-          categoryColor = data.budgets[i].theme
+      if (budgets)
+      for (let i = 0; i < budgets.length; i++) {
+        if (budgets[i].category === budget.name) {
+          categoryColor = budgets[i].theme
         }
       }
 
@@ -139,15 +159,6 @@ export default function BudgetsOverview() {
     return categorySummaryElements
   }
 
-  useEffect(() => {
-    async function getData() {
-      const data = await getBudgets()
-      setBudgets(data)
-    }
-
-    getData()
-  }, [])
-
   return (
     <section className='budgets_overview-container'>
       <div className='budgets_overview-title-container'>
@@ -159,29 +170,14 @@ export default function BudgetsOverview() {
       </div>
       <div className='budgets_overview-chart-container'>
         <div className='budgets_overview-spend-container'>
-          {
-            budgets ?
-              <>
-              <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
-              <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
-              </> 
-            :
-              <></>
-          }
-        
+          <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
+          <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
         </div>
-        {
-          budgets ?
-            renderChart()
-          : 
-            <></>
-        }
+        <div className='budgets_overview-chart' id="chart" ref={chart}></div>
       </div>
 
-      <div>
-        <div className='budgets_overview-categories-container'>
-          {renderBudgetSummaries()}
-        </div>
+      <div className='budgets_overview-categories-container'>
+        {renderBudgetSummaries() }
       </div>
     </section>
   )

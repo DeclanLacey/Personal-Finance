@@ -1,24 +1,43 @@
 import { NavLink } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import { currencyFormatNoCents } from '../../utils/utils'
-import "./PotsOverview.css"
 import { getPots } from '../../utils/clientCalls'
+import "./PotsOverview.css"
 
 export default function PotsOverview() {
   const [potsData, setPotsData] = useState<any[] | undefined>()
-  let potElements : any
+  const [loading, setLoading] = useState<Boolean>()
 
   useEffect(() => {
+    ///// Calling utility functions to get data from backend
     async function getData() {
-      const data = await getPots()
-      setPotsData(data)
+      try {
+        setLoading(true)
+        const data = await getPots()
+        setPotsData(data)
+        setLoading(false)
+      }catch(error) {
+        setLoading(false)
+        console.log(error)
+      }
     }
-
     getData()
   }, [])
 
-  if (potsData) {
-    potElements = potsData.map((pot, index) => {
+  ///// Checks if loading is true
+  if (loading) {
+    return <div></div>
+  }
+
+  ///// Checks if the potsData state is falsey
+  if (!potsData) {
+    return <div></div>
+  }
+  
+  //// Returns an array of the first four pot elements
+  function renderFirstFourPotElements() {
+    const potElements = potsData?.map((pot, index) => {
+      if (index > 3) {return}
       return (
         <div key={index} className='pots_overview-pot'>
           <div className='pots_overview-colored-line' style={{backgroundColor: `${pot.theme}`}}></div>
@@ -29,16 +48,10 @@ export default function PotsOverview() {
         </div>
       )
     })
-  }
-  
-  function returnFirstFourPotElements() {
-    while (potElements.length > 4) {
-      potElements.pop()
-    }
-
     return potElements
   }
 
+  ////// Calculates the total amount saved when combining all of the pots
   function calculateTotalSavings(): number {
     let totalSavings = 0
     if (potsData)
@@ -63,17 +76,12 @@ export default function PotsOverview() {
         <img className='pots_overview-total-icon' src='/assets/icon-pot.svg' />
         <div className='pots_overview-total-container'>
           <h3 className='pots_overview-total-title'>Total Saved</h3>
-          {
-            potsData ?
-              <p className='pots_overview-total'>{currencyFormatNoCents(calculateTotalSavings())}</p>
-            : 
-              <p className='pots_overview-total'>{currencyFormatNoCents(0)}</p>
-          }
+          <p className='pots_overview-total'>{currencyFormatNoCents(calculateTotalSavings())}</p>
         </div>
       </div>
 
       <div className='pots_overview-pots-container'>
-        {potsData ? returnFirstFourPotElements() : <></>}
+        {renderFirstFourPotElements()}
       </div>
 
     </section>

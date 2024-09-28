@@ -1,35 +1,57 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { NavLink } from 'react-router-dom'
+import { getTransactions } from '../../utils/clientCalls'
 import currency from 'currency.js'
 import "./TransactionsOverview.css"
-import { getTransactions } from '../../utils/clientCalls'
 
 export default function TransactionsOverview() {
-  const [transactionData, setTransactionData] = useState<any[] | undefined>()
   let transactionCustomCurrency = (value: currency.Any) => currency(value, { pattern: '+!#', negativePattern: '-!#' });
-  let transactionElements : any
+  const [transactionData, setTransactionData] = useState<any[] | undefined>()
+  const [loading, setLoading] = useState<Boolean>()
+  ///// For some reason not all of the transactions are getting added when the add data button is clicked, this may be because the sandbox is not running
 
   useEffect(() => {
+    //// Calls the utility function to get data from the backend
     async function getData() {
-      const data = await getTransactions()
-      ///// For some reason not all of the transactions are getting added when the add data button is clicked, this may be because the sandbox is not running
-      setTransactionData(data)
+      try {
+        setLoading(true)
+        const data = await getTransactions()
+        setTransactionData(data)
+        setLoading(false)
+      }catch(error) {
+        setLoading(false)
+        console.log(error)
+      }
     }
-
     getData()
   }, [])
 
-  function createTransactionElements() {
-    transactionElements = transactionData?.map((transaction, index) => {
+  //// Checks if loading is true
+  if (loading) {
+    return <div></div>
+  }
 
-      function formatDate(dateString: string) {
-        let date = new Date(dateString)
-        let dateArray = date.toDateString().split(' ')
-        let dateFormat = dateArray[2] + ' ' + dateArray[1] + ' ' + dateArray[3]
-  
-        return dateFormat
-      }
-  
+  ///// Checks if the transactionData state is falsey
+  if (!transactionData) {
+    return <div></div>
+  }
+
+  //// A function to format the date in this format 02 Jul 2024
+  function formatDate(dateString: string) {
+    let date = new Date(dateString)
+    let dateArray = date.toDateString().split(' ')
+    let dateFormat = dateArray[2] + ' ' + dateArray[1] + ' ' + dateArray[3]
+
+    return dateFormat
+  }
+
+  //// The transactions should be listed in order by newest first, currently they are not
+  //// Renders the first five transaction elements
+  function renderFirstFiveTransactionElements() {
+    const transactionElements = transactionData?.map((transaction, index) => {
+      if (index > 4) {return}
+
+      ///// Decides what color the transaction amount will be based on if the number is negative or positive
       function determineTransactionAmountClass() {
         if (transaction.amount > 0) {
           return 'transaction_overview-transaction-amount positive'
@@ -37,7 +59,8 @@ export default function TransactionsOverview() {
           return 'transaction_overview-transaction-amount'
         }
       }
-  
+
+      ///// Determines if the transaction is the last one show, if so does not give it the class to have a bottom border
       function determineTransactionClass() {
         if (index === 4) {
           return 'transaction_overview-transaction'
@@ -45,7 +68,7 @@ export default function TransactionsOverview() {
           return 'transaction_overview-transaction border-bottom'
         }
       }
-  
+    
       return (
         <div key={index} className={determineTransactionClass()}>
           <div className='transaction_overview-transaction-name-container'>
@@ -60,18 +83,8 @@ export default function TransactionsOverview() {
         </div>
       )
     })
-  }
-  
-  function returnFirstFiveTransactionElements() {
-    while (transactionElements.length > 5) {
-      transactionElements.pop()
-    }
 
     return transactionElements
-  }
-
-  if (transactionData) {
-    createTransactionElements()
   }
 
   return (
@@ -85,7 +98,7 @@ export default function TransactionsOverview() {
       </div>
 
       <div className='transaction_overview-transactions-container'>
-        {transactionData ? returnFirstFiveTransactionElements() : <></>}
+        {renderFirstFiveTransactionElements()}
       </div>
     </section>
   )

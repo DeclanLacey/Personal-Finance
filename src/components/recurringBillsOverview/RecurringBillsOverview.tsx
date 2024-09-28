@@ -1,28 +1,39 @@
-import React, { useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { currencyFormatCents, getRecurringBillTotals } from '../../utils/utils'
 import { NavLink } from 'react-router-dom'
-import "./RecurringBillsOverview.css"
 import { getTransactions } from '../../utils/clientCalls'
 import { Transaction } from '../../types/types'
+import "./RecurringBillsOverview.css"
 
 export default function RecurringBillsOverview() {
-
-  // console.log(getRecurringBillTotals(data.transactions).paidBills)
-  // console.log(getRecurringBillTotals(data.transactions).totalUpcoming)
-  // console.log(getRecurringBillTotals(data.transactions).dueSoon)
-
   const [transactions, setTransactions] = useState<Transaction[]>([])
+  const [loading, setLoading] = useState<Boolean>()
 
   useEffect(() => {
+    ///// Calls utility function to get data from backend
     async function getData() {
-      const data : any = await getTransactions()
-
-      if(data)
-      setTransactions(data)
+      try {
+        setLoading(true)
+        const data : any = await getTransactions()
+        setTransactions(data)
+        setLoading(false)
+      }catch(error) {
+        setLoading(false)
+        console.log(error)
+      }
     }
-
     getData()
-  })
+  }, [])
+
+  ///// Checks if loading is true
+  if (loading) {
+    return <div></div>
+  }
+
+  //// Checks if the transactions state is falsey
+  if (!transactions) {
+    return <div></div>
+  }
 
   return (
     <section className='recurring_bills-container'>
