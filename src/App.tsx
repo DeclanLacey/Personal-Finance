@@ -1,13 +1,11 @@
 import { Route, Routes } from 'react-router'
-import SignIn from './pages/signin/SignIn'
+import SignIn from './pages/signIn/SignIn'
 import Overview from "./pages/overview/Overview"
 import Budgets from './pages/budgets/Budgets'
 import Pots from './pages/pots/Pots'
 import RecurringBills from './pages/recurringBills/RecurringBills'
 import Transactions from './pages/transactions/Transactions'
-import './App.css'
 import AddDataModal from './components/addDataModal/AddDataModal'
-import { getTransactions } from './utils/clientCalls'
 import { useState } from 'react'
 
 function App() {
