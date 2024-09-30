@@ -4,8 +4,7 @@ import initialData from "../../../src/data/data.json"
 import { Amplify } from "aws-amplify";
 import { generateClient } from "aws-amplify/data";
 import { env } from "$amplify/env/post-confirmation";
-import { createUserProfile, createBalance, createTransaction, createBudget, createPot } from "./graphql/mutations";
-// import {addBalanceData, addBudgetData, addPotData, addTransactionData} from "../../../src/utils/clientCalls"
+import { createUserProfile } from "./graphql/mutations";
 
 Amplify.configure(
   {
@@ -51,98 +50,5 @@ export const handler: PostConfirmationTriggerHandler = async (event) => {
     },
   })
 
-  const addBalanceData = async () => {
-    client.models.Balance.create(initialData.balance)
-  }
-
-  const addPotData = async () => {
-      for (let i = 0; i < initialData.pots.length; i++) {
-          client.models.Pot.create(initialData.pots[i])
-      }
-  }
-
-  const addTransactionData = async () => {
-      for (let i = 0; i < initialData.transactions.length; i++) {
-          client.models.Transaction.create(initialData.transactions[i])
-      }
-  }
-
-  const addBudgetData = async () => {
-      for (let i = 0; i < initialData.budgets.length; i++) {
-          client.models.Budget.create(initialData.budgets[i])
-      }
-  }
-
-
-  addBalanceData()
-  addBudgetData()
-  addPotData()
-  addTransactionData()
-
   return event;
 };
-
-// await client.graphql({
-  //   query: createBalance,
-  //   variables: {
-  //     input: {
-  //       current: initialData.balance.current,
-  //       income: initialData.balance.income,
-  //       expenses: initialData.balance.expenses
-  //     }
-  //   }
-  // })
-
-  // for (let i = 0; i < initialData.transactions.length; i++) {
-  //   await client.graphql({
-  //     query: createTransaction,
-  //     variables: {
-  //       input: {
-  //         avatar: initialData.transactions[i].avatar,
-  //         name: initialData.transactions[i].name,
-  //         category: initialData.transactions[i].category,
-  //         date: initialData.transactions[i].date,
-  //         amount: initialData.transactions[i].amount,
-  //         recurring: initialData.transactions[i].recurring        
-  //       }
-  //     }
-  //   })
-  // }
-
-  // for (let i = 0; i < initialData.budgets.length; i++) {
-  //   await client.graphql({
-  //     query: createBudget,
-  //     variables: {
-  //       input: {
-  //         category: initialData.budgets[i].category,
-  //         maximum: initialData.budgets[i].maximum,
-  //         theme: initialData.budgets[i].theme
-  //       }
-  //     }
-  //   })
-  // }
-
-  // for(let i = 0; i < initialData.pots.length; i++) {
-  //   await client.graphql({
-  //     query: createPot,
-  //     variables: {
-  //       input: {
-  //         name: initialData.pots[i].name,
-  //         target: initialData.pots[i].target,
-  //         total: initialData.pots[i].total,
-  //         theme: initialData.pots[i].theme
-  //       }
-  //     }
-  //   })
-  // }
-
- 
-
-
-/// I get this error when trying to confirm an account, but it still creates the account
-// PostConfirmation failed with error TypeError: Cannot read properties of undefined (reading 'create').
-
-// PostConfirmation failed with error [object Object].
-
-
-// PostConfirmation failed with error 2024-09-17T20:31:07.019Z 266cfb3f-4bba-4312-8d80-5a64dfc26126 Task timed out after 3.01 seconds.

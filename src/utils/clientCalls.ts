@@ -18,9 +18,14 @@ export const addPotData = async () => {
 
 export const addTransactionData = async () => {
     for (let i = 0; i < initialData.transactions.length; i++) {
-        client.models.Transaction.create(initialData.transactions[i])
+        try {
+            client.models.Transaction.create(initialData.transactions[0])
+        }catch (error) {
+            console.log(error)
+        }
     }
 }
+
 
 export const addBudgetData = async () => {
     for (let i = 0; i < initialData.budgets.length; i++) {

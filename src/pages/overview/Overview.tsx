@@ -1,7 +1,5 @@
 import {getPots, getTransactions, getBalances, getBudgets, addBudgetData} from "../../utils/clientCalls"
 import { useAuthenticator } from '@aws-amplify/ui-react'
-import { type Schema } from "@/../../amplify/data/resource";
-import { generateClient } from "aws-amplify/data";
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
 import { deleteUser } from "aws-amplify/auth";
@@ -13,12 +11,6 @@ import "./Overview.css"
 import PotsOverview from "../../components/potsOverview/PotsOverview";
 import TransactionsOverview from "../../components/transactionsOverview/TransactionsOverview";
 import RecurringBillsOverview from "../../components/recurringBillsOverview/RecurringBillsOverview";
-
-
-const client = generateClient<Schema>({
-  authMode: "userPool",
-});
-
 
 export default function Overview() {
 
@@ -45,27 +37,16 @@ export default function Overview() {
 
   //// Calls all of the utility functions that connect to the backend
   const getData = async () => {
-     console.log(await getBalances())
-     console.log(await getPots())
+    //  console.log(await getBalances())
+    //  console.log(await getPots())
+    //  console.log(await getBudgets())
      console.log(await getTransactions())
-     console.log(await getBudgets())
-
-    const getUserProfile = async () => {
-      const { data, errors } = await client.models.UserProfile.list();
-      if (errors) {
-        console.log(errors);
-      } else {
-        return data;
-      }
-    };
-
-    console.log(await getUserProfile())
   }
 
 
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    getData()
+  }, [])
   
 
   return (

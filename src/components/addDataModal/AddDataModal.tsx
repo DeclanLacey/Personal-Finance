@@ -1,14 +1,14 @@
-import React from 'react'
 import { addBalanceData, addBudgetData, addPotData, addTransactionData } from '../../utils/clientCalls'
 import "./AddDataModal.css"
 
 export default function AddDataModal(props: { setAddOwnDataChosen: (arg0: boolean) => void }) {
 
   async function handleAddStarterDataClick() {
-    await addBalanceData()
-    await addPotData()
-    await addTransactionData()
-    await addBudgetData()
+    // await addBalanceData()
+    // await addPotData()
+    // addTransactionData()
+    // await addBudgetData()
+    addTransactionData()
   }
 
   function handleAddOwnDataClick() {
