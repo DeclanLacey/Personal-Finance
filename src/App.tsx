@@ -13,7 +13,7 @@ function App() {
 
   return (
     <div className='app'>
-      <button onClick={() => addTransactionData()}>Add transaction data</button>
+      {/* <button onClick={() => addTransactionData()}>Add transaction data</button> */}
       <Routes>
         <Route path="/" element={<SignIn />}/>
         <Route path="/overview" element={<Overview />} />
