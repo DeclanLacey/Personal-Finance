@@ -178,6 +178,36 @@
             "category": "Personal Care",
             "maximum": 100.00,
             "theme": "turquoise"
+        },
+        {
+            "category": "Transportation",
+            "maximum": 100.00,
+            "theme": "red"
+        },
+        {
+            "category": "Education",
+            "maximum": 150.00,
+            "theme": "purple"
+        },
+        {
+            "category": "Lifestyle",
+            "maximum": 50.00,
+            "theme": "yellow"
+        },
+        {
+            "category": "Shopping",
+            "maximum": 50.00,
+            "theme": "orange"
+        },
+        {
+            "category": "General",
+            "maximum": 250.00,
+            "theme": "gold"
+        },
+        {
+            "category": "Groceries",
+            "maximum": 200.00,
+            "theme": "gold"
         }
     ],
     "pots": [

@@ -68,3 +68,16 @@ export const getPots = async () => {
         return data;
     }
 };
+
+export const getCategoryNamesFromBudgets = async () => {
+    let categoryNames = []
+    const { data, errors } = await client.models.Budget.list();
+    if (errors) {
+        console.log(errors);
+    } else {
+        for (let i = 0; i < data.length; i++) {
+            categoryNames.push(data[i].category)
+        }
+        return categoryNames
+    }
+}

@@ -121,6 +121,36 @@ cursor: pointer;
   background-color: #597C7C;
 }
 
+.magenta {
+  stroke: #934F6F;
+  background-color: #934F6F;
+}
+
+.brown {
+  stroke: #93674F;
+  background-color: #93674F;
+}
+
+.blue {
+  stroke: #3F82B2;
+  background-color: #3F82B2;
+}
+
+.armygreen {
+  stroke: #7F9161;
+  background-color: #7F9161;
+}
+
+.gold {
+  stroke: #CAB361;
+  background-color: #CAB361;
+}
+
+.orange  {
+  stroke: #BE6C49;
+  background-color: #BE6C49;
+}
+
 /* //////////////////////// shared styles ////////////////////// */
 
 .see-details-link-container {

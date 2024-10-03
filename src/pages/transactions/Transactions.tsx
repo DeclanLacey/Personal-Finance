@@ -1,10 +1,54 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import Nav from '../../components/nav/Nav'
 import { CiSearch } from "react-icons/ci";
 import "./Transactions.css"
+import { getCategoryNamesFromBudgets, getTransactions } from '../../utils/clientCalls';
 
 
 export default function Transactions() {
+
+  const [categoryNames, setCategoryNames] = useState<any[]>()
+  const [transactions, setTransactions] = useState<any[]>()
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    async function getData() {
+      try {
+        setLoading(true)
+        const categoryNameData = await getCategoryNamesFromBudgets()
+        const transactionData = await getTransactions()
+        setCategoryNames(categoryNameData)
+        setTransactions(transactionData)
+        setLoading(false)
+      }catch(error) {
+        setLoading(false)
+        console.log(error)
+      }
+    }
+    getData()
+  }, [])
+
+   /// Checks if the data is currently loading
+   if (loading) {
+    return <div></div>
+  }
+
+  //// Checks if the budgets or transactions are falsey values
+  if (!categoryNames && !transactions) {
+    return <div></div>
+  }
+
+   function renderCategoryNameOptions() {
+    const categoryNameElements = categoryNames?.map((category, index) => {
+      return (
+        <option key={index} value={category.toLowerCase()}>{category}</option>
+      )
+    })
+    
+    return categoryNameElements
+  }
+
+
   return (
     <div className='transactions-page-container'>
       <Nav></Nav>
@@ -21,8 +65,12 @@ export default function Transactions() {
               {/* <img className='transactions-sort-icon' src="./assets/icon-sort-mobile.svg" /> */}
               <label className='transactions-select-label'>Sort by</label>
               <select className='transactions-sort-select' name='sort'>
-                <option className='transactions-sort-option'>All Transactions</option>
-                <option className='transactions-sort-option'>All Transactions</option>
+                <option className='transactions-sort-option'>Latest</option>
+                <option className='transactions-sort-option'>Oldest</option>
+                <option className='transactions-sort-option'>A to Z</option>
+                <option className='transactions-sort-option'>Z to A</option>
+                <option className='transactions-sort-option'>Highest</option>
+                <option className='transactions-sort-option'>Lowest</option>
               </select>
             </div>
 
@@ -30,8 +78,8 @@ export default function Transactions() {
               {/* <img className='transac' src="./assets/icon-filter-mobile.svg" /> */}
               <label className='transactions-select-label'>Category</label>
               <select className='transactions-filter-select' name="filter">
-                <option className='transactions-filter-option'> An Option</option>
-                <option className='transactions-filter-option'> An Option</option>
+                <option className='transactions-filter-option'> All Transactions</option>
+                {renderCategoryNameOptions()}
               </select>
             </div>
           </div>
