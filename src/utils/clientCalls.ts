@@ -17,13 +17,20 @@ export const addPotData = async () => {
 }
 
 export const addTransactionData = async () => {
+   
     for (let i = 0; i < initialData.transactions.length; i++) {
         try {
-            client.models.Transaction.create(initialData.transactions[0])
+            await client.models.Transaction.create(initialData.transactions[i])
         }catch (error) {
             console.log(error)
         }
     }
+
+    // await client.models.Transaction.create(initialData.transactions[0])
+   
+    // console.log("ran")
+    // client.models.Transaction.create(initialData.transactions[0])
+
 }
 
 

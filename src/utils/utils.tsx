@@ -33,3 +33,12 @@ export function getRecurringBillTotals(transactions: Transaction[]) {
 
     return {paidBills, totalUpcoming, dueSoon}
 }
+
+//// A function to format the date in this format 02 Jul 2024
+export function formatDate(dateString: string) {
+    let date = new Date(dateString)
+    let dateArray = date.toDateString().split(' ')
+    let dateFormat = dateArray[2] + ' ' + dateArray[1] + ' ' + dateArray[3]
+
+    return dateFormat
+}

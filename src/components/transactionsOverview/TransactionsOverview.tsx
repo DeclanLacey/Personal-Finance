@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { getTransactions } from '../../utils/clientCalls'
 import currency from 'currency.js'
 import "./TransactionsOverview.css"
+import { formatDate } from '../../utils/utils'
 
 export default function TransactionsOverview() {
   let transactionCustomCurrency = (value: currency.Any) => currency(value, { pattern: '+!#', negativePattern: '-!#' });
@@ -34,15 +35,6 @@ export default function TransactionsOverview() {
   ///// Checks if the transactionData state is falsey
   if (!transactionData) {
     return <div></div>
-  }
-
-  //// A function to format the date in this format 02 Jul 2024
-  function formatDate(dateString: string) {
-    let date = new Date(dateString)
-    let dateArray = date.toDateString().split(' ')
-    let dateFormat = dateArray[2] + ' ' + dateArray[1] + ' ' + dateArray[3]
-
-    return dateFormat
   }
 
   //// The transactions should be listed in order by newest first, currently they are not
