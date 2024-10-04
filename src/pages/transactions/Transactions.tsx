@@ -7,12 +7,9 @@ import { currencyFormatCents, formatDate } from '../../utils/utils';
 
 
 export default function Transactions() {
-
   const [categoryNames, setCategoryNames] = useState<any[]>()
   const [transactions, setTransactions] = useState<any[]>()
-  const [filteredAndSortedTransactions, setFilteredAndSortedTransactions] = useState<any[]>()
-
-  const [sortBySelection, setSortBySelection] = useState("")
+  const [sortBySelection, setSortBySelection] = useState("latest")
   const [filterBySelection, setFilterBySelection] = useState("")
   const [loading, setLoading] = useState(false)
 
@@ -24,7 +21,6 @@ export default function Transactions() {
         const transactionData = await getTransactions()
         setCategoryNames(categoryNameData)
         setTransactions(transactionData)
-        setFilteredAndSortedTransactions(transactionData)
         setLoading(false)
       }catch(error) {
         setLoading(false)
@@ -34,10 +30,6 @@ export default function Transactions() {
     getData()
   }, [])
 
-  useEffect(() => {
-    sortTransactions()
-    filterTransactions()
-  }, [filterBySelection, sortBySelection])
 
    /// Checks if the data is currently loading
    if (loading) {
@@ -59,52 +51,58 @@ export default function Transactions() {
     return categoryNameElements
   }
 
-  function sortTransactions() {
-    let sortedTransactions
-
-    switch (sortBySelection) {
-      case "latest":
-        sortedTransactions = filteredAndSortedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
-        setFilteredAndSortedTransactions(sortedTransactions)
-        break;
-      case "oldest":
-        sortedTransactions = filteredAndSortedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-        setFilteredAndSortedTransactions(sortedTransactions)
-        break;
-      case "a-z":
-
-        break;
-      case "z-a":
-
-        break;
-      case "highest":
-
-        break;
-      case "lowest":
-
-        break;
-    }
-  }
-
-  function filterTransactions() {
-    if (filterBySelection) {
-      const filteredTransactions = transactions?.filter((transaction) => (transaction.category).toLowerCase() === filterBySelection)
-      setFilteredAndSortedTransactions(filteredTransactions)
-    }else {
-      setFilteredAndSortedTransactions(transactions)
-    }
-  }
-
-  function changeFilter(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setFilterBySelection(event.target.value)
-  }
-
-  function changeSort(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setSortBySelection(event.target.value)
-  }
-
   function renderTransactions() {
-    const transactionElements = filteredAndSortedTransactions?.map((transaction, index) => {
+    let selectedTransactions = transactions 
+
+    function filterTransactions() {
+      if (filterBySelection) {
+        selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterBySelection)
+      }
+    }
+
+    function sortTransactions() {
+      switch (sortBySelection) {
+        case "latest":
+          selectedTransactions = selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+          break;
+        case "oldest":
+          selectedTransactions = selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
+          break;
+        case "a-z":
+          selectedTransactions = selectedTransactions?.sort((a, b) => {
+            if (a.name < b.name) return -1
+            if (a.name > b.name) return 1
+            return 0
+          })
+          break;
+        case "z-a":
+          selectedTransactions = selectedTransactions?.sort((a, b) => {
+            if (a.name > b.name) return -1
+            if (a.name < b.name) return 1
+            return 0
+          })
+          break;
+        case "highest":
+          selectedTransactions = selectedTransactions?.sort((a, b) => {
+            if (a.amount < b.amount) return -1
+            if (a.amount > b.amount) return 1
+            return 0
+          })
+          break;
+        case "lowest":
+          selectedTransactions = selectedTransactions?.sort((a, b) => {
+            if (a.amount > b.amount) return -1
+            if (a.amount < b.amount) return 1
+            return 0
+          })
+          break;
+      }
+    } 
+
+    sortTransactions()
+    filterTransactions()
+
+    const transactionElements = selectedTransactions?.map((transaction, index) => {
       return (
         <div key={index}>
           <img src={`${transaction.avatar}`}/>
@@ -125,6 +123,13 @@ export default function Transactions() {
     return transactionElements
   }
 
+  function changeFilter(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setFilterBySelection(event.target.value)
+  }
+
+  function changeSort(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setSortBySelection(event.target.value)
+  }
 
   return (
     <div className='transactions-page-container'>
@@ -161,8 +166,7 @@ export default function Transactions() {
           
         </form>
         <div>
-          {/* The transactions will go here */}
-          {renderTransactions()}
+          {renderTransactions() }
         </div>
         <div>
           {/* the page selection thing will go here */}
