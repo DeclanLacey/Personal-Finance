@@ -23,17 +23,17 @@ and "delete" any "Todo" records.
 const schema = a.schema({
   UserProfile: a
       .model({
-        email: a.string(),
-        profileOwner: a.string(),
+        email: a.string().required(),
+        profileOwner: a.string().required(),
       })
       .authorization((allow) => [
         allow.ownerDefinedIn("profileOwner"),
       ]),
   Balance: a
     .model({
-      current: a.float(),
-      income: a.float(),
-      expenses: a.float()
+      current: a.float().required(),
+      income: a.float().required(),
+      expenses: a.float().required()
     })
     .authorization((allow) => [
       allow.ownerDefinedIn("profileOwner"),
@@ -41,12 +41,12 @@ const schema = a.schema({
 
   Transaction: a
     .model({
-      avatar: a.string(),
-      name: a.string(),
-      category: a.string(),
-      date: a.string(),
-      amount: a.float(),
-      recurring: a.boolean()
+      avatar: a.string().required(),
+      name: a.string().required(),
+      category: a.string().required(),
+      date: a.string().required(),
+      amount: a.float().required(),
+      recurring: a.boolean().required()
     })
     .authorization((allow) => [
       allow.ownerDefinedIn("profileOwner"),
@@ -54,9 +54,9 @@ const schema = a.schema({
 
   Budget: a 
     .model({
-      category: a.string(),
-      maximum: a.float(),
-      theme: a.string()
+      category: a.string().required(),
+      maximum: a.float().required(),
+      theme: a.string().required()
     })
     .authorization((allow) => [
       allow.ownerDefinedIn("profileOwner"),
@@ -64,10 +64,10 @@ const schema = a.schema({
 
   Pot: a
     .model({
-      name: a.string(),
-      target: a.float(),
-      total: a.float(),
-      theme: a.string()
+      name: a.string().required(),
+      target: a.float().required(),
+      total: a.float().required(),
+      theme: a.string().required()
     })
     .authorization((allow) => [
       allow.ownerDefinedIn("profileOwner"),

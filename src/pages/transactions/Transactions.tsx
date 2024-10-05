@@ -4,11 +4,14 @@ import { CiSearch } from "react-icons/ci";
 import "./Transactions.css"
 import { getCategoryNamesFromBudgets, getTransactions } from '../../utils/clientCalls';
 import { currencyFormatCents, formatDate } from '../../utils/utils';
+import ReactPaginate from 'react-paginate';
+import { Transaction } from '../../types/types';
+
 
 
 export default function Transactions() {
-  const [categoryNames, setCategoryNames] = useState<any[]>()
-  const [transactions, setTransactions] = useState<any[]>()
+  const [categoryNames, setCategoryNames] = useState<String[]>()
+  const [transactions, setTransactions] = useState<Transaction[]>([])
   const [sortBySelection, setSortBySelection] = useState<String>("latest")
   const [filterBySelection, setFilterBySelection] = useState<String>("")
   const [currentSearch, setCurrentSearch] = useState<String>("")
@@ -18,8 +21,9 @@ export default function Transactions() {
     async function getData() {
       try {
         setLoading(true)
-        const categoryNameData = await getCategoryNamesFromBudgets()
-        const transactionData = await getTransactions()
+        const categoryNameData : String[] | undefined = await getCategoryNamesFromBudgets()
+        //// This line below gives an error when you try to use the type of Transaction[]
+        const transactionData : any = await getTransactions()
         setCategoryNames(categoryNameData)
         setTransactions(transactionData)
         setLoading(false)
@@ -52,8 +56,8 @@ export default function Transactions() {
     return categoryNameElements
   }
 
-  function renderTransactions() {
-    let selectedTransactions = transactions 
+  function filterAndSortData() : Transaction[] {
+    let selectedTransactions: Transaction[] = transactions 
 
     function filterTransactions() {
       if (filterBySelection) {
@@ -108,7 +112,11 @@ export default function Transactions() {
     sortTransactions()
     filterTransactionsBySearch()
 
-    const transactionElements = selectedTransactions?.map((transaction, index) => {
+    return selectedTransactions
+  }
+
+  function renderTransactions(currentTransactions: Transaction[]) {
+    const transactionElements = currentTransactions?.map((transaction, index) => {
       let positiveTransactionClassName = ""
       if (transaction.amount > 0) positiveTransactionClassName = "transaction-positive"
 
@@ -142,6 +150,71 @@ export default function Transactions() {
 
   function changeSearchInput(event: { target: { value: React.SetStateAction<string>; }; }) {
     setCurrentSearch((event.target.value).toString())
+  }
+
+  /// You need to figure out the type for the itemsPerPage, before it was {itemsPerPage}, but gave an error
+  function PaginatedItems({itemsPerPage}: any) {
+    const sortedAndFilteredTransactions : Transaction[] = filterAndSortData() 
+    // Here we use item offsets; we could also use page offsets
+    // following the API or data you're working with.
+    const [itemOffset, setItemOffset] = useState(0);
+  
+    // Simulate fetching items from another resources.
+    // (This could be items from props; or items loaded in a local state
+    // from an API endpoint with useEffect and useState)
+    const endOffset = itemOffset + itemsPerPage;
+    const currentItems = sortedAndFilteredTransactions?.slice(itemOffset, endOffset);
+    const pageCount = Math.ceil(sortedAndFilteredTransactions.length / itemsPerPage);
+  
+    // Invoke when user click to request another page.
+    const handlePageClick = (event: { selected: number; }) => {
+      const newOffset = (event.selected * itemsPerPage) % sortedAndFilteredTransactions.length;
+      setItemOffset(newOffset);
+    };
+  
+    return (
+      <>
+        {renderTransactions(currentItems)}
+        <ReactPaginate
+          // activeClassName={'item active '}
+          // breakClassName={'item break-me '}
+          // containerClassName={'pagination'}
+          // disabledClassName={'disabled-page'}
+          // marginPagesDisplayed={2}
+          // nextClassName={"item next "}
+          // nextLabel={""}
+          // previousLabel={""}
+          // pageClassName={'item pagination-page '}
+          // previousClassName={"item previous"}
+
+          // breakLabel="..."
+          // // nextLabel="next >"
+          // onPageChange={handlePageClick}
+          // pageRangeDisplayed={5}
+          // pageCount={pageCount}
+          // // previousLabel="< previous"
+          // renderOnZeroPageCount={null}
+
+          activeClassName={'active-item'}
+          breakClassName={'pagination-item break-me'}
+          breakLabel={'...'}
+          disabledClassName={'disabled-page'}
+          containerClassName={'pagination'}
+          marginPagesDisplayed={2}
+          pageClassName={'pagination-page'}
+          nextClassName={"next "}
+          nextLabel={<img src='./assets/icon-caret-right.svg' />}
+          onPageChange={handlePageClick}
+          pageCount={pageCount}
+          pageRangeDisplayed={2}
+          pageLinkClassName={"pagination-item"}
+          previousClassName={"previous"}
+          previousLabel={<img src='./assets/icon-caret-left.svg'/>}
+          previousLinkClassName={'nextOrPreviousLink'}
+          nextLinkClassName={'nextOrPreviousLink'}
+        />
+      </>
+    );
   }
 
   return (
@@ -178,12 +251,10 @@ export default function Transactions() {
           </div>
           
         </form>
-        <div>
-          {renderTransactions() }
+        <div className='transactions-paginate-container'>
+          <PaginatedItems  itemsPerPage={10}/>
         </div>
-        <div>
-          {/* the page selection thing will go here */}
-        </div>
+        
       </section>
     </div>
   )
