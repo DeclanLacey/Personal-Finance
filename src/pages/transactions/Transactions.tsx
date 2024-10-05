@@ -9,9 +9,10 @@ import { currencyFormatCents, formatDate } from '../../utils/utils';
 export default function Transactions() {
   const [categoryNames, setCategoryNames] = useState<any[]>()
   const [transactions, setTransactions] = useState<any[]>()
-  const [sortBySelection, setSortBySelection] = useState("latest")
-  const [filterBySelection, setFilterBySelection] = useState("")
-  const [loading, setLoading] = useState(false)
+  const [sortBySelection, setSortBySelection] = useState<String>("latest")
+  const [filterBySelection, setFilterBySelection] = useState<String>("")
+  const [currentSearch, setCurrentSearch] = useState<String>("")
+  const [loading, setLoading] = useState<Boolean>(false)
 
   useEffect(() => {
     async function getData() {
@@ -99,8 +100,13 @@ export default function Transactions() {
       }
     } 
 
-    sortTransactions()
+    function filterTransactionsBySearch() {
+      selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.name).toLowerCase().includes(currentSearch.toLowerCase()))
+    }
+
     filterTransactions()
+    sortTransactions()
+    filterTransactionsBySearch()
 
     const transactionElements = selectedTransactions?.map((transaction, index) => {
       return (
@@ -124,11 +130,15 @@ export default function Transactions() {
   }
 
   function changeFilter(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setFilterBySelection(event.target.value)
+    setFilterBySelection((event.target.value).toString())
   }
 
   function changeSort(event: { target: { value: React.SetStateAction<string>; }; }) {
-    setSortBySelection(event.target.value)
+    setSortBySelection((event.target.value).toString())
+  }
+
+  function changeSearchInput(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setCurrentSearch((event.target.value).toString())
   }
 
   return (
@@ -138,7 +148,7 @@ export default function Transactions() {
       <section className='transactions-content-container'>
         <form className='transactions-form'>
           <div className='transactions-search-bar-container'>
-            <input placeholder='Search Transaction' className='transactions-search-bar' type='text' />
+            <input placeholder='Search Transaction' className='transactions-search-bar' onChange={changeSearchInput} type='text' />
             <CiSearch className='transactions-search-bar-icon' />
           </div>
 
