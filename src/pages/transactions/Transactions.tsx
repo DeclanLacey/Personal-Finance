@@ -109,18 +109,21 @@ export default function Transactions() {
     filterTransactionsBySearch()
 
     const transactionElements = selectedTransactions?.map((transaction, index) => {
+      let positiveTransactionClassName = ""
+      if (transaction.amount > 0) positiveTransactionClassName = "transaction-positive"
+
       return (
-        <div key={index}>
-          <img src={`${transaction.avatar}`}/>
+        <div className='transaction-container' key={index}>
+          <img className='transaction-img' src={`${transaction.avatar}`}/>
 
           <div>
-            <p>{transaction.name}</p>
-            <p>{currencyFormatCents(transaction.amount)}</p>
+            <p className='transaction-name'>{transaction.name}</p>
+            <p className='transaction-category'>{transaction.category}</p>
           </div>
 
-          <div>
-            <p>{transaction.category}</p>
-            <p>{formatDate(transaction.date)}</p>
+          <div className='transaction-amount-date-container'>
+            <p className={`transaction-amount ${positiveTransactionClassName}`}>{currencyFormatCents(transaction.amount)}</p>
+            <p className='transaction-date'>{formatDate(transaction.date)}</p>
           </div>
         </div>
       )

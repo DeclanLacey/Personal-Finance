@@ -2,6 +2,10 @@
     position: relative;
 }
 
+.transactions-page-container {
+    padding-bottom: 80px;
+}
+
 .transactions-content-container {
     background-color: white;
     width: 92%;
@@ -14,8 +18,8 @@
     font-size: 3.2rem;
     margin: 0 auto;
     width: 92%;
-    margin-top: 20px;
-    margin-bottom: 20px;
+    margin-top: 30px;
+    margin-bottom: 30px;
 }
 
 .transactions-sort-icon {
@@ -95,7 +99,54 @@ select::-ms-expand {
 .transactions-search-bar-container {
     position: relative;
 }
-/* ////////////////////////////// hover ///////////////////////////// */
 
+.transaction-container {
+    display: grid;
+    grid-template-columns: 45px 1fr 28%;
+    justify-items: start;
+    align-items: center;
+    height: 75px;
+    border-bottom: 1px solid var(--grey-100);
+}
+
+.transaction-img {
+    width: 32px;
+    height: 32px;
+    border-radius: 100px;
+}
+
+.transaction-amount-date-container {
+   justify-self: end;
+}
+
+.transaction-name {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.transaction-amount {
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 0px;
+    text-align: right;
+}
+
+.transaction-category {
+    font-size: 1.2rem;
+    color: var(--grey-500);
+    margin-top: 0px;
+}
+
+.transaction-date {
+    font-size: 1.2rem;
+    color: var(--grey-500);
+    margin-top: 0px;
+    text-align: right;
+}
+
+.transaction-positive {
+    color: var(--green);
+}
 
 
