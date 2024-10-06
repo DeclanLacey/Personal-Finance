@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { PieChart } from 'chartist';
 import { NavLink } from 'react-router-dom';
 import { Budget, Transaction } from '../../types/types';
-import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, getBudgetCategoryNames, setPieChartColorsAndValues } from '../../utils/utils';
+import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils';
 import { getBudgets, getTransactions } from '../../utils/clientCalls';
 import 'chartist/dist/index.css';
 import "./BudgetsOverview.css"
@@ -18,7 +18,7 @@ export default function BudgetsOverview() {
       try {
         setLoading(true)
         const budgetData : any = await getBudgets()
-        const transactionData = await getTransactions()
+        const transactionData : any = await getTransactions()
         setBudgets(budgetData)
         setTransactions(transactionData)
         setLoading(false)

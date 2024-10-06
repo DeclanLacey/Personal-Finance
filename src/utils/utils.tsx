@@ -86,19 +86,20 @@ export function calculateTotalBudgetSpend(budgets : Budget[], transactions : Tra
 
  ////// Calculates the total amount spent for each individual category
 export function calculateSpendPerBudgetCategory(budgets : Budget[], transactions : Transaction[]) {
-    const budgetNames = getBudgetCategoryNames(budgets)
+    const budgetNamesAndMax = getBudgetCategoryNamesAndMax(budgets)
     const transactionsData : Transaction[] = transactions
     const spendPerBudgetCategory : SpendPerBudget[] = []
 
-    for (let i = 0; i < budgetNames.length; i++) {
+    for (let i = 0; i < budgetNamesAndMax.length; i++) {
       spendPerBudgetCategory.push({
-        name: budgetNames[i],
+        name: budgetNamesAndMax[i].name,
+        max: budgetNamesAndMax[i].max,
         amount: 0
       })
     }
   
     for (let i = 0; i < transactionsData.length; i++) {
-      if (budgetNames.includes(transactionsData[i].category)) {
+      if (budgetNamesAndMax.some(budget => budget.name === transactionsData[i].category)) {
         const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactionsData[i].category)
         spendPerBudgetCategory[findIndexResult].amount += transactionsData[i].amount / -1
       }
@@ -108,11 +109,16 @@ export function calculateSpendPerBudgetCategory(budgets : Budget[], transactions
 }
 
 ////// Returns an array of the current category names
-export function getBudgetCategoryNames(budgets : Budget[]) {
-    const budgetNames : string[] = []
+export function getBudgetCategoryNamesAndMax(budgets : Budget[]) {
+    const budgetNamesAndMax : any[] = []
     if (budgets)
     for (let i = 0; i < budgets.length; i++) {
-      budgetNames.push(budgets[i].category)
+        budgetNamesAndMax.push({
+        "name": budgets[i].category,
+        "max": budgets[i].maximum
+      }
+    )
+
     }
-    return budgetNames
+    return budgetNamesAndMax
 }

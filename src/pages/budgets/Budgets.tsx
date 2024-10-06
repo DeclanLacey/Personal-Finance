@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import Nav from '../../components/nav/Nav'
-import { Budget } from '../../types/types'
+import { Budget, Transaction } from '../../types/types'
 import { getBudgets, getTransactions } from '../../utils/clientCalls'
 import { PieChart } from 'chartist'
-import { setPieChartColorsAndValues } from '../../utils/utils'
+import { calculateSpendPerBudgetCategory, currencyFormatCents, setPieChartColorsAndValues } from '../../utils/utils'
 
 export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()
@@ -59,6 +59,36 @@ export default function Budgets() {
     );
   };
 
+  function renderBudgetSummaries(budgets : Budget[], transactions : Transaction[]) {
+    const spendPerBudgetCategory = calculateSpendPerBudgetCategory(budgets, transactions)
+    const categorySummaryElements = spendPerBudgetCategory.map((budget, index) => {
+    let categoryColor : string = ""
+
+    if (budgets)
+      for (let i = 0; i < budgets.length; i++) {
+        if (budgets[i].category === budget.name) {
+          categoryColor = budgets[i].theme
+        }
+    }
+
+    return (  
+      <div className='' key={index}>
+        <div></div>
+        <div className=''>
+          <p className=''>{budget.name}</p>
+          <div>
+            <p className=''>{currencyFormatCents(Math.round(budget.amount))}</p>
+            <p>of {currencyFormatCents(Math.round(budget.max))}</p>
+          </div>
+          
+        </div>
+      </div>
+    )
+  })
+
+    return categorySummaryElements
+  }
+
   return (
     <div>
       <Nav></Nav>
@@ -69,7 +99,7 @@ export default function Budgets() {
       
       <section>
         <div className='budgets_overview-chart' id="chart" ref={chart}></div>
-
+        {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
       </section>
     </div>
   )

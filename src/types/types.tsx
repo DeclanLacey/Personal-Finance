@@ -34,5 +34,6 @@ export type PieChartSeries = {
 
 export type SpendPerBudget = {
     name: string,
+    max: number,
     amount: number
 }

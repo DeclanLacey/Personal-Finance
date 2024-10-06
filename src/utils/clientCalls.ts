@@ -6,6 +6,17 @@ const client = generateClient<Schema>({
     authMode: "userPool",
 });
 
+// async function deleteBudget() {
+//     const budgetDelete = {
+//         id: "ef3c8305-3db4-4743-9b5f-320fa0cd1594"
+//     }
+//     const { data: deletedBudget, errors } = await client.models.Budget.delete(budgetDelete)
+//     console.log(deletedBudget)
+//     console.log(errors)
+// }
+
+// deleteBudget()
+
 export const addBalanceData = async () => {
     client.models.Balance.create(initialData.balance)
 }
