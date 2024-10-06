@@ -9,6 +9,7 @@ import { useState } from 'react'
 import { addTransactionData } from './utils/clientCalls'
 import outputs from "../amplify_outputs.json"
 import { Amplify } from 'aws-amplify'
+import Nav from './components/nav/Nav'
 
 Amplify.configure(outputs)
 
@@ -18,6 +19,7 @@ function App() {
   return (
     <div className='app'>
       {/* <button onClick={() => addTransactionData()}>Add transaction data</button> */}
+      <Nav></Nav>
       <Routes>
         <Route path="/" element={<SignIn />}/>
         <Route path="/overview" element={<Overview />} />

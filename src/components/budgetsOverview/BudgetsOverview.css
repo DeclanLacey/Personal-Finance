@@ -32,10 +32,8 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, .4);
-    max-width: 185px;
-    max-height: 185px;
-    min-width: 185px;
-    min-height: 185px;
+    width: 185px;
+    height: 185px;
     border-radius: 200px;
     padding: 0px;
     padding-right: 3px;

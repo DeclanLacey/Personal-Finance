@@ -3,7 +3,8 @@ import Nav from '../../components/nav/Nav'
 import { Budget, Transaction } from '../../types/types'
 import { getBudgets, getTransactions } from '../../utils/clientCalls'
 import { PieChart } from 'chartist'
-import { calculateSpendPerBudgetCategory, currencyFormatCents, setPieChartColorsAndValues } from '../../utils/utils'
+import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils'
+import "./Budgets.css"
 
 export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()
@@ -72,16 +73,11 @@ export default function Budgets() {
     }
 
     return (  
-      <div className='' key={index}>
-        <div></div>
-        <div className=''>
-          <p className=''>{budget.name}</p>
-          <div>
-            <p className=''>{currencyFormatCents(Math.round(budget.amount))}</p>
-            <p>of {currencyFormatCents(Math.round(budget.max))}</p>
-          </div>
-          
-        </div>
+      <div className={`budgets_page-budget-summary ${index === spendPerBudgetCategory.length - 1 ? "" : "budgets_page-border-bottom "}`} key={index}>
+        <div className={`budgets_page-budget-summary-color-line ${categoryColor}`}></div>
+        <p className='budgets_page-budget-summary-name'>{budget.name}</p>
+        <p className='budgets_page-budget-summary-spend'>{currencyFormatCents(Math.round(budget.amount))}</p>
+        <p className='budgets_page-budget-summary-max'>of {currencyFormatCents(Math.round(budget.max))}</p>
       </div>
     )
   })
@@ -90,17 +86,25 @@ export default function Budgets() {
   }
 
   return (
-    <div>
-      <Nav></Nav>
-      <div>
-        <h1> Budgets </h1>
-        <button></button>
+    <div className='budgets_page-container'>
+      <div className='budgets_page-title-container'>
+        <h1 className='budgets_page-title'> Budgets </h1>
+        <button className='budgets_page-add-budget-btn'>+ Add New Budget</button>
       </div>
       
-      <section>
-        <div className='budgets_overview-chart' id="chart" ref={chart}></div>
+      <section className='budgets_page-chart-overview-container'>
+        <div className='budgets_page-chart-container'>
+          <div className='budgets_page-total-spend-container'>
+            {budgets && transactions ? <p className='budgets_page-total-spend'>{currencyFormatNoCents(Math.round(calculateTotalBudgetSpend(budgets, transactions)))}</p> : <></> }
+            {budgets ? <p className='budgets_page-total-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit(budgets))} limit`}</p> : <></> }
+          </div>
+          <div className='' id="chart" ref={chart}></div>
+        </div>
+
+        <h2 className='budgets_page-overview-title'>Spending Summary</h2>
         {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
       </section>
     </div>
+
   )
 }

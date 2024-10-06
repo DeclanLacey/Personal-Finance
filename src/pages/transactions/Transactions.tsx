@@ -208,7 +208,6 @@ export default function Transactions() {
 
   return (
     <div className='transactions-page-container'>
-      <Nav></Nav>
       <h1 className='transactions-title'>Transactions</h1>
       <section className='transactions-content-container'>
         <form className='transactions-form'>
@@ -243,7 +242,6 @@ export default function Transactions() {
         <div className='transactions-paginate-container'>
           <PaginatedItems  itemsPerPage={10}/>
         </div>
-        
       </section>
     </div>
   )

@@ -44,23 +44,19 @@ export default function Overview() {
   }
 
 
-  useEffect(() => {
-    getData()
-  }, [])
+  // useEffect(() => {
+  //   getData()
+  // }, [])
   
 
   return (
     <div className="overview-container">
-      <section className="overview-content-container">
-        <h1 className="overview-title">Overview</h1>
-        <BalancesOverview></BalancesOverview>
-        <PotsOverview></PotsOverview>
-        <TransactionsOverview></TransactionsOverview>
-        <BudgetsOverview></BudgetsOverview>
-        <RecurringBillsOverview></RecurringBillsOverview>
-      </section>
-      
-      <Nav></Nav>
+      <h1 className="overview-title">Overview</h1>
+      <BalancesOverview></BalancesOverview>
+      <PotsOverview></PotsOverview>
+      <TransactionsOverview></TransactionsOverview>
+      <BudgetsOverview></BudgetsOverview>
+      <RecurringBillsOverview></RecurringBillsOverview>
     </div>
   )
 }

@@ -1,12 +1,8 @@
 .overview-container {
     width: 100%;
     padding-bottom: 80px;
-}
-
-.overview-content-container {
     width: 90%;
     margin: 0 auto;
-    border: 1px solid var(--beige-100);
 }
 
 .overview-title {
