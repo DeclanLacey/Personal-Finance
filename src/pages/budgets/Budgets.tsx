@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import Nav from '../../components/nav/Nav'
 import { Budget, Transaction } from '../../types/types'
 import { getBudgets, getTransactions } from '../../utils/clientCalls'
 import { PieChart } from 'chartist'
 import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils'
 import "./Budgets.css"
+import BudgetDetail from '../../components/budgetDetail/BudgetDetail'
 
 export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()
@@ -63,26 +63,36 @@ export default function Budgets() {
   function renderBudgetSummaries(budgets : Budget[], transactions : Transaction[]) {
     const spendPerBudgetCategory = calculateSpendPerBudgetCategory(budgets, transactions)
     const categorySummaryElements = spendPerBudgetCategory.map((budget, index) => {
-    let categoryColor : string = ""
+      let categoryColor : string = ""
 
-    if (budgets)
-      for (let i = 0; i < budgets.length; i++) {
-        if (budgets[i].category === budget.name) {
-          categoryColor = budgets[i].theme
-        }
-    }
+      if (budgets)
+        for (let i = 0; i < budgets.length; i++) {
+          if (budgets[i].category === budget.name) {
+            categoryColor = budgets[i].theme
+          }
+      }
 
-    return (  
-      <div className={`budgets_page-budget-summary ${index === spendPerBudgetCategory.length - 1 ? "" : "budgets_page-border-bottom "}`} key={index}>
-        <div className={`budgets_page-budget-summary-color-line ${categoryColor}`}></div>
-        <p className='budgets_page-budget-summary-name'>{budget.name}</p>
-        <p className='budgets_page-budget-summary-spend'>{currencyFormatCents(Math.round(budget.amount))}</p>
-        <p className='budgets_page-budget-summary-max'>of {currencyFormatCents(Math.round(budget.max))}</p>
-      </div>
-    )
-  })
+      return (  
+        <div className={`budgets_page-budget-summary ${index === spendPerBudgetCategory.length - 1 ? "" : "budgets_page-border-bottom "}`} key={index}>
+          <div className={`budgets_page-budget-summary-color-line ${categoryColor}`}></div>
+          <p className='budgets_page-budget-summary-name'>{budget.name}</p>
+          <p className='budgets_page-budget-summary-spend'>{currencyFormatCents(Math.round(budget.amount))}</p>
+          <p className='budgets_page-budget-summary-max'>of {currencyFormatCents(Math.round(budget.max))}</p>
+        </div>
+      )
+    })
 
     return categorySummaryElements
+  }
+
+  function renderBudgetDetailComponents(budgets : Budget[], transactions : Transaction[]) {    
+    const budgetDetailElements = budgets?.map((budget, index) => {
+      return (
+        <BudgetDetail key={index} budget={budget} transactions={transactions}/>
+      )
+    })
+
+    return budgetDetailElements
   }
 
   return (
@@ -103,6 +113,10 @@ export default function Budgets() {
 
         <h2 className='budgets_page-overview-title'>Spending Summary</h2>
         {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
+      </section>
+
+      <section>
+        {budgets && transactions ? renderBudgetDetailComponents(budgets, transactions) : <></>}
       </section>
     </div>
 
