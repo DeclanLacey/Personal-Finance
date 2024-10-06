@@ -136,8 +136,16 @@ export default function Transactions() {
         </div>
       )
     })
-
-    return transactionElements
+    
+    if (transactionElements.length === 0) {
+      return (
+        <div className='transactions-no-results-container'>
+          <p className='transactions-no-results-text'>No matching transactions found</p>
+        </div>
+      )
+    }else {
+      return transactionElements
+    }
   }
 
   function changeFilter(event: { target: { value: React.SetStateAction<string>; }; }) {
@@ -176,25 +184,6 @@ export default function Transactions() {
       <>
         {renderTransactions(currentItems)}
         <ReactPaginate
-          // activeClassName={'item active '}
-          // breakClassName={'item break-me '}
-          // containerClassName={'pagination'}
-          // disabledClassName={'disabled-page'}
-          // marginPagesDisplayed={2}
-          // nextClassName={"item next "}
-          // nextLabel={""}
-          // previousLabel={""}
-          // pageClassName={'item pagination-page '}
-          // previousClassName={"item previous"}
-
-          // breakLabel="..."
-          // // nextLabel="next >"
-          // onPageChange={handlePageClick}
-          // pageRangeDisplayed={5}
-          // pageCount={pageCount}
-          // // previousLabel="< previous"
-          // renderOnZeroPageCount={null}
-
           activeClassName={'active-item'}
           breakClassName={'pagination-item break-me'}
           breakLabel={'...'}

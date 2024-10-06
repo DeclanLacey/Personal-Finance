@@ -11,7 +11,7 @@
     width: 92%;
     margin: 0 auto;
     border-radius: 10px;
-    padding: 15px;
+    padding: 18px;
 }
 
 .transactions-title {
@@ -149,6 +149,15 @@ select::-ms-expand {
     color: var(--green);
 }
 
+.transactions-no-results-container {
+    width: 100%;
+    text-align: center;
+    padding-top: 40px;
+    padding-bottom: 40px;
+    font-size: 1.4rem;
+    color: var(--grey-500);
+}
+
 /* ////////////////////// Paginate styling ///////////////// */
 
 .pagination {
@@ -158,6 +167,7 @@ select::-ms-expand {
     justify-content: center;
     position: relative;
     margin-top: 15px;
+    height: 40px;
 }
 
 
@@ -236,5 +246,4 @@ select::-ms-expand {
 
 .nextOrPreviousLink {
     padding: 15px 18px 15px 18px;
-    
 }
