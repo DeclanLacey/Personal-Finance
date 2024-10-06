@@ -11,6 +11,16 @@ export type Transaction = {
     updatedAt: string
 }
 
+export type Budget = {
+    category: string,
+    createdAt: string,
+    id: string,
+    maximum: number,
+    profileOwner: string,
+    theme: string,
+    updatedAt: string
+}
+
 export type Balance = {
     current: number,
     income: number,

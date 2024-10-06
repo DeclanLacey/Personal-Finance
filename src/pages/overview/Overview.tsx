@@ -39,8 +39,8 @@ export default function Overview() {
   const getData = async () => {
     //  console.log(await getBalances())
     //  console.log(await getPots())
-    //  console.log(await getBudgets())
-     console.log(await getTransactions())
+     console.log(await getBudgets())
+    //  console.log(await getTransactions())
   }
 
 

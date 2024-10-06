@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react'
 import { PieChart } from 'chartist';
 import { NavLink } from 'react-router-dom';
-import { SpendPerBudget } from '../../types/types';
-import { currencyFormatCents, currencyFormatNoCents } from '../../utils/utils';
+import { Budget, Transaction } from '../../types/types';
+import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, getBudgetCategoryNames, setPieChartColorsAndValues } from '../../utils/utils';
 import { getBudgets, getTransactions } from '../../utils/clientCalls';
 import 'chartist/dist/index.css';
 import "./BudgetsOverview.css"
 
 export default function BudgetsOverview() {
-  const [budgets, setBudgets]  = useState<any[]>()
+  const [budgets, setBudgets]  = useState<Budget[]>()
   const [transactions, setTransactions] = useState<any[]>()
   const [loading, setLoading] = useState<Boolean>(false)
 
@@ -17,7 +17,7 @@ export default function BudgetsOverview() {
     async function getData() {
       try {
         setLoading(true)
-        const budgetData = await getBudgets()
+        const budgetData : any = await getBudgets()
         const transactionData = await getTransactions()
         setBudgets(budgetData)
         setTransactions(transactionData)
@@ -39,29 +39,14 @@ export default function BudgetsOverview() {
   if (!budgets && !transactions) {
     return <div></div>
   }
-
-  //// Returns an array of objects that are passed into the chart when it is created
-  function setPieChartColorsAndValues() {
-    if (budgets) {
-      const budgetPieChartData : any = budgets.map((budget) => {
-        return (
-          {
-            value: budget.maximum,
-            className: budget.theme
-          }
-        )
-      })
-
-      return budgetPieChartData
-    }
-  }
-
+ 
   //// The pie chart used in the UI
   const chart = () => {
+    if (budgets)
     new PieChart(
         '#chart',
         {
-          series: setPieChartColorsAndValues(),
+          series: setPieChartColorsAndValues(budgets),
           labels: []
         },
         {
@@ -76,65 +61,9 @@ export default function BudgetsOverview() {
     );
   };
 
-  ////// Calculates the total amount spent for all of the different budgets combined
-  function calculateTotalBudgetSpend() {
-    let totalBudgetSpend : number = 0
-    let budgetSpendPerCategory = calculateSpendPerBudgetCategory()
-    for (let i = 0; i < budgetSpendPerCategory.length; i++) {
-      totalBudgetSpend += budgetSpendPerCategory[i].amount
-    }
-
-    return totalBudgetSpend
-  }
-
-  ////// Calculates the total amount spent for each individual category
-  function calculateSpendPerBudgetCategory() {
-    const budgetNames = getBudgetCategoryNames()
-    const transactionsData : any = transactions
-    const spendPerBudgetCategory : SpendPerBudget[] = []
-
-    for (let i = 0; i < budgetNames.length; i++) {
-      spendPerBudgetCategory.push({
-        name: budgetNames[i],
-        amount: 0
-      })
-    }
-  
-    for (let i = 0; i < transactionsData.length; i++) {
-      if (budgetNames.includes(transactionsData[i].category)) {
-        const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactionsData[i].category)
-        spendPerBudgetCategory[findIndexResult].amount += transactionsData[i].amount / -1
-      }
-    }
-
-    return spendPerBudgetCategory
-  }
-
-  ////// Returns an array of the current category names
-  function getBudgetCategoryNames() {
-    const budgetNames : string[] = []
-    if (budgets)
-    for (let i = 0; i < budgets.length; i++) {
-      budgetNames.push(budgets[i].category)
-    }
-    return budgetNames
-  }
-
-  ////// Calculates the total limit of all of the budget limits combined
-  function calculateTotalBudgetLimit() {
-    let totalBudgetLimit : number = 0
-
-    if (budgets)
-    for (let i = 0; i < budgets.length; i++) {
-      totalBudgetLimit += budgets[i].maximum
-    }
-
-    return totalBudgetLimit
-  }
-
   //// Returns the budgets summary elements
-  function renderBudgetSummaries() {
-    const spendPerBudgetCategory = calculateSpendPerBudgetCategory()
+  function renderBudgetSummaries(budgets : Budget[], transactions : Transaction[]) {
+    const spendPerBudgetCategory = calculateSpendPerBudgetCategory(budgets, transactions)
     const categorySummaryElements = spendPerBudgetCategory.map((budget, index) => {
       let categoryColor : string = ""
 
@@ -170,14 +99,14 @@ export default function BudgetsOverview() {
       </div>
       <div className='budgets_overview-chart-container'>
         <div className='budgets_overview-spend-container'>
-          <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend())}</p>
-          <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit())} limit`}</p>
+          {budgets && transactions ? <p className='budgets_overview-total-spend'>{currencyFormatNoCents(calculateTotalBudgetSpend(budgets, transactions))}</p> : <></> }
+          {budgets ? <p className='budgets_overview-spend-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit(budgets))} limit`}</p> : <></> }
         </div>
         <div className='budgets_overview-chart' id="chart" ref={chart}></div>
       </div>
 
       <div className='budgets_overview-categories-container'>
-        {renderBudgetSummaries() }
+        {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
       </div>
     </section>
   )

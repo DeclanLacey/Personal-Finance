@@ -1,4 +1,4 @@
-import { Transaction } from "../types/types"
+import { Budget, SpendPerBudget, Transaction } from "../types/types"
 
 export function currencyFormatCents(num: number) {
     return '$' + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -41,4 +41,78 @@ export function formatDate(dateString: string) {
     let dateFormat = dateArray[2] + ' ' + dateArray[1] + ' ' + dateArray[3]
 
     return dateFormat
+}
+
+//// Returns an array of objects that are passed into the chart when it is created
+export function setPieChartColorsAndValues(budgets : Budget[] ) {
+    const budgetPieChartData : any = budgets.map((budget) => {
+      return (
+        {
+          value: budget.maximum,
+          className: budget.theme
+        }
+      )
+    })
+
+    return budgetPieChartData
+}
+
+/////////////////////////////////////////////////////////////////
+//////////////////// Utils for budgets //////////////////////////
+/////////////////////////////////////////////////////////////////
+
+////// Calculates the total limit of all of the budget limits combined
+export function calculateTotalBudgetLimit(budgets : Budget[]) {
+    let totalBudgetLimit : number = 0
+
+    if (budgets)
+    for (let i = 0; i < budgets.length; i++) {
+        totalBudgetLimit += budgets[i].maximum
+    }
+
+    return totalBudgetLimit
+}
+
+////// Calculates the total amount spent for all of the different budgets combined
+export function calculateTotalBudgetSpend(budgets : Budget[], transactions : Transaction[]) {
+    let totalBudgetSpend : number = 0
+    let budgetSpendPerCategory = calculateSpendPerBudgetCategory(budgets, transactions)
+    for (let i = 0; i < budgetSpendPerCategory.length; i++) {
+        totalBudgetSpend += budgetSpendPerCategory[i].amount
+    }
+
+    return totalBudgetSpend
+}
+
+ ////// Calculates the total amount spent for each individual category
+export function calculateSpendPerBudgetCategory(budgets : Budget[], transactions : Transaction[]) {
+    const budgetNames = getBudgetCategoryNames(budgets)
+    const transactionsData : Transaction[] = transactions
+    const spendPerBudgetCategory : SpendPerBudget[] = []
+
+    for (let i = 0; i < budgetNames.length; i++) {
+      spendPerBudgetCategory.push({
+        name: budgetNames[i],
+        amount: 0
+      })
+    }
+  
+    for (let i = 0; i < transactionsData.length; i++) {
+      if (budgetNames.includes(transactionsData[i].category)) {
+        const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactionsData[i].category)
+        spendPerBudgetCategory[findIndexResult].amount += transactionsData[i].amount / -1
+      }
+    }
+
+    return spendPerBudgetCategory
+}
+
+////// Returns an array of the current category names
+export function getBudgetCategoryNames(budgets : Budget[]) {
+    const budgetNames : string[] = []
+    if (budgets)
+    for (let i = 0; i < budgets.length; i++) {
+      budgetNames.push(budgets[i].category)
+    }
+    return budgetNames
 }
