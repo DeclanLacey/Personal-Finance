@@ -1,6 +1,7 @@
-import { useState } from 'react'
 import { Budget, Transaction } from '../../types/types'
-import { currencyFormatCents } from '../../utils/utils'
+import { currencyFormatCents, formatDate } from '../../utils/utils'
+import ProgressBar from '../progressBar/ProgressBar'
+import "./BudgetDetail.css"
 
 interface Props {
     budget: Budget,
@@ -8,6 +9,8 @@ interface Props {
 }
 
 export default function BudgetDetail({budget, transactions} : Props)  {
+
+    const totalSpent = calculateTotalSpent()
 
     function calculateTotalSpent() {
         let totalSpent = 0
@@ -35,19 +38,38 @@ export default function BudgetDetail({budget, transactions} : Props)  {
     }
 
     function renderLastThreeTransactions() {
-        
+        const sortedTransactions = getTransactionsForBudget().sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
+        const lastThreeTransactions = sortedTransactions.map((transaction, index) => {
+            if (index < 3) {
+                return (
+                    <div key={index}>
+                        <p>{transaction.name}</p>
+                        <div>
+                            <p>{currencyFormatCents(transaction.amount)}</p>
+                            <p>{formatDate(transaction.date)}</p>
+                        </div>
+                    </div>
+                )
+            }
+        })
+
+        return lastThreeTransactions
     }
 
+
     return (
-        <div>
-            <h2>{budget.category}</h2>
-            <button>...</button>
-            <p>Maximum of {currencyFormatCents(budget.maximum)}</p>
-            {/* Progress bar will go here */}
+        <div className='budget_detail'>
+            <div className='budget_detail-name-container'>
+                <div className={`budget_detail-colored-circle ${budget.theme}`}></div>
+                <h2 className='budget_detail-name'>{budget.category}</h2>
+                <button className='budget_detail-ellipsis'></button>
+            </div>
+            <p className='budget_detail-max'>Maximum of {currencyFormatCents(budget.maximum)}</p>
+            <ProgressBar budgetColor={budget.theme} budgetMax={budget.maximum} budgetSpend={totalSpent}></ProgressBar>
             <div>
                 <div></div>
                 <div>
-                    <p>Spent {currencyFormatCents(calculateTotalSpent())}</p>
+                    <p>Spent {currencyFormatCents(totalSpent)}</p>
                     <p></p>
                 </div>
             </div>
@@ -56,7 +78,17 @@ export default function BudgetDetail({budget, transactions} : Props)  {
                 <div></div>
                 <div>
                     <p>Remaining</p>
-                    <p>{currencyFormatCents(budget.maximum - (calculateTotalSpent() >= budget.maximum ? budget.maximum : calculateTotalSpent()))}</p>
+                    <p>{currencyFormatCents(budget.maximum - (totalSpent >= budget.maximum ? budget.maximum : totalSpent))}</p>
+                </div>
+            </div>
+
+            <div>
+                <div>
+                    <h3>Latest Spending</h3>
+                    <p>See All</p>
+                </div>
+                <div>
+                    {renderLastThreeTransactions()}
                 </div>
             </div>
         </div>

@@ -1,0 +1,17 @@
+.progress_bar-container {
+    height: 32px;
+    width: 100%;
+    background-color: var(--beige-100);
+    border-radius: 5px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    padding-left: 3px;
+    padding-right: 3px;
+}
+
+.progress_bar-value {
+    height: 80%;
+    border-radius: 5px;
+    
+}

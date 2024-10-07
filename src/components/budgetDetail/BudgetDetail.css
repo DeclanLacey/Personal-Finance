@@ -1,0 +1,59 @@
+.budget_detail {
+    background-color: var(--white);
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.budget_detail-name-container {
+    display: grid;
+    grid-template-columns: 30px 1fr 1fr;
+    align-items: center;
+}
+
+.budget_detail-name {
+  font-size: 2rem;  
+  margin: 0px;
+}
+
+.budget_detail-ellipsis {
+    background-image: url("./assets/icon-ellipsis.svg");
+    background-repeat: no-repeat;
+    background-size: 50%;
+    background-position: center;
+    width: 35px;
+    height: 6px;
+    border: none;
+    background-color: transparent;
+    justify-self: end;
+}
+
+.budget_detail-colored-circle {
+    width: 16px;
+    height: 16px;
+    border-radius: 100px;
+}
+
+.budget_detail-max {
+    font-size: 1.4rem;
+    color: var(--grey-500);
+}
+
+
+
+progress {
+    border-radius: 7px; 
+    width: 100%;
+    height: 22px;
+    box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
+}
+
+progress::-webkit-progress-bar {
+    background-color: red;
+    border-radius: 7px;
+}
+
+progress::-webkit-progress-value {
+    background-color: blue;
+    border-radius: 7px;
+}
