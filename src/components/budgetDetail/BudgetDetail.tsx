@@ -41,13 +41,9 @@ export default function BudgetDetail({budget, transactions} : Props)  {
     function renderLastThreeTransactions() {
         const sortedTransactions = getTransactionsForBudget().sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
         const lastThreeTransactions = sortedTransactions.map((transaction, index) => {
-            let borderTopClass = ""
-            if (index > 0 ) {
-                borderTopClass = "border-top"
-            }
             if (index < 3) {
                 return (
-                    <div key={index} className={`budget_detail-transaction ${borderTopClass}`}>
+                    <div key={index} className={`budget_detail-transaction ${index > 0 ? "border-top" : ""}`}>
                         <p className='budget_detail-transaction-name'>{transaction.name}</p>
                         <div className='budget_detail-transaction-amount-container'>
                             <p className='budget_detail-transaction-amount'>{currencyFormatCents(transaction.amount)}</p>
