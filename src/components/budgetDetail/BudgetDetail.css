@@ -1,13 +1,13 @@
 .budget_detail {
     background-color: var(--white);
-    padding: 15px;
-    margin-bottom: 20px;
+    padding: 20px;
+    margin-bottom: 40px;
     border-radius: 10px;
 }
 
 .budget_detail-name-container {
     display: grid;
-    grid-template-columns: 30px 1fr 1fr;
+    grid-template-columns: 30px 1fr 50px;
     align-items: center;
 }
 
@@ -39,21 +39,88 @@
     color: var(--grey-500);
 }
 
-
-
-progress {
-    border-radius: 7px; 
-    width: 100%;
-    height: 22px;
-    box-shadow: 1px 1px 4px rgba( 0, 0, 0, 0.2 );
+.budget_detail-spent-remaining-container {
+    display: flex;
 }
 
-progress::-webkit-progress-bar {
-    background-color: red;
-    border-radius: 7px;
+.budget_detail-spent-container,
+.budget_detail-remaining-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 50%;
+    align-items: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
 }
 
-progress::-webkit-progress-value {
-    background-color: blue;
-    border-radius: 7px;
+.budget_detail-spent-line,
+.budget_detail-remaining-line {
+    height: 40px;
+    width: 3px;
+    border-radius: 100px;
+    margin-right: 10px;
+}
+
+.budget_detail-remaining-line {
+    background-color: var(--grey-100);
+}
+
+.budget_detail-spent-title,
+.budget_detail-remaining-title {
+    margin-bottom: 0px;
+    color: var(--grey-500);
+    font-size: 1.2rem;
+}
+
+.budget_detail-spent-amount,
+.budget_detail-remaining-amount {
+    margin-top: 1px;
+    font-size: 1.4rem;
+    font-weight: 600;
+}
+
+.budget_detail-spending-content-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.budget_detail-spending-title {
+    font-size: 1.6rem;
+}
+
+.budget_detail-spending-container {
+    background-color: var(--beige-100);
+    border-radius: 10px;
+    padding: 0px 15px 0px 15px
+}
+
+.budget_detail-transaction {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.border-top {
+    border-top: 1px solid var(--grey-500);
+}
+
+.budget_detail-transaction-amount-container {
+    text-align: right;
+}
+
+.budget_detail-transaction-amount {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-bottom: 0px;
+}
+
+.budget_detail-transaction-date {
+    font-size: 1.2rem;
+    color: var(--grey-500);
+    margin-top: 2px;
+}
+
+.budget_detail-transaction-name {
+    font-size: 1.2rem;
+    font-weight: 600;
 }

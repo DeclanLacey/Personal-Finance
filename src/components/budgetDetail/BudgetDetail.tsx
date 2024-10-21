@@ -1,3 +1,4 @@
+import { NavLink } from 'react-router-dom'
 import { Budget, Transaction } from '../../types/types'
 import { currencyFormatCents, formatDate } from '../../utils/utils'
 import ProgressBar from '../progressBar/ProgressBar'
@@ -40,13 +41,17 @@ export default function BudgetDetail({budget, transactions} : Props)  {
     function renderLastThreeTransactions() {
         const sortedTransactions = getTransactionsForBudget().sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf())
         const lastThreeTransactions = sortedTransactions.map((transaction, index) => {
+            let borderTopClass = ""
+            if (index > 0 ) {
+                borderTopClass = "border-top"
+            }
             if (index < 3) {
                 return (
-                    <div key={index}>
-                        <p>{transaction.name}</p>
-                        <div>
-                            <p>{currencyFormatCents(transaction.amount)}</p>
-                            <p>{formatDate(transaction.date)}</p>
+                    <div key={index} className={`budget_detail-transaction ${borderTopClass}`}>
+                        <p className='budget_detail-transaction-name'>{transaction.name}</p>
+                        <div className='budget_detail-transaction-amount-container'>
+                            <p className='budget_detail-transaction-amount'>{currencyFormatCents(transaction.amount)}</p>
+                            <p className='budget_detail-transaction-date'>{formatDate(transaction.date)}</p>
                         </div>
                     </div>
                 )
@@ -66,28 +71,36 @@ export default function BudgetDetail({budget, transactions} : Props)  {
             </div>
             <p className='budget_detail-max'>Maximum of {currencyFormatCents(budget.maximum)}</p>
             <ProgressBar budgetColor={budget.theme} budgetMax={budget.maximum} budgetSpend={totalSpent}></ProgressBar>
-            <div>
-                <div></div>
-                <div>
-                    <p>Spent {currencyFormatCents(totalSpent)}</p>
-                    <p></p>
+            
+            <div className='budget_detail-spent-remaining-container'>
+                <div className='budget_detail-spent-container'>
+                    <div className={`budget_detail-spent-line ${budget.theme}`}></div>
+                    <div className='budget_detail-spent-content-container'>
+                        <p className='budget_detail-spent-title'>Spent</p>
+                        <p className='budget_detail-spent-amount'>{currencyFormatCents(totalSpent)}</p>
+                    </div>
+                </div>
+
+                <div className='budget_detail-remaining-container'>
+                    <div className='budget_detail-remaining-line'></div>
+                    <div className='budget_detail-remaining-content-container'>
+                        <p className='budget_detail-remaining-title'>Free</p>
+                        <p className='budget_detail-remaining-amount'>{currencyFormatCents(budget.maximum - (totalSpent >= budget.maximum ? budget.maximum : totalSpent))}</p>
+                    </div>
                 </div>
             </div>
-
-            <div>
-                <div></div>
-                <div>
-                    <p>Remaining</p>
-                    <p>{currencyFormatCents(budget.maximum - (totalSpent >= budget.maximum ? budget.maximum : totalSpent))}</p>
+            
+            <div className='budget_detail-spending-container'>
+                <div className='budget_detail-spending-content-container'>
+                    <h3 className='budget_detail-spending-title'>Latest Spending</h3>
+                    <div className='see-details-link-container'>
+                        {/* You may want to have this link send data that will select the transactions for this category only */}
+                        <NavLink to="/transactions" className='see-details-link'>See All</NavLink>
+                        <img className='see-details-caret' src='./assets/icon-caret-right.svg'/>
+                    </div>
+                    
                 </div>
-            </div>
-
-            <div>
-                <div>
-                    <h3>Latest Spending</h3>
-                    <p>See All</p>
-                </div>
-                <div>
+                <div className='budget_detail-spending-transactions'>
                     {renderLastThreeTransactions()}
                 </div>
             </div>
