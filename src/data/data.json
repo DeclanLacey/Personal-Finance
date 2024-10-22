@@ -215,31 +215,31 @@
             "name": "Savings",
             "target": 2000.00,
             "total": 159.00,
-            "theme": "#277C78"
+            "theme": "green"
         },
         {
             "name": "Concert Ticket",
             "target": 150.00,
             "total": 110.00,
-            "theme": "#626070"
+            "theme": "navy"
         },
         {
             "name": "Gift",
             "target": 150.00,
             "total": 110.00,
-            "theme": "#82C9D7"
+            "theme": "red"
         },
         {
             "name": "New Laptop",
             "target": 1000.00,
             "total": 10.00,
-            "theme": "#F2CDAC"
+            "theme": "cyan"
         },
         {
             "name": "Holiday",
             "target": 1440.00,
             "total": 531.00,
-            "theme": "#826CB0"
+            "theme": "purple"
         }
     ]
 }

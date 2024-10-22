@@ -1,0 +1,15 @@
+.pot_detail {
+    background-color: var(--white);
+    padding: 15px;
+    padding-top: 10px;
+    margin-bottom: 20px;
+}
+
+.pot_detail-name {
+    margin-top: 0px;
+}
+
+.pot_detail-color-circle {
+    width: 16px;
+    height: 16px;
+}
