@@ -63,7 +63,7 @@ export default function BudgetDetail({budget, transactions} : Props)  {
             <div className='budget_detail-name-container'>
                 <div className={`budget_detail-colored-circle ${budget.theme}`}></div>
                 <h2 className='budget_detail-name'>{budget.category}</h2>
-                <button className='budget_detail-ellipsis'></button>
+                <button className='detail-ellipsis'></button>
             </div>
             <p className='budget_detail-max'>Maximum of {currencyFormatCents(budget.maximum)}</p>
             <ProgressBar budgetColor={budget.theme} budgetMax={budget.maximum} budgetSpend={totalSpent}></ProgressBar>

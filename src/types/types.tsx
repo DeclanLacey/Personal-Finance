@@ -21,6 +21,17 @@ export type Budget = {
     updatedAt: string
 }
 
+export type Pot = {
+    name: string, 
+    target: number,
+    total: number,
+    theme: string,
+    profileOwner: string,
+    updatedAt: string,
+    createdAt: string,
+    id: string,
+}
+
 export type Balance = {
     current: number,
     income: number,

@@ -16,17 +16,7 @@
   margin: 0px;
 }
 
-.budget_detail-ellipsis {
-    background-image: url("./assets/icon-ellipsis.svg");
-    background-repeat: no-repeat;
-    background-size: 50%;
-    background-position: center;
-    width: 35px;
-    height: 6px;
-    border: none;
-    background-color: transparent;
-    justify-self: end;
-}
+
 
 .budget_detail-colored-circle {
     width: 16px;
