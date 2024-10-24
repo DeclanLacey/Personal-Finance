@@ -23,6 +23,16 @@ export function currencyFormatNoCents(num: number) {
     return formattedNum
 }
 
+export function calculatePercentOfTotal(total: number, num: number) {
+    let percent = (num / total) *100
+
+    if (percent > 100) {
+        return 100
+    }else {
+        return percent
+    }
+}
+
 export function getRecurringBillTotals(transactions: Transaction[]) {
     let paidBills : number = 0
     let totalUpcoming : number = 0

@@ -1,3 +1,4 @@
+import { calculatePercentOfTotal } from "../../utils/utils"
 import "./ProgressBar.css"
 
 interface Props {
@@ -8,17 +9,7 @@ interface Props {
 
 export default function ProgressBar({budgetColor, budgetMax, budgetSpend} : Props) {
 
-    function calculatePercentOfBudgetSpent() {
-        let percentSpent = (budgetSpend / budgetMax) * 100
-
-        if (percentSpent > 100) {
-            return 100
-        }else {
-            return percentSpent
-        }
-    }
-
-    let percentSpent = calculatePercentOfBudgetSpent()
+    let percentSpent = calculatePercentOfTotal(budgetMax, budgetSpend)
 
     return (
         <div className='progress_bar-container'>

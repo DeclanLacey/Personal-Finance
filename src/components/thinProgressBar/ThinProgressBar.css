@@ -1,0 +1,14 @@
+.thin_progress_bar-container {
+    height: 8px;
+    width: 100%;
+    background-color: var(--beige-100);
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.thin_progress_bar-value {
+    height: 100%;
+    border-radius: 5px;
+}

@@ -41,11 +41,14 @@
 .pot_detail-saved-title {
     font-size: 1.4rem;
     color: var(--grey-500);
+    margin-bottom: 18px;
 }
 
 .pot_detail-amount-saved {
     font-size: 3.2rem;
     font-weight: 600;
+    margin: 0px;
+    margin-bottom: 10px;
 }
 
 .pot_detail-percent-saved {
