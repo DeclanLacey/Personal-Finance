@@ -19,6 +19,7 @@ function App() {
   return (
     <div className='app'>
       {/* <button onClick={() => addTransactionData()}>Add transaction data</button> */}
+      {/* You will need to remove the nav component from here, it is showing on the sign in screen, instead put it on each page individually */}
       <Nav></Nav>
       <Routes>
         <Route path="/" element={<SignIn />}/>

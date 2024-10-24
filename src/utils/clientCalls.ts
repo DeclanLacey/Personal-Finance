@@ -37,13 +37,21 @@ export const addTransactionData = async () => {
         }
     }
 
-    // await client.models.Transaction.create(initialData.transactions[0])
-   
-    // console.log("ran")
-    // client.models.Transaction.create(initialData.transactions[0])
 
 }
 
+// addPotData()
+
+// const toBeDeletedTodo: any = {
+//     id: "4190d406-6312-4f53-8a86-47b82744c68a"
+// }
+
+async function deletePot(id: any) {
+    await client.models.Pot.delete(id)
+}
+
+// deletePot(toBeDeletedTodo)
+// deletePot("77fbe775-66a8-4fe6-9e3b-101a963b718e")
 
 export const addBudgetData = async () => {
     for (let i = 0; i < initialData.budgets.length; i++) {

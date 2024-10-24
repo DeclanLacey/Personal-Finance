@@ -40,7 +40,7 @@ export default function PotsOverview() {
       if (index > 3) {return}
       return (
         <div key={index} className='pots_overview-pot'>
-          <div className='pots_overview-colored-line' style={{backgroundColor: `${pot.theme}`}}></div>
+          <div className={`pots_overview-colored-line ${pot.theme}`} ></div>
           <div className='pots_overview-pot-content-container'>
             <p className='pots_overview-pot-name'>{pot.name}</p>
             <p className='pots_overview-pot-total'>{currencyFormatNoCents(pot.total)}</p>

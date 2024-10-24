@@ -14,9 +14,11 @@ export default function PotDetail({pot} : Props) {
     
     return (
         <section className='pot_detail'>
-            <div className='pot_detail-flex-container'>
-                <div className={`pot_detail-color-circle ${pot.theme}`}></div>
-                <h2 className='pot_detail-name'>{pot.name}</h2>
+            <div className='pot_detail-flex-container pot_detail-upper-container'>
+                <div className='pot_detail-name-container'>
+                    <div className={`pot_detail-color-circle ${pot.theme}`}></div>
+                    <h2 className='pot_detail-name'>{pot.name}</h2>
+                </div>
                 <button className='detail-ellipsis'></button>
             </div>
 
@@ -33,8 +35,8 @@ export default function PotDetail({pot} : Props) {
             </div>
 
             <div className='pot_detail-flex-container'>
-                <button className='pot_detail-add-money-btn'>+ Add Money</button>
-                <button className='pot_detail-withdraw-btn'>Withdraw</button>
+                <button className='pot_detail-btn'>+ Add Money</button>
+                <button className='pot_detail-btn'>Withdraw</button>
             </div>
         </section>
     )
