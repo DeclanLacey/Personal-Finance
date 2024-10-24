@@ -49,9 +49,9 @@ export default function Pots() {
 
   return (
     <div className='pots_page-container'>
-      <header>
-        <h1>Pots</h1>
-        <button>+ Add New Pot</button>
+      <header className='pots_page-header'>
+        <h1 className='pots_page-title'>Pots</h1>
+        <button className='pots_page-add-pot-btn'>+ Add New Pot</button>
       </header>
 
       <section>
