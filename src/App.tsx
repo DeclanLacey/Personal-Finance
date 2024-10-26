@@ -6,7 +6,7 @@ import Pots from './pages/pots/Pots'
 import RecurringBills from './pages/recurringBills/RecurringBills'
 import Transactions from './pages/transactions/Transactions'
 import { useState } from 'react'
-import { addTransactionData } from './utils/clientCalls'
+import { addBalanceData, addBudgetData, addPotData, addTransactionData } from './utils/clientCalls'
 import outputs from "../amplify_outputs.json"
 import { Amplify } from 'aws-amplify'
 import Nav from './components/nav/Nav'
@@ -18,7 +18,6 @@ function App() {
 
   return (
     <div className='app'>
-      {/* <button onClick={() => addTransactionData()}>Add transaction data</button> */}
       {/* You will need to remove the nav component from here, it is showing on the sign in screen, instead put it on each page individually */}
       <Nav></Nav>
       <Routes>

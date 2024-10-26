@@ -37,10 +37,10 @@ export default function Overview() {
 
   //// Calls all of the utility functions that connect to the backend
   const getData = async () => {
-    //  console.log(await getBalances())
+     console.log(await getBalances())
      console.log(await getPots())
-    //  console.log(await getBudgets())
-    //  console.log(await getTransactions())
+     console.log(await getBudgets())
+     console.log(await getTransactions())
   }
 
 
