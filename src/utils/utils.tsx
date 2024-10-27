@@ -33,32 +33,6 @@ export function calculatePercentOfTotal(total: number, num: number) {
     }
 }
 
-export function getRecurringBillTotals(transactions: Transaction[]) {
-    let paidBills : number = 0
-    let totalUpcoming : number = 0
-    let dueSoon : number = 0
-    let currentDate = new Date()
-
-    for (let i = 0; i < transactions.length; i++) {
-        let transactionDate = new Date(transactions[i].date)
-        if (transactions[i].recurring === true) {
-            if (transactionDate.getDate() < currentDate.getDate()) {
-                paidBills += transactions[i].amount
-            }else if (transactionDate.getDate() <= currentDate.getDate() || transactionDate.getDate() >= (currentDate.getDate() - 5)) {
-                dueSoon += transactions[i].amount
-                totalUpcoming += transactions[i].amount
-            }else if (transactionDate.getDate() > currentDate.getDate()) {
-                totalUpcoming += transactions[i].amount
-            }else {
-                totalUpcoming += transactions[i].amount
-            }
-        }
-
-    }
-
-    return {paidBills, totalUpcoming, dueSoon}
-}
-
 //// A function to format the date in this format 02 Jul 2024
 export function formatDate(dateString: string) {
     let date = new Date(dateString)
@@ -124,10 +98,11 @@ export function calculateSpendPerBudgetCategory(budgets : Budget[], transactions
     }
   
     for (let i = 0; i < transactionsData.length; i++) {
-      if (budgetNamesAndMax.some(budget => budget.name === transactionsData[i].category)) {
-        const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactionsData[i].category)
-        spendPerBudgetCategory[findIndexResult].amount += transactionsData[i].amount / -1
-      }
+        if (transactionsData[i].amount > 0) continue
+        if (budgetNamesAndMax.some(budget => budget.name === transactionsData[i].category)) {
+            const findIndexResult = spendPerBudgetCategory.findIndex((element : SpendPerBudget) => element?.name === transactionsData[i].category)
+            spendPerBudgetCategory[findIndexResult].amount += transactionsData[i].amount / -1
+        }
     }
 
     return spendPerBudgetCategory
@@ -146,4 +121,53 @@ export function getBudgetCategoryNamesAndMax(budgets : Budget[]) {
 
     }
     return budgetNamesAndMax
+}
+
+///////////////////////////////////////////////////////////////////
+/////////////////// Utils for recurring bills /////////////////////
+///////////////////////////////////////////////////////////////////
+
+export function calculateTotalBills(transactions: Transaction[]) {
+    let totalBills = 0
+    for (let transaction of transactions) {
+        if (transaction.recurring === true) {
+        totalBills += transaction.amount
+        }
+    }
+    return -totalBills
+}
+
+export function getRecurringBillTotals(transactions: Transaction[]) {
+    let paidBills : number = 0
+    let totalUpcoming : number = 0
+    let dueSoon : number = 0
+    let billTypeCounts = {
+        paidBillsCount: 0,
+        totalUpcomingCount: 0,
+        dueSoonCount: 0
+    }
+    let currentDate = new Date()
+
+    for (let i = 0; i < transactions.length; i++) {
+        let transactionDate = new Date(transactions[i].date)
+        if (transactions[i].recurring === true) {
+            if (transactionDate.getDate() < currentDate.getDate()) {
+                paidBills += transactions[i].amount
+                billTypeCounts.paidBillsCount += 1
+            }else if (transactionDate.getDate() <= currentDate.getDate() || transactionDate.getDate() >= (currentDate.getDate() - 5)) {
+                dueSoon += transactions[i].amount
+                totalUpcoming += transactions[i].amount
+                billTypeCounts.totalUpcomingCount += 1
+                billTypeCounts.dueSoonCount += 1
+            }else if (transactionDate.getDate() > currentDate.getDate()) {
+                totalUpcoming += transactions[i].amount
+                billTypeCounts.totalUpcomingCount += 1
+            }else {
+                totalUpcoming += transactions[i].amount
+            }
+        }
+
+    }
+
+    return {paidBills, totalUpcoming, dueSoon, billTypeCounts}
 }

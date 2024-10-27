@@ -1,0 +1,70 @@
+.recurring_bills_page {
+    width: 90%;
+    margin: 0 auto;
+}
+
+.recurring_bills_page-title {
+    font-size: 3.2rem;
+    margin-bottom: 30px;
+    margin-top: 30px;
+}
+
+.recurring_bills_page-bill-icon {
+    width: 30px;
+}
+
+.recurring_bills_page-total-container {
+    background-color: var(--grey-900);
+    color: var(--white);
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    padding: 22px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+}
+
+.recurring_bills_page-total-title {
+    font-size: 1.4rem;
+    font-weight: 500;
+    margin: 0px;
+    margin-bottom: 5px;
+}
+
+.recurring_bills_page-total {
+    font-size: 3.2rem;
+    margin: 0px;
+    font-weight: 600;
+}
+
+.recurring_bills_page-summary-container {
+    background-color: var(--white);
+    border-radius: 10px;
+    padding: 15px;
+    padding-bottom: 5px;
+}
+
+.recurring_bills_page-summary-title {
+    margin-top: 0px;
+}
+
+.recurring_bills_page-flex-container {
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 5px;
+    padding-top: 5px;
+}
+
+.recurring_bills_page-summary-subtitle {
+    font-size: 1.2rem;
+    color: var(--grey-500);
+}
+
+.recurring_bills_page-summary-total {
+    font-weight: 600;
+    font-size: 1.2rem;
+}
+
+.red-text {
+    color: var(--red);
+}

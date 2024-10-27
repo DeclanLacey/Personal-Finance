@@ -1,4 +1,4 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useLocation } from 'react-router'
 import SignIn from './pages/signIn/SignIn'
 import Overview from "./pages/overview/Overview"
 import Budgets from './pages/budgets/Budgets'
@@ -15,11 +15,12 @@ Amplify.configure(outputs)
 
 function App() {
   const [addOwnDataChosen, setAddOwnDataChosen] = useState(false)
+  const location = useLocation()
 
   return (
     <div className='app'>
       {/* You will need to remove the nav component from here, it is showing on the sign in screen, instead put it on each page individually */}
-      <Nav></Nav>
+      {location.pathname === "/" ? <></> : <Nav></Nav>}
       <Routes>
         <Route path="/" element={<SignIn />}/>
         <Route path="/overview" element={<Overview />} />
