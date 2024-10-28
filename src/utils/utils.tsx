@@ -56,6 +56,91 @@ export function setPieChartColorsAndValues(budgets : Budget[] ) {
     return budgetPieChartData
 }
 
+export function sortTransactions(sortSelection: string, selectedTransactions : Transaction[]) {
+    switch (sortSelection) {
+      case "latest":
+        selectedTransactions = selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+        break;
+      case "oldest":
+        selectedTransactions = selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
+        break;
+      case "a-z":
+        selectedTransactions = selectedTransactions?.sort((a, b) => {
+          if (a.name < b.name) return -1
+          if (a.name > b.name) return 1
+          return 0
+        })
+        break;
+      case "z-a":
+        selectedTransactions = selectedTransactions?.sort((a, b) => {
+          if (a.name > b.name) return -1
+          if (a.name < b.name) return 1
+          return 0
+        })
+        break;
+      case "highest":
+        selectedTransactions = selectedTransactions?.sort((a, b) => {
+            if (a.amount > 0 && b.amount > 0) {
+                if ((a.amount* -1) < (b.amount* -1)) return -1
+                if ((a.amount* -1) > (b.amount* -1)) return 1
+            }
+
+            if (a.amount > 0) {
+                if ((a.amount * -1) < b.amount) return -1
+                if ((a.amount * -1) > b.amount) return 1
+            }
+
+            if (b.amount > 0) {
+                if (a.amount < (b.amount * -1)) return -1
+                if (a.amount > (b.amount * -1)) return 1
+            }
+
+            if (a.amount < b.amount ) return -1
+            if (a.amount > b.amount ) return 1
+            return 0
+        })
+        break;
+      case "lowest":
+        selectedTransactions = selectedTransactions?.sort((a, b) => {
+            if (a.amount > 0 && b.amount > 0) {
+                if ((a.amount* -1) > (b.amount* -1)) return -1
+                if ((a.amount* -1) < (b.amount* -1)) return 1
+            }
+
+            if (a.amount > 0) {
+                if ((a.amount * -1) > b.amount) return -1
+                if ((a.amount * -1) < b.amount) return 1
+            }
+
+            if (b.amount > 0) {
+                if (a.amount > (b.amount * -1)) return -1
+                if (a.amount < (b.amount * -1)) return 1
+            }
+        
+            if (a.amount > b.amount) return -1
+            if (a.amount < b.amount) return 1
+
+            return 0
+        })
+        break;
+    }
+
+    return selectedTransactions
+  } 
+
+  export function filterTransactions(filterSelection: string, selectedTransactions : Transaction[]) {
+    if (filterSelection) {
+      selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterSelection)
+    }
+
+    return selectedTransactions
+  }
+
+  export function filterTransactionsBySearch(search : string, selectedTransactions: Transaction[]) {
+    selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.name).toLowerCase().includes(search.toLowerCase()))
+    return selectedTransactions
+  }
+
 /////////////////////////////////////////////////////////////////
 //////////////////// Utils for budgets //////////////////////////
 /////////////////////////////////////////////////////////////////

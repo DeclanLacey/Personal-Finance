@@ -36,6 +36,22 @@ export default function RecurringBills() {
   }
 
   recurringBillTotals = getRecurringBillTotals(transactions)
+
+  function renderRecurringBills() {
+    let sortedTransactions = transactions
+    // sortedTransactions?.sort((a, b) => )
+    const recurringBillElements = transactions?.map((transaction, index) => {
+      if (transaction.recurring === false) return
+
+      return (
+        <div>
+
+        </div>
+      )
+    })
+
+    return recurringBillElements
+  }
   
   return (
     <div className='recurring_bills_page'>
@@ -64,6 +80,13 @@ export default function RecurringBills() {
         <div className='recurring_bills_page-flex-container'>
           <p className='recurring_bills_page-summary-subtitle red-text'>Due Soon</p>
           <p className='recurring_bills_page-summary-total red-text'>{`${recurringBillTotals.billTypeCounts.dueSoonCount} (${currencyFormatCents(-recurringBillTotals.dueSoon)})`}</p>
+        </div>
+      </section>
+
+      <section>
+        <input type='search' />
+        <div>
+          {renderRecurringBills()}
         </div>
       </section>
     </div>

@@ -3,25 +3,25 @@ import Nav from '../../components/nav/Nav'
 import { CiSearch } from "react-icons/ci";
 import "./Transactions.css"
 import { getCategoryNamesFromBudgets, getTransactions } from '../../utils/clientCalls';
-import { currencyFormatCents, formatDate } from '../../utils/utils';
+import { currencyFormatCents, filterTransactions, filterTransactionsBySearch, formatDate, sortTransactions } from '../../utils/utils';
 import ReactPaginate from 'react-paginate';
 import { Transaction } from '../../types/types';
 
 
 
 export default function Transactions() {
-  const [categoryNames, setCategoryNames] = useState<String[]>()
+  const [categoryNames, setCategoryNames] = useState<string[]>()
   const [transactions, setTransactions] = useState<Transaction[]>([])
-  const [sortBySelection, setSortBySelection] = useState<String>("latest")
-  const [filterBySelection, setFilterBySelection] = useState<String>("")
-  const [currentSearch, setCurrentSearch] = useState<String>("")
+  const [sortBySelection, setSortBySelection] = useState<string>("latest")
+  const [filterBySelection, setFilterBySelection] = useState<string>("")
+  const [currentSearch, setCurrentSearch] = useState<string>("")
   const [loading, setLoading] = useState<Boolean>(false)
 
   useEffect(() => {
     async function getData() {
       try {
         setLoading(true)
-        const categoryNameData : String[] | undefined = await getCategoryNamesFromBudgets()
+        const categoryNameData : string[] | undefined = await getCategoryNamesFromBudgets()
         //// This line below gives an error when you try to use the type of Transaction[]
         const transactionData : any = await getTransactions()
         setCategoryNames(categoryNameData)
@@ -58,61 +58,7 @@ export default function Transactions() {
 
   function filterAndSortData() : Transaction[] {
     let selectedTransactions: Transaction[] = transactions 
-
-    function filterTransactions() {
-      if (filterBySelection) {
-        selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterBySelection)
-      }
-    }
-
-    function sortTransactions() {
-      switch (sortBySelection) {
-        case "latest":
-          selectedTransactions = selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-          break;
-        case "oldest":
-          selectedTransactions = selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
-          break;
-        case "a-z":
-          selectedTransactions = selectedTransactions?.sort((a, b) => {
-            if (a.name < b.name) return -1
-            if (a.name > b.name) return 1
-            return 0
-          })
-          break;
-        case "z-a":
-          selectedTransactions = selectedTransactions?.sort((a, b) => {
-            if (a.name > b.name) return -1
-            if (a.name < b.name) return 1
-            return 0
-          })
-          break;
-        case "highest":
-          selectedTransactions = selectedTransactions?.sort((a, b) => {
-            if (a.amount < b.amount) return -1
-            if (a.amount > b.amount) return 1
-            return 0
-          })
-          break;
-        case "lowest":
-          selectedTransactions = selectedTransactions?.sort((a, b) => {
-            if (a.amount > b.amount) return -1
-            if (a.amount < b.amount) return 1
-            return 0
-          })
-          break;
-      }
-    } 
-
-    function filterTransactionsBySearch() {
-      selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.name).toLowerCase().includes(currentSearch.toLowerCase()))
-    }
-
-    filterTransactions()
-    sortTransactions()
-    filterTransactionsBySearch()
-
-    return selectedTransactions
+    return filterTransactionsBySearch(currentSearch, sortTransactions(sortBySelection, filterTransactions(filterBySelection, selectedTransactions)))
   }
 
   function renderTransactions(currentTransactions: Transaction[]) {
