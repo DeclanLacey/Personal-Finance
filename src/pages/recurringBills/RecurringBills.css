@@ -1,6 +1,7 @@
 .recurring_bills_page {
     width: 90%;
     margin: 0 auto;
+    margin-bottom: 80px;
 }
 
 .recurring_bills_page-title {
@@ -67,4 +68,8 @@
 
 .red-text {
     color: var(--red);
+}
+
+.recurring_bills-bill-img {
+    width: 30px;
 }

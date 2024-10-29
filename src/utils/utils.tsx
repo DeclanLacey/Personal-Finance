@@ -1,3 +1,4 @@
+import { dateToCloudFormation } from "aws-cdk-lib"
 import { Budget, SpendPerBudget, Transaction } from "../types/types"
 
 export function currencyFormatCents(num: number) {
@@ -65,21 +66,21 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
         selectedTransactions = selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
         break;
       case "a-z":
-        selectedTransactions = selectedTransactions?.sort((a, b) => {
+        selectedTransactions = selectedTransactions.sort((a, b) => {
           if (a.name < b.name) return -1
           if (a.name > b.name) return 1
           return 0
         })
         break;
       case "z-a":
-        selectedTransactions = selectedTransactions?.sort((a, b) => {
+        selectedTransactions = selectedTransactions.sort((a, b) => {
           if (a.name > b.name) return -1
           if (a.name < b.name) return 1
           return 0
         })
         break;
       case "highest":
-        selectedTransactions = selectedTransactions?.sort((a, b) => {
+        selectedTransactions = selectedTransactions.sort((a, b) => {
             if (a.amount > 0 && b.amount > 0) {
                 if ((a.amount* -1) < (b.amount* -1)) return -1
                 if ((a.amount* -1) > (b.amount* -1)) return 1
@@ -101,7 +102,7 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
         })
         break;
       case "lowest":
-        selectedTransactions = selectedTransactions?.sort((a, b) => {
+        selectedTransactions = selectedTransactions.sort((a, b) => {
             if (a.amount > 0 && b.amount > 0) {
                 if ((a.amount* -1) > (b.amount* -1)) return -1
                 if ((a.amount* -1) < (b.amount* -1)) return 1
@@ -140,6 +141,21 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
     selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.name).toLowerCase().includes(search.toLowerCase()))
     return selectedTransactions
   }
+
+  export function getOrdinalSuffix(i: number) {
+    let j = i % 10,
+        k = i % 100;
+    if (j === 1 && k !== 11) {
+        return i + "st";
+    }
+    if (j === 2 && k !== 12) {
+        return i + "nd";
+    }
+    if (j === 3 && k !== 13) {
+        return i + "rd";
+    }
+    return i + "th";
+}
 
 /////////////////////////////////////////////////////////////////
 //////////////////// Utils for budgets //////////////////////////

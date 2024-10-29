@@ -1,12 +1,16 @@
 import { useEffect, useState } from 'react'
 import Nav from '../../components/nav/Nav'
 import { getTransactions } from '../../utils/clientCalls'
-import { calculateTotalBills, currencyFormatCents, getRecurringBillTotals } from '../../utils/utils'
+import { calculateTotalBills, currencyFormatCents, filterTransactionsBySearch, getOrdinalSuffix, getRecurringBillTotals, sortTransactions } from '../../utils/utils'
 import "./RecurringBills.css"
+import { Transaction } from '../../types/types'
+import { CiSearch } from 'react-icons/ci'
 
 export default function RecurringBills() {
   const [transactions, setTransactions] = useState<any[]>()
   const [loading, setLoading] = useState<Boolean>(false)
+  const [sortBySelection, setSortBySelection] = useState<string>("latest")
+  const [currentSearch, setCurrentSearch] = useState<string>("")
   let recurringBillTotals
 
   useEffect(() => {
@@ -37,20 +41,53 @@ export default function RecurringBills() {
 
   recurringBillTotals = getRecurringBillTotals(transactions)
 
-  function renderRecurringBills() {
-    let sortedTransactions = transactions
-    // sortedTransactions?.sort((a, b) => )
-    const recurringBillElements = transactions?.map((transaction, index) => {
+  function renderRecurringBills(recurringTransactions: Transaction[]) {
+    const sortedTransactions = sortBySelection === "latest" || sortBySelection === "oldest" 
+      ? 
+      filterTransactionsBySearch(currentSearch, sortTransactionsByDay(sortBySelection, recurringTransactions)) 
+      : 
+      filterTransactionsBySearch(currentSearch, sortTransactions(sortBySelection, recurringTransactions))
+
+    const currentBills : string[] = []
+
+    const recurringBillElements = sortedTransactions.map((transaction, index) => {
       if (transaction.recurring === false) return
-
+      if (currentBills.includes(transaction.name)) return
+      currentBills.push(transaction.name)
       return (
-        <div>
+        <div key={index}>
+          <div>
+            <img className='recurring_bills-bill-img' src={`${transaction.avatar}`}/>
+            <p>{transaction.name}</p>
+          </div>
 
+          <div>
+            <p>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
+          </div>
         </div>
       )
     })
 
+
     return recurringBillElements
+  }
+
+  function changeSort(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setSortBySelection((event.target.value).toString())
+  }
+
+  function changeSearchInput(event: { target: { value: React.SetStateAction<string>; }; }) {
+    setCurrentSearch((event.target.value).toString())
+  }
+
+  function sortTransactionsByDay(selection: string, selectedTransactions: Transaction[]) {
+    if (selection === "oldest") {
+      selectedTransactions = selectedTransactions.sort((a, b) => Number(b.date.slice(-2)) - Number(a.date.slice(-2)));
+    }else if (selection === "latest") {
+      selectedTransactions = selectedTransactions.sort((a, b) => Number(a.date.slice(-2)) - Number(b.date.slice(-2)));
+    }
+
+    return selectedTransactions
   }
   
   return (
@@ -84,9 +121,29 @@ export default function RecurringBills() {
       </section>
 
       <section>
-        <input type='search' />
+        <form>
+          <div className=''>
+            <input placeholder='Search Transaction' className='' onChange={changeSearchInput} type='text' />
+            <CiSearch className='' />
+          </div>
+
+          <div className=''>
+            <div className=''>
+              <label className=''>Sort by</label>
+              <select className='' name='sort' onChange={changeSort}>
+                <option className='' value="latest">Latest</option>
+                <option className='' value="oldest">Oldest</option>
+                <option className='' value="a-z">A to Z</option>
+                <option className='' value="z-a">Z to A</option>
+                <option className='' value="highest">Highest</option>
+                <option className='' value="lowest">Lowest</option>
+              </select>
+            </div>
+          </div>
+          
+        </form>
         <div>
-          {renderRecurringBills()}
+          {transactions ? renderRecurringBills(transactions) : <></>}
         </div>
       </section>
     </div>
