@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Nav from '../../components/nav/Nav'
 import { getTransactions } from '../../utils/clientCalls'
 import { calculateTotalBills, currencyFormatCents, filterTransactionsBySearch, getOrdinalSuffix, getRecurringBillTotals, sortTransactions } from '../../utils/utils'
 import "./RecurringBills.css"
@@ -55,14 +54,15 @@ export default function RecurringBills() {
       if (currentBills.includes(transaction.name)) return
       currentBills.push(transaction.name)
       return (
-        <div key={index}>
-          <div>
-            <img className='recurring_bills-bill-img' src={`${transaction.avatar}`}/>
-            <p>{transaction.name}</p>
+        <div className={`recurring_bills_page-bill ${index === sortedTransactions.length - 1 ? "" : "bill-border-bottom"}`} key={index}>
+          <div className='recurring_bills_page-bill-name-container'>
+            <img className='recurring_bills_page-bill-img' src={`${transaction.avatar}`}/>
+            <p className='recurring_bills_page-bill-name'>{transaction.name}</p>
           </div>
 
-          <div>
-            <p>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
+          <div className='recurring_bills_page-bill-amount-container'>
+            <p className='recurring_bills_page-date'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
+            <p className='recurring_bills_page-bill-amount'>{currencyFormatCents(-transaction.amount)}</p>
           </div>
         </div>
       )
@@ -120,26 +120,26 @@ export default function RecurringBills() {
         </div>
       </section>
 
-      <section>
-        <form>
-          <div className=''>
-            <input placeholder='Search Transaction' className='' onChange={changeSearchInput} type='text' />
-            <CiSearch className='' />
+      <section className='recurring_bills_page-transaction-section'>
+        <form className='recurring_bills_page-search-form'>
+          <div className='recurring_bills_page-searchbar-container'>
+            <input placeholder='Search Transaction' className='recurring_bills_page-searchbar' onChange={changeSearchInput} type='text' />
+            <CiSearch className='recurring_bills_page-search-icon' />
           </div>
 
-          <div className=''>
-            <div className=''>
-              <label className=''>Sort by</label>
-              <select className='' name='sort' onChange={changeSort}>
-                <option className='' value="latest">Latest</option>
-                <option className='' value="oldest">Oldest</option>
-                <option className='' value="a-z">A to Z</option>
-                <option className='' value="z-a">Z to A</option>
-                <option className='' value="highest">Highest</option>
-                <option className='' value="lowest">Lowest</option>
-              </select>
-            </div>
+       
+          <div className='recurring_bills_page-sort-container'>
+            <label className='recurring_bills_page-select-label'>Sort by</label>
+            <select className='recurring_bills_page-select' name='sort' onChange={changeSort}>
+              <option className='recurring_bills_page-select-option' value="latest">Latest</option>
+              <option className='recurring_bills_page-select-option' value="oldest">Oldest</option>
+              <option className='recurring_bills_page-select-option' value="a-z">A to Z</option>
+              <option className='recurring_bills_page-select-option' value="z-a">Z to A</option>
+              <option className='recurring_bills_page-select-option' value="highest">Highest</option>
+              <option className='recurring_bills_page-select-option' value="lowest">Lowest</option>
+            </select>
           </div>
+        
           
         </form>
         <div>

@@ -43,7 +43,7 @@
     -moz-appearance: none;
     background: url("./assets/icon-caret-down.svg");
     background-repeat: no-repeat;
-    background-position-x: 90%;
+    background-position-x: 95%;
     background-position-y: 50%;
 }
 
@@ -60,6 +60,7 @@ select::-ms-expand {
 
 .transactions-select-label {
     color: var(--grey-500);
+    font-size: 1.4rem;
 }
 
 .transactions-sort-option {
@@ -93,7 +94,7 @@ select::-ms-expand {
     right: 10px;
     width: 16px;
     height: 16px;
-    top: 30%;
+    top: 25%;
 }
 
 .transactions-search-bar-container {
