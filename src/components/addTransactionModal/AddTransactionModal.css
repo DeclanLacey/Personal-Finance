@@ -1,0 +1,11 @@
+.add_transaction {
+    z-index: 150;
+    background-color: var(--white);
+    position: absolute;
+    left: 0; 
+    right: 0; 
+    margin-inline: auto; 
+    width: 92%;
+    max-width: 600px;
+    top: 20%
+}

@@ -6,7 +6,7 @@
     },
     "transactions": [
         {
-            "avatar": "./assets/avatars/savory-bites-bistro.jpg",
+            "avatar": "./assets/avatars/dining-out.jpg",
             "name": "Savory Bites Bistro",
             "category": "Dining Out",
             "date": "2024-08-19",
@@ -14,7 +14,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/urban-services-hub.jpg",
+            "avatar": "./assets/avatars/general.jpg",
             "name": "Urban Services Hub",
             "category": "General",
             "date": "2024-08-17",
@@ -22,7 +22,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/pixel-playground.jpg",
+            "avatar": "./assets/avatars/entertainment.jpg",
             "name": "Pixel Playground",
             "category": "Entertainment",
             "date": "2024-08-11",
@@ -30,7 +30,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/green-plate-eatery.jpg",
+            "avatar": "./assets/avatars/groceries.jpg",
             "name": "Green Plate Eatery",
             "category": "Groceries",
             "date": "2024-08-06",
@@ -38,7 +38,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/elevate-education.jpg",
+            "avatar": "./assets/avatars/education.jpg",
             "name": "Elevate Education",
             "category": "Education",
             "date": "2024-08-04",
@@ -46,7 +46,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/serenity-spa-and-wellness.jpg",
+            "avatar": "./assets/avatars/personal-care.jpg",
             "name": "Serenity Spa & Wellness",
             "category": "Personal Care",
             "date": "2024-08-03",
@@ -54,7 +54,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/spark-electric-solutions.jpg",
+            "avatar": "./assets/avatars/bills.jpg",
             "name": "Spark Electric Solutions",
             "category": "Bills",
             "date": "2024-08-02",
@@ -62,7 +62,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/swift-ride-share.jpg",
+            "avatar": "./assets/avatars/transportation.jpg",
             "name": "Swift Ride Share",
             "category": "Transportation",
             "date": "2024-08-01",
@@ -70,7 +70,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/aqua-flow-utilities.jpg",
+            "avatar": "./assets/avatars/bills.jpg",
             "name": "Aqua Flow Utilities",
             "category": "Bills",
             "date": "2024-07-30",
@@ -78,7 +78,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/ecofuel-energy.jpg",
+            "avatar": "./assets/avatars/bills.jpg",
             "name": "EcoFuel Energy",
             "category": "Bills",
             "date": "2024-07-29",
@@ -86,7 +86,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/flavor-fiesta.jpg",
+            "avatar": "./assets/avatars/dining-out.jpg",
             "name": "Flavor Fiesta",
             "category": "Dining Out",
             "date": "2024-07-27",
@@ -94,7 +94,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/buzz-marketing-group.jpg",
+            "avatar": "./assets/avatars/general.jpg",
             "name": "Buzz Marketing Group",
             "category": "General",
             "date": "2024-07-26",
@@ -102,7 +102,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/technova-innovations.jpg",
+            "avatar": "./assets/avatars/shopping.jpg",
             "name": "TechNova Innovations",
             "category": "Shopping",
             "date": "2024-07-25",
@@ -110,7 +110,7 @@
             "recurring": false
         },
         {
-            "avatar": "./assets/avatars/bytewise.jpg",
+            "avatar": "./assets/avatars/lifestyle.jpg",
             "name": "ByteWise",
             "category": "Lifestyle",
             "date": "2024-07-23",
@@ -118,7 +118,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/nimbus-data-storage.jpg",
+            "avatar": "./assets/avatars/bills.jpg",
             "name": "Nimbus Data Storage",
             "category": "Bills",
             "date": "2024-07-21",
@@ -126,7 +126,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/elevate-education.jpg",
+            "avatar": "./assets/avatars/education.jpg",
             "name": "Elevate Education",
             "category": "Education",
             "date": "2024-07-05",
@@ -134,7 +134,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/serenity-spa-and-wellness.jpg",
+            "avatar": "./assets/avatars/personal-care.jpg",
             "name": "Serenity Spa & Wellness",
             "category": "Personal Care",
             "date": "2024-07-03",
@@ -142,7 +142,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/spark-electric-solutions.jpg",
+            "avatar": "./assets/avatars/bills.jpg",
             "name": "Spark Electric Solutions",
             "category": "Bills",
             "date": "2024-07-02",
@@ -150,7 +150,7 @@
             "recurring": true
         },
         {
-            "avatar": "./assets/avatars/swift-ride-share.jpg",
+            "avatar": "./assets/avatars/transportation.jpg",
             "name": "Swift Ride Share",
             "category": "Transportation",
             "date": "2024-07-02",

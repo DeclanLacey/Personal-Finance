@@ -5,6 +5,7 @@ import { getCategoryNamesFromBudgets, getTransactions } from '../../utils/client
 import { currencyFormatCents, filterTransactions, filterTransactionsBySearch, formatDate, sortTransactions } from '../../utils/utils';
 import ReactPaginate from 'react-paginate';
 import { Transaction } from '../../types/types';
+import AddTransactionModal from '../../components/addTransactionModal/AddTransactionModal';
 
 
 
@@ -15,6 +16,7 @@ export default function Transactions() {
   const [filterBySelection, setFilterBySelection] = useState<string>("")
   const [currentSearch, setCurrentSearch] = useState<string>("")
   const [loading, setLoading] = useState<Boolean>(false)
+  const [showAddTransactionModal, setShowTransactionModal] = useState<Boolean>(false)
 
   useEffect(() => {
     async function getData() {
@@ -155,8 +157,16 @@ export default function Transactions() {
     <div className='transactions-page-container'>
       <div className='transactions-title-container'>
         <h1 className='transactions-title'>Transactions</h1>
-        <button className='black-add-btn'>+ Add New Transaction</button>
+        <button onClick={() => setShowTransactionModal(true)} className='black-add-btn'>+ Add New Transaction</button>
       </div>
+
+      {
+        showAddTransactionModal &&
+          <>
+            <AddTransactionModal setShowTransactionModal={setShowTransactionModal}></AddTransactionModal>
+          </>
+      }
+      
       
       <section className='transactions-content-container'>
         <form className='transactions-form'>
