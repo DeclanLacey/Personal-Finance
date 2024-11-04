@@ -15,17 +15,6 @@
     font-size: 3.2rem;
 }
 
-.budgets_page-add-budget-btn {
-    width: 155px;
-    height: 50px;
-    font-size: 1.4rem;
-    border: none;
-    border-radius: 10px;
-    background-color: var(--black);
-    font-weight: 600;
-    color: var(--white);
-}
-
 .budgets_page-chart-overview-container {
     background-color: white;
     padding: 30px 15px 5px 15px;

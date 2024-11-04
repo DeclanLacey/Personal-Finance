@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react'
-import Nav from '../../components/nav/Nav'
 import { CiSearch } from "react-icons/ci";
 import "./Transactions.css"
 import { getCategoryNamesFromBudgets, getTransactions } from '../../utils/clientCalls';
@@ -154,7 +153,11 @@ export default function Transactions() {
 
   return (
     <div className='transactions-page-container'>
-      <h1 className='transactions-title'>Transactions</h1>
+      <div>
+        <h1 className='transactions-title'>Transactions</h1>
+        <button className='black-add-btn'>+ Add New Budget</button>
+      </div>
+      
       <section className='transactions-content-container'>
         <form className='transactions-form'>
           <div className='transactions-search-bar-container'>

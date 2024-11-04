@@ -99,7 +99,7 @@ export default function Budgets() {
     <div className='budgets_page-container'>
       <div className='budgets_page-title-container'>
         <h1 className='budgets_page-title'> Budgets </h1>
-        <button className='budgets_page-add-budget-btn'>+ Add New Budget</button>
+        <button className='black-add-btn'>+ Add New Budget</button>
       </div>
       
       <section className='budgets_page-chart-overview-container'>
