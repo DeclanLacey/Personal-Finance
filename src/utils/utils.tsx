@@ -1,4 +1,3 @@
-import { dateToCloudFormation } from "aws-cdk-lib"
 import { Budget, SpendPerBudget, Transaction } from "../types/types"
 
 export function currencyFormatCents(num: number) {
@@ -230,9 +229,16 @@ export function getBudgetCategoryNamesAndMax(budgets : Budget[]) {
 
 export function calculateTotalBills(transactions: Transaction[]) {
     let totalBills = 0
+    let recurringTransactions: Transaction[] = []
+
     for (let transaction of transactions) {
         if (transaction.recurring === true) {
-        totalBills += transaction.amount
+            if (recurringTransactions.some(t => t.name === transaction.name && t.amount === transaction.amount)) {
+                continue
+            }else {
+                recurringTransactions.push(transaction)
+                totalBills += transaction.amount
+            }
         }
     }
     return -totalBills
@@ -247,28 +253,36 @@ export function getRecurringBillTotals(transactions: Transaction[]) {
         totalUpcomingCount: 0,
         dueSoonCount: 0
     }
-    let currentDate = new Date()
+    let currentDate = new Date().getDate()
+    let recurringTransactions: Transaction[] = []
+    transactions.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
 
-    for (let i = 0; i < transactions.length; i++) {
-        let transactionDate = new Date(transactions[i].date)
-        if (transactions[i].recurring === true) {
-            if (transactionDate.getDate() < currentDate.getDate()) {
-                paidBills += transactions[i].amount
-                billTypeCounts.paidBillsCount += 1
-            }else if (transactionDate.getDate() <= currentDate.getDate() || transactionDate.getDate() >= (currentDate.getDate() - 5)) {
-                dueSoon += transactions[i].amount
-                totalUpcoming += transactions[i].amount
-                billTypeCounts.totalUpcomingCount += 1
-                billTypeCounts.dueSoonCount += 1
-            }else if (transactionDate.getDate() > currentDate.getDate()) {
-                totalUpcoming += transactions[i].amount
-                billTypeCounts.totalUpcomingCount += 1
+    for (let transaction of transactions) {
+        if (transaction.recurring === true) {
+            if (recurringTransactions.some(t => t.name === transaction.name && t.amount === transaction.amount)) {
+                continue
             }else {
-                totalUpcoming += transactions[i].amount
+                recurringTransactions.push(transaction)
             }
         }
+    }
 
+    for (let i = 0; i < recurringTransactions.length; i++) {
+        let transactionDay = new Date(recurringTransactions[i].date).getDate()
+
+        if (transactionDay <= currentDate) {
+            paidBills += recurringTransactions[i].amount
+            billTypeCounts.paidBillsCount += 1
+        }else if (transactionDay > currentDate) {
+            if (transactionDay - currentDate <= 7) {
+                dueSoon += recurringTransactions[i].amount
+                billTypeCounts.dueSoonCount += 1
+            }
+            totalUpcoming += recurringTransactions[i].amount
+            billTypeCounts.totalUpcomingCount += 1
+        }
     }
 
     return {paidBills, totalUpcoming, dueSoon, billTypeCounts}
 }
+

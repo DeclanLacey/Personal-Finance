@@ -28,6 +28,10 @@ export default function RecurringBills() {
     getData()
   }, [])
 
+  useEffect(() => {
+    
+  }, [transactions])
+
   /// Checks if the data is currently loading
   if (loading) {
     return <div></div>
@@ -89,6 +93,8 @@ export default function RecurringBills() {
 
     return selectedTransactions
   }
+
+  
   
   return (
     <div className='recurring_bills_page'>

@@ -8,6 +8,8 @@ import "./RecurringBillsOverview.css"
 export default function RecurringBillsOverview() {
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [loading, setLoading] = useState<Boolean>()
+  let recurringBillTotals
+
 
   useEffect(() => {
     ///// Calls utility function to get data from backend
@@ -35,6 +37,9 @@ export default function RecurringBillsOverview() {
     return <div></div>
   }
 
+  recurringBillTotals = getRecurringBillTotals(transactions)
+
+
   return (
     <section className='recurring_bills-container'>
       <div className='recurring_bills-title-container'>
@@ -48,17 +53,17 @@ export default function RecurringBillsOverview() {
       <div className='recurring_bills-content-container'>
         <div className='recurring_bills-total-container green-left-border'>
           <p className='recurring_bills-total-title'>Paid Bills</p>
-          <p className='recurring_bills-total'>{currencyFormatCents(getRecurringBillTotals(transactions).paidBills / -1)}</p>
+          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.paidBills)}</p>
         </div>
 
         <div className='recurring_bills-total-container yellow-left-border'>
           <p className='recurring_bills-total-title'>Total Upcoming</p>
-          <p className='recurring_bills-total'>{currencyFormatCents(getRecurringBillTotals(transactions).totalUpcoming / -1)}</p>
+          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.totalUpcoming)}</p>
         </div>
 
         <div className='recurring_bills-total-container cyan-left-border'>
           <p className='recurring_bills-total-title'>Due Soon</p>
-          <p className='recurring_bills-total'>{currencyFormatCents(getRecurringBillTotals(transactions).dueSoon / -1)}</p>
+          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.dueSoon)}</p>
         </div>
       </div>
     </section>
