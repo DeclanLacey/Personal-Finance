@@ -16,7 +16,7 @@ export default function Transactions() {
   const [filterBySelection, setFilterBySelection] = useState<string>("")
   const [currentSearch, setCurrentSearch] = useState<string>("")
   const [loading, setLoading] = useState<Boolean>(false)
-  const [showAddTransactionModal, setShowTransactionModal] = useState<Boolean>(false)
+  const [showAddTransactionModal, setShowTransactionModal] = useState<Boolean>(true)
 
   useEffect(() => {
     async function getData() {

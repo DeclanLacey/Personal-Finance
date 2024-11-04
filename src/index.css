@@ -226,8 +226,62 @@ cursor: pointer;
 .page-cover {
   background-color: rgba(0, 0, 0, .4);
   height: 100%;
-  position: absolute;
+  position: fixed;
   top:0px;
   width: 100%;
   z-index: 100;
+}
+
+.date-input{
+  padding-right: 10px;
+  z-index: 1;
+  position: relative;
+}
+
+.date-input::-webkit-datetime-edit {
+  z-index: 1;
+  min-width: fit-content;
+}
+
+.date-input::-webkit-calendar-picker-indicator {
+  padding-left: 120px;
+  padding-left: 90%;
+  padding-top: 14px;
+  padding-bottom: 14px;
+  color: transparent;
+  background: none;
+  z-index: 1;
+}
+
+input[type="date"]:before {
+  color: transparent;
+  background: none;
+  display: block;
+  font-family: 'FontAwesome';
+  content: '\f073';
+  /* This is the calendar icon in FontAwesome */
+  width: 15px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  color: #999;
+}
+
+.close-modal-btn {
+  width: 25px;
+}
+
+/* ///////////////////// hover //////////////////////// */
+
+/* .date-input:hover {
+  cursor: pointer;
+} */
+
+.date-input::-webkit-calendar-picker-indicator:hover {
+  cursor: pointer;
+}
+
+.close-modal-btn:hover {
+  cursor: pointer;
 }

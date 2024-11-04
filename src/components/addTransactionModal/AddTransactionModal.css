@@ -1,11 +1,90 @@
 .add_transaction {
     z-index: 150;
     background-color: var(--white);
-    position: absolute;
+    position: fixed;
     left: 0; 
     right: 0; 
     margin-inline: auto; 
     width: 92%;
     max-width: 600px;
-    top: 20%
+    top: 20%;
+    padding: 15px;
+    border-radius: 10px;
+}
+
+.add_transaction-input-container {
+    display: flex;
+    flex-direction: column;
+}
+
+.add_transaction-selection-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add_transaction-radio-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.add_transaction-outer-radio-container {
+    display: flex;
+    justify-content: space-between;
+    width: 45%;
+    padding-right: 20px;
+}
+
+.add_transaction-recurring-container {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.add_transaction-title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+} 
+
+.add_transaction-title {
+    font-size: 2rem;
+}
+
+.add_transaction-label {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--grey-500);
+    margin-bottom: 3px;
+}
+
+input[type='checkbox'] {
+    width: 25px;
+    height: 25px;
+    margin: 0 auto;
+}
+
+input[type='radio'] {
+    width: 25px;
+    height: 25px;
+}
+
+.amount-input-container {
+    position: relative;
+}
+
+.dollar-sign {
+    position: absolute;
+    left: 10px; /* Adjust as needed */
+    top: 42%;
+    margin: 0px;
+    transform: translateY(-50%);
+    pointer-events: none; /* Prevents the span from capturing clicks */
+    font-size: 1.4rem
+}
+
+.add_transaction-amount-input {
+    padding-left: 25px!important;
+    
 }
