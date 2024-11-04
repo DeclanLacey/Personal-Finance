@@ -196,3 +196,29 @@ cursor: pointer;
     font-weight: 600;
     color: var(--white);
 }
+
+.rounded-select-input {
+  height: 45px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  border: 1px solid var(--grey-500);
+  margin-bottom: 10px;
+  padding-left: 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: url("./assets/icon-caret-down.svg");
+  background-repeat: no-repeat;
+  background-position-x: 95%;
+  background-position-y: 50%;
+}
+
+.rounded-input {
+  height: 45px;
+  font-size: 1.4rem;
+  border-radius: 10px;
+  border: 1px solid var(--grey-500);
+  margin-bottom: 10px;
+  padding-left: 15px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}

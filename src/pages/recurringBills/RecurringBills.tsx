@@ -129,14 +129,14 @@ export default function RecurringBills() {
       <section className='recurring_bills_page-transaction-section'>
         <form className='recurring_bills_page-search-form'>
           <div className='recurring_bills_page-searchbar-container'>
-            <input placeholder='Search Transaction' className='recurring_bills_page-searchbar' onChange={changeSearchInput} type='text' />
+            <input placeholder='Search Transaction' className='recurring_bills_page-searchbar rounded-input' onChange={changeSearchInput} type='text' />
             <CiSearch className='recurring_bills_page-search-icon' />
           </div>
 
        
           <div className='recurring_bills_page-sort-container'>
             <label className='recurring_bills_page-select-label'>Sort by</label>
-            <select className='recurring_bills_page-select' name='sort' onChange={changeSort}>
+            <select className='recurring_bills_page-select rounded-select-input' name='sort' onChange={changeSort}>
               <option className='recurring_bills_page-select-option' value="latest">Latest</option>
               <option className='recurring_bills_page-select-option' value="oldest">Oldest</option>
               <option className='recurring_bills_page-select-option' value="a-z">A to Z</option>

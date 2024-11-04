@@ -91,13 +91,6 @@
 
 .recurring_bills_page-searchbar {
     width: 100%;
-    height: 45px;
-    border-radius: 10px;
-    border: 1px solid var(--grey-500);
-    padding-left: 15px;
-    padding-right: 30px;
-    font-size: 1.4rem;
-    margin-bottom: 10px;
 }
 
 .recurring_bills_page-searchbar::placeholder {
@@ -132,18 +125,6 @@
 
 .recurring_bills_page-select {
     width: 80%;
-    margin-left: 10px;
-    height: 45px;
-    font-size: 1.4rem;
-    border-radius: 10px;
-    border: 1px solid var(--grey-500);
-    padding-left: 15px;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    background: url("./assets/icon-caret-down.svg");
-    background-repeat: no-repeat;
-    background-position-x: 95%;
-    background-position-y: 50%;
 }
 
 .recurring_bills_page-select-option {

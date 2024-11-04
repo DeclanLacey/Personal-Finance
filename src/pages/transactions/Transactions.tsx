@@ -153,22 +153,22 @@ export default function Transactions() {
 
   return (
     <div className='transactions-page-container'>
-      <div>
+      <div className='transactions-title-container'>
         <h1 className='transactions-title'>Transactions</h1>
-        <button className='black-add-btn'>+ Add New Budget</button>
+        <button className='black-add-btn'>+ Add New Transaction</button>
       </div>
       
       <section className='transactions-content-container'>
         <form className='transactions-form'>
           <div className='transactions-search-bar-container'>
-            <input placeholder='Search Transaction' className='transactions-search-bar' onChange={changeSearchInput} type='text' />
+            <input placeholder='Search Transaction' className='rounded-input transactions-search-bar' onChange={changeSearchInput} type='text' />
             <CiSearch className='transactions-search-bar-icon' />
           </div>
 
           <div className='transactions-select-inputs-container'>
             <div className='transactions-sort-select-container'>
               <label className='transactions-select-label'>Sort by</label>
-              <select className='transactions-sort-select' name='sort' onChange={changeSort}>
+              <select className='transactions-sort-select rounded-select-input' name='sort' onChange={changeSort}>
                 <option className='transactions-sort-option' value="latest">Latest</option>
                 <option className='transactions-sort-option' value="oldest">Oldest</option>
                 <option className='transactions-sort-option' value="a-z">A to Z</option>
@@ -180,7 +180,7 @@ export default function Transactions() {
 
             <div className='transactions-filter-select-container'>
               <label className='transactions-select-label'>Category</label>
-              <select className='transactions-filter-select' name="filter" onChange={changeFilter}>
+              <select className='transactions-filter-select rounded-select-input' name="filter" onChange={changeFilter}>
                 <option className='transactions-filter-option' value=""> All Transactions</option>
                 {renderCategoryNameOptions()}
               </select>
