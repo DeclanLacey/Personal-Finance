@@ -72,12 +72,13 @@ input[type='radio'] {
 
 .amount-input-container {
     position: relative;
+    width: 48%;
 }
 
 .dollar-sign {
     position: absolute;
     left: 10px; /* Adjust as needed */
-    top: 42%;
+    top: 57%;
     margin: 0px;
     transform: translateY(-50%);
     pointer-events: none; /* Prevents the span from capturing clicks */
@@ -86,5 +87,24 @@ input[type='radio'] {
 
 .add_transaction-amount-input {
     padding-left: 25px!important;
-    
+    width: 100%;
+    margin-top: 3px;
+}
+
+.add_transaction-add-btn {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.add_transaction-date-amount {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.add_transaction-date-container {
+    width: 48%;
+
 }

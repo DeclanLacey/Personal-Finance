@@ -1,4 +1,3 @@
-import { CheckboxField } from "@aws-amplify/ui-react"
 import "./AddTransactionModal.css"
 
 interface Props {
@@ -33,19 +32,22 @@ export default function AddTransactionModal({setShowTransactionModal}: Props) {
                         </select>
                     </div>
                     
-                    <div className="add_transaction-input-container">
-                        <label className="add_transaction-label">Amount</label>
+                    <div className="add_transaction-input-container add_transaction-date-amount">
+                        
                         <div className="amount-input-container">
+                            <label className="add_transaction-label">Amount</label>
                             <span className="dollar-sign">$</span>
                             <input required placeholder="e.g 49.99" className="rounded-input add_transaction-amount-input" />
                         </div>
+
+                        <div className="add_transaction-input-container add_transaction-date-container">
+                            <label className="add_transaction-label">Date</label>
+                            <input required type="date" id="transaction-date-input" defaultValue={currentDate} className="rounded-input date-input"/>
+                        </div>  
                         
                     </div>
 
-                    <div className="add_transaction-input-container">
-                        <label className="add_transaction-label">Date</label>
-                        <input required type="date" id="transaction-date-input" defaultValue={currentDate} className="rounded-input date-input"/>
-                    </div>                
+                                  
 
                     <div className="add_transaction-selection-container">
                         <div className="add_transaction-recurring-container">
@@ -64,6 +66,8 @@ export default function AddTransactionModal({setShowTransactionModal}: Props) {
                             </div>
                         </div>
                     </div>
+
+                    <input type="submit" className="black-add-btn add_transaction-add-btn" value={"Add Transaction"} />
 
                 </form>
             </div>
