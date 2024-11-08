@@ -241,5 +241,38 @@
             "total": 531.00,
             "theme": "purple"
         }
+    ],
+    "categories": [
+        {
+            "name": "Entertainment"
+        },
+        {
+            "name": "Bills"
+        },
+        {
+            "name": "Dining Out"
+        },
+        {
+            "name": "Personal Care"
+        },
+        {
+            "name": "Transportation"
+        },
+        {
+            "name": "Education"
+        },
+        {
+            "name": "Lifestyle"
+        },
+        {
+            "name": "Shopping"
+        },
+        {
+            "name": "General"
+        },
+        {
+            "name": "Groceries"
+        }
     ]
+    
 }

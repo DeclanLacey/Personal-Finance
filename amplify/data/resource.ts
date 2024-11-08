@@ -72,14 +72,14 @@ const schema = a.schema({
     .authorization((allow) => [
       allow.ownerDefinedIn("profileOwner"),
     ]),
-    
-    Category: a
-      .model({
-        name: a.string().required()
-      })
-    .authorization((allow) => [
-      allow.ownerDefinedIn("profileOwner"),
-    ]),
+
+  Category: a
+    .model({
+      name: a.string().required()
+    })
+  .authorization((allow) => [
+    allow.ownerDefinedIn("profileOwner"),
+  ]),
 })
 .authorization(allow => [allow.resource(postConfirmation)]);
 
