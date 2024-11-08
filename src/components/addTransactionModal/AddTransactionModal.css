@@ -77,8 +77,8 @@ input[type='radio'] {
 
 .dollar-sign {
     position: absolute;
-    left: 10px; /* Adjust as needed */
-    top: 57%;
+    left: 12px; /* Adjust as needed */
+    top: 57.5%;
     margin: 0px;
     transform: translateY(-50%);
     pointer-events: none; /* Prevents the span from capturing clicks */

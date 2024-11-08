@@ -25,6 +25,7 @@ export default function AddTransactionModal({setShowTransactionModal}: Props) {
                     </div>
 
                     {/* Category */}
+                    {/* You need to decide how you want to store the category names and if you want to allow users to create new categories or not (you would need more icons or some sort of default icon) */}
                     <div className="add_transaction-input-container">
                         <label className="add_transaction-label">Category</label>
                         <select required className="rounded-select-input">
