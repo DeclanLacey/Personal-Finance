@@ -40,22 +40,28 @@ export const addTransactionData = async () => {
 
 }
 
-// addPotData()
-
-// const toBeDeletedTodo: any = {
-//     id: "4190d406-6312-4f53-8a86-47b82744c68a"
-// }
-
-async function deletePot(id: any) {
-    await client.models.Pot.delete(id)
+export const addCategories = async () => {
+    for (let i = 0; i < initialData.categories.length; i++) {
+        try {
+            await client.models.Category.create(initialData.categories[i])
+        }catch(error) {
+            console.log(error)
+        }
+    }
 }
-
-// deletePot(toBeDeletedTodo)
-// deletePot("77fbe775-66a8-4fe6-9e3b-101a963b718e")
 
 export const addBudgetData = async () => {
     for (let i = 0; i < initialData.budgets.length; i++) {
         client.models.Budget.create(initialData.budgets[i])
+    }
+}
+
+export const getCategories = async () => {
+    const {data, errors} = await client.models.Category.list()
+    if (errors) {
+        console.log(errors)
+    }else {
+        return data
     }
 }
 

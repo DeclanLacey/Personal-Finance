@@ -4,6 +4,10 @@ interface Props {
     setShowTransactionModal: Function
 }
 
+////////////////// TODO ////////////////////////
+/// create a util function that adds all of the category names into the backend
+// You will probably need to rebuild the app with amplify before you do this
+
 export default function AddTransactionModal({setShowTransactionModal}: Props) {
 
     const currentDate = new Date().toISOString().split('T')[0]
