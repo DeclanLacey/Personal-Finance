@@ -18,7 +18,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
             category: {value: string},
             amount: {value: number},
             date: {value: string},
-            recurring: {value: boolean},
+            recurring: {checked: boolean},
             transactionType: {value: string}
         }
 
@@ -33,10 +33,18 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
             category: target.category.value,
             amount: amount,
             date: target.date.value,
-            recurring: target.recurring.value
+            recurring: target.recurring.checked
         }
-        await addTransaction(newTransaction)
-        setShowTransactionModal(false)
+
+        console.log(newTransaction)
+
+        if (!newTransaction.amount) {
+            window.alert("Please enter a valid transaction amount")
+        }else {
+            await addTransaction(newTransaction)
+            setShowTransactionModal(false)
+            location.reload()
+        }
     }
 
     return (
@@ -52,7 +60,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                     {/* Name */}
                     <div className="add_transaction-input-container">
                         <label className="add_transaction-label">Name</label>
-                        <input required name="name" className="rounded-input" placeholder="Flavor Fiesta"/>
+                        <input required name="name" maxLength={75} className="rounded-input" placeholder="Flavor Fiesta"/>
                     </div>
 
                     {/* Category */}
@@ -69,7 +77,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                         <div className="amount-input-container">
                             <label className="add_transaction-label">Amount</label>
                             <span className="dollar-sign">$</span>
-                            <input required name="amount" placeholder="e.g 49.99" className="rounded-input add_transaction-amount-input" />
+                            <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input add_transaction-amount-input" />
                         </div>
 
                         <div className="add_transaction-input-container add_transaction-date-container">
