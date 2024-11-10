@@ -1,6 +1,7 @@
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/../../amplify/data/resource";
 import initialData from "../../src/data/data.json"
+import { NewTransaction } from "../types/types";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -17,42 +18,55 @@ const client = generateClient<Schema>({
 
 // deleteBudget()
 
-export const addBalanceData = async () => {
-    client.models.Balance.create(initialData.balance)
-}
+// export const addBalanceData = async () => {
+//     client.models.Balance.create(initialData.balance)
+// }
 
-export const addPotData = async () => {
-    for (let i = 0; i < initialData.pots.length; i++) {
-        client.models.Pot.create(initialData.pots[i])
-    }
-}
+// export const addPotData = async () => {
+//     for (let i = 0; i < initialData.pots.length; i++) {
+//         client.models.Pot.create(initialData.pots[i])
+//     }
+// }
 
-export const addTransactionData = async () => {
+// export const addTransactionData = async () => {
    
-    for (let i = 0; i < initialData.transactions.length; i++) {
-        try {
-            await client.models.Transaction.create(initialData.transactions[i])
-        }catch (error) {
-            console.log(error)
-        }
-    }
+//     for (let i = 0; i < initialData.transactions.length; i++) {
+//         try {
+//             await client.models.Transaction.create(initialData.transactions[i])
+//         }catch (error) {
+//             console.log(error)
+//         }
+//     }
+// }
 
+// export const addCategories = async () => {
+//     for (let i = 0; i < initialData.categories.length; i++) {
+//         try {
+//             await client.models.Category.create(initialData.categories[i])
+//         }catch(error) {
+//             console.log(error)
+//         }
+//     }
+// }
 
-}
+// export const addBudgetData = async () => {
+//     for (let i = 0; i < initialData.budgets.length; i++) {
+//         client.models.Budget.create(initialData.budgets[i])
+//     }
+// }
 
-export const addCategories = async () => {
-    for (let i = 0; i < initialData.categories.length; i++) {
-        try {
-            await client.models.Category.create(initialData.categories[i])
-        }catch(error) {
-            console.log(error)
-        }
-    }
-}
+// const deleteTransaction = async () => {
+//     const id = {id: "839e50a2-7b18-456d-9e5e-bc1e11607748"}
+//     await client.models.Transaction.delete(id)
+// }
 
-export const addBudgetData = async () => {
-    for (let i = 0; i < initialData.budgets.length; i++) {
-        client.models.Budget.create(initialData.budgets[i])
+// deleteTransaction()
+
+export const addTransaction = async (data: NewTransaction) => {
+    try {
+        await client.models.Transaction.create(data)
+    }catch(error) {
+        console.log(error)
     }
 }
 
@@ -100,16 +114,3 @@ export const getPots = async () => {
         return data;
     }
 };
-
-export const getCategoryNamesFromBudgets = async () => {
-    let categoryNames = []
-    const { data, errors } = await client.models.Budget.list();
-    if (errors) {
-        console.log(errors);
-    } else {
-        for (let i = 0; i < data.length; i++) {
-            categoryNames.push(data[i].category)
-        }
-        return categoryNames
-    }
-}

@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from 'react'
 import { CiSearch } from "react-icons/ci";
 import "./Transactions.css"
-import { getCategoryNamesFromBudgets, getTransactions } from '../../utils/clientCalls';
+import { getCategories, getTransactions } from '../../utils/clientCalls';
 import { currencyFormatCents, filterTransactions, filterTransactionsBySearch, formatDate, sortTransactions } from '../../utils/utils';
 import ReactPaginate from 'react-paginate';
-import { Transaction } from '../../types/types';
+import { Category, Transaction } from '../../types/types';
 import AddTransactionModal from '../../components/addTransactionModal/AddTransactionModal';
 
-
-
 export default function Transactions() {
-  const [categoryNames, setCategoryNames] = useState<string[]>()
+  const [categoryNames, setCategoryNames] = useState<Category[]>()
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [sortBySelection, setSortBySelection] = useState<string>("latest")
   const [filterBySelection, setFilterBySelection] = useState<string>("")
   const [currentSearch, setCurrentSearch] = useState<string>("")
   const [loading, setLoading] = useState<Boolean>(false)
-  const [showAddTransactionModal, setShowTransactionModal] = useState<Boolean>(true)
+  const [showAddTransactionModal, setShowTransactionModal] = useState<Boolean>(false)
 
   useEffect(() => {
     async function getData() {
       try {
         setLoading(true)
-        const categoryNameData : string[] | undefined = await getCategoryNamesFromBudgets()
+        const categoryNameData : Category[] | undefined = await getCategories()
         //// This line below gives an error when you try to use the type of Transaction[]
         const transactionData : any = await getTransactions()
         setCategoryNames(categoryNameData)
@@ -37,8 +35,8 @@ export default function Transactions() {
   }, [])
 
 
-   /// Checks if the data is currently loading
-   if (loading) {
+  /// Checks if the data is currently loading
+  if (loading) {
     return <div></div>
   }
 
@@ -50,7 +48,7 @@ export default function Transactions() {
   function renderCategoryNameOptions() {
     const categoryNameElements = categoryNames?.map((category, index) => {
       return (
-        <option key={index} value={category.toLowerCase()}>{category}</option>
+        <option key={index} value={category.name}>{category.name}</option>
       )
     })
     
@@ -163,7 +161,7 @@ export default function Transactions() {
       {
         showAddTransactionModal &&
           <>
-            <AddTransactionModal setShowTransactionModal={setShowTransactionModal}></AddTransactionModal>
+            <AddTransactionModal setShowTransactionModal={setShowTransactionModal} renderCategoryNameOptions={renderCategoryNameOptions}></AddTransactionModal>
           </>
       }
       

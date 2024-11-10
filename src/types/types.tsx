@@ -11,6 +11,15 @@ export type Transaction = {
     updatedAt: string
 }
 
+export type NewTransaction = {
+    avatar: string,
+    name: string,
+    category: string,
+    date: string,
+    amount: number,
+    recurring: boolean
+}
+
 export type Budget = {
     category: string,
     createdAt: string,
@@ -47,4 +56,8 @@ export type SpendPerBudget = {
     name: string,
     max: number,
     amount: number
+}
+
+export type Category = {
+    name: string
 }

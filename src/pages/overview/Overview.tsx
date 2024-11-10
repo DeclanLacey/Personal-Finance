@@ -1,4 +1,4 @@
-import {getPots, getTransactions, getBalances, getBudgets, addBudgetData} from "../../utils/clientCalls"
+import {getPots, getTransactions, getBalances, getBudgets } from "../../utils/clientCalls"
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
@@ -37,16 +37,17 @@ export default function Overview() {
 
   //// Calls all of the utility functions that connect to the backend
   const getData = async () => {
-     console.log(await getBalances())
-     console.log(await getPots())
-     console.log(await getBudgets())
-     console.log(await getTransactions())
+    //  console.log(await getBalances())
+    //  console.log(await getPots())
+    //  console.log(await getBudgets())
+    //  console.log(await getTransactions())
+    // console.log(await getCategories())
   }
 
 
-  // useEffect(() => {
-  //   getData()
-  // }, [])
+  useEffect(() => {
+    getData()
+  }, [])
   
 
   return (
