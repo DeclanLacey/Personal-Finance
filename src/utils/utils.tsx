@@ -130,7 +130,7 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
 
   export function filterTransactions(filterSelection: string, selectedTransactions : Transaction[]) {
     if (filterSelection) {
-      selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterSelection)
+      selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterSelection.toLowerCase())
     }
 
     return selectedTransactions

@@ -36,8 +36,6 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
             recurring: target.recurring.checked
         }
 
-        console.log(newTransaction)
-
         if (!newTransaction.amount) {
             window.alert("Please enter a valid transaction amount")
         }else {
