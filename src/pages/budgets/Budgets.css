@@ -1,5 +1,4 @@
 .budgets_page-container{
-    width: 90%;
     margin: 0 auto;
     margin-bottom: 80px;
 }
@@ -7,8 +6,15 @@
 .budgets_page-title-container {
     display: flex;
     justify-content: space-between;
+    margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 40px;
+    width: 92%;
+}
+
+.budgets_page-content-container {
+    width: 92%;
+    margin: 0 auto;
 }
 
 .budgets_page-title {

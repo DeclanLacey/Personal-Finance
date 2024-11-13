@@ -46,9 +46,9 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
     }
 
     return (
-        <div>
+        <>
             <div onClick={() => setShowTransactionModal(false)} className='page-cover'></div>
-            <div className='add_transaction'>
+            <section className='add_transaction'>
                 <div className="add_transaction-title-container">
                     <h2 className="add_transaction-title">Add New Transaction</h2>
                     <img onClick={() => setShowTransactionModal(false)} className="close-modal-btn" src="./assets/icon-close-modal.svg" />
@@ -106,7 +106,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                     <input type="submit" className="black-add-btn add_transaction-add-btn" value={"Add Transaction"} />
 
                 </form>
-            </div>
-        </div>
+            </section>
+        </>
     )
 }

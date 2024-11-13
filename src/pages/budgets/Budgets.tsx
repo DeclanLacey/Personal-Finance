@@ -5,11 +5,13 @@ import { PieChart } from 'chartist'
 import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils'
 import "./Budgets.css"
 import BudgetDetail from '../../components/budgetDetail/BudgetDetail'
+import AddBudgetModal from '../../components/addBudgetModal/AddBudgetModal'
 
 export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()
   const [transactions, setTransactions] = useState<any[]>()
   const [loading, setLoading] = useState<Boolean>(false)
+  const [showAddBudgetModal, setShowAddBudgetModal] = useState<Boolean>(false)
 
   useEffect(() => {
     //// Calls utility functions to get the data from the backend
@@ -99,26 +101,29 @@ export default function Budgets() {
     <div className='budgets_page-container'>
       <div className='budgets_page-title-container'>
         <h1 className='budgets_page-title'> Budgets </h1>
-        <button className='black-add-btn'>+ Add New Budget</button>
+        <button className='black-add-btn' onClick={() => setShowAddBudgetModal(true)}>+ Add New Budget</button>
       </div>
+
+      {showAddBudgetModal && <AddBudgetModal></AddBudgetModal>}
       
-      <section className='budgets_page-chart-overview-container'>
-        <div className='budgets_page-chart-container'>
-          <div className='budgets_page-total-spend-container'>
-            {budgets && transactions ? <p className='budgets_page-total-spend'>{currencyFormatNoCents(Math.round(calculateTotalBudgetSpend(budgets, transactions)))}</p> : <></> }
-            {budgets ? <p className='budgets_page-total-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit(budgets))} limit`}</p> : <></> }
+      <div className='budgets_page-content-container'>
+        <section className='budgets_page-chart-overview-container'>
+          <div className='budgets_page-chart-container'>
+            <div className='budgets_page-total-spend-container'>
+              {budgets && transactions ? <p className='budgets_page-total-spend'>{currencyFormatNoCents(Math.round(calculateTotalBudgetSpend(budgets, transactions)))}</p> : <></> }
+              {budgets ? <p className='budgets_page-total-limit'>{`of ${currencyFormatNoCents(calculateTotalBudgetLimit(budgets))} limit`}</p> : <></> }
+            </div>
+            <div className='' id="chart" ref={chart}></div>
           </div>
-          <div className='' id="chart" ref={chart}></div>
-        </div>
 
-        <h2 className='budgets_page-overview-title'>Spending Summary</h2>
-        {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
-      </section>
+          <h2 className='budgets_page-overview-title'>Spending Summary</h2>
+          {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
+        </section>
 
-      <section>
-        {budgets && transactions ? renderBudgetDetailComponents(budgets, transactions) : <></>}
-      </section>
+        <section>
+          {budgets && transactions ? renderBudgetDetailComponents(budgets, transactions) : <></>}
+        </section>
+      </div>
     </div>
-
   )
 }

@@ -157,14 +157,7 @@ export default function Transactions() {
         <h1 className='transactions-title'>Transactions</h1>
         <button onClick={() => setShowTransactionModal(true)} className='black-add-btn'>+ Add New Transaction</button>
       </div>
-
-      {
-        showAddTransactionModal &&
-          <>
-            <AddTransactionModal setShowTransactionModal={setShowTransactionModal} renderCategoryNameOptions={renderCategoryNameOptions}></AddTransactionModal>
-          </>
-      }
-      
+      {showAddTransactionModal && <AddTransactionModal setShowTransactionModal={setShowTransactionModal} renderCategoryNameOptions={renderCategoryNameOptions}></AddTransactionModal>}
       
       <section className='transactions-content-container'>
         <form className='transactions-form'>
