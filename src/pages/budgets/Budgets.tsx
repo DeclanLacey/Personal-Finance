@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Budget, Transaction } from '../../types/types'
-import { getBudgets, getTransactions } from '../../utils/clientCalls'
+import { Budget, Category, Transaction } from '../../types/types'
+import { getBudgets, getCategories, getTransactions } from '../../utils/clientCalls'
 import { PieChart } from 'chartist'
 import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils'
 import "./Budgets.css"
@@ -11,6 +11,7 @@ export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()
   const [transactions, setTransactions] = useState<any[]>()
   const [loading, setLoading] = useState<Boolean>(false)
+  const [categoryNames, setCategoryNames] = useState<Category[]>()
   const [showAddBudgetModal, setShowAddBudgetModal] = useState<Boolean>(false)
 
   useEffect(() => {
@@ -20,7 +21,9 @@ export default function Budgets() {
         setLoading(true)
         const budgetData : any = await getBudgets()
         const transactionData = await getTransactions()
+        const categories: Category[] | undefined = await getCategories()
         setBudgets(budgetData)
+        setCategoryNames(categories)
         setTransactions(transactionData)
         setLoading(false)
       }catch(error) {
@@ -37,7 +40,7 @@ export default function Budgets() {
   }
 
   //// Checks if the budgets or transactions are falsey values
-  if (!budgets && !transactions) {
+  if (!budgets && !transactions && !categoryNames) {
     return <div></div>
   }
   
@@ -61,6 +64,16 @@ export default function Budgets() {
         
     );
   };
+
+  function renderCategoryNameOptions() {
+    const categoryNameElements = categoryNames?.map((category, index) => {
+      return (
+        <option key={index} value={category.name}>{category.name}</option>
+      )
+    })
+    
+    return categoryNameElements
+  }
 
   function renderBudgetSummaries(budgets : Budget[], transactions : Transaction[]) {
     const spendPerBudgetCategory = calculateSpendPerBudgetCategory(budgets, transactions)
@@ -104,7 +117,7 @@ export default function Budgets() {
         <button className='black-add-btn' onClick={() => setShowAddBudgetModal(true)}>+ Add New Budget</button>
       </div>
 
-      {showAddBudgetModal && <AddBudgetModal></AddBudgetModal>}
+      {showAddBudgetModal && <AddBudgetModal renderCategoryNameOptions={renderCategoryNameOptions} setShowAddBudgetModal={setShowAddBudgetModal}></AddBudgetModal>}
       
       <div className='budgets_page-content-container'>
         <section className='budgets_page-chart-overview-container'>

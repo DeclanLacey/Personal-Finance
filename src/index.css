@@ -272,6 +272,43 @@ input[type="date"]:before {
   width: 25px;
 }
 
+.add-modal {
+  z-index: 150;
+  background-color: var(--white);
+  position: fixed;
+  left: 0; 
+  right: 0; 
+  margin-inline: auto; 
+  width: 92%;
+  max-width: 600px;
+  top: 20%;
+  padding: 15px;
+  border-radius: 10px;
+}
+
+.add-modal-input-label {
+  font-size: 1.2rem;
+    font-weight: 600;
+    color: var(--grey-500);
+    margin-bottom: 3px;
+}
+
+.amount-input {
+  padding-left: 25px!important;
+  width: 100%;
+  margin-top: 3px;
+}
+
+.dollar-sign {
+  position: absolute;
+  left: 12px; /* Adjust as needed */
+  top: 57.5%;
+  margin: 0px;
+  transform: translateY(-50%);
+  pointer-events: none; /* Prevents the span from capturing clicks */
+  font-size: 1.4rem
+}
+
 /* ///////////////////// hover //////////////////////// */
 
 /* .date-input:hover {

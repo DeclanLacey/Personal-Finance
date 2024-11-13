@@ -48,7 +48,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
     return (
         <>
             <div onClick={() => setShowTransactionModal(false)} className='page-cover'></div>
-            <section className='add_transaction'>
+            <section className='add-modal'>
                 <div className="add_transaction-title-container">
                     <h2 className="add_transaction-title">Add New Transaction</h2>
                     <img onClick={() => setShowTransactionModal(false)} className="close-modal-btn" src="./assets/icon-close-modal.svg" />
@@ -57,13 +57,13 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                 <form onSubmit={handleSubmit}>
                     {/* Name */}
                     <div className="add_transaction-input-container">
-                        <label className="add_transaction-label">Name</label>
+                        <label className="add-modal-input-label">Name</label>
                         <input required name="name" maxLength={75} className="rounded-input" placeholder="Flavor Fiesta"/>
                     </div>
 
                     {/* Category */}
                     <div className="add_transaction-input-container">
-                        <label className="add_transaction-label">Category</label>
+                        <label className="add-modal-input-label">Category</label>
                         <select required name="category" className="rounded-select-input">
                             <option value="">-- Select Category</option>
                             {renderCategoryNameOptions()}
@@ -72,14 +72,14 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                     
                     <div className="add_transaction-input-container add_transaction-date-amount">
                         
-                        <div className="amount-input-container">
-                            <label className="add_transaction-label">Amount</label>
+                        <div className="transaction-amount-input-container">
+                            <label className="add-modal-input-label">Amount</label>
                             <span className="dollar-sign">$</span>
-                            <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input add_transaction-amount-input" />
+                            <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" />
                         </div>
 
                         <div className="add_transaction-input-container add_transaction-date-container">
-                            <label className="add_transaction-label">Date</label>
+                            <label className="add-modal-input-label">Date</label>
                             <input required name="date" type="date" id="transaction-date-input" defaultValue={currentDate} className="rounded-input date-input"/>
                         </div>  
                         
@@ -87,17 +87,17 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
 
                     <div className="add_transaction-selection-container">
                         <div className="add_transaction-recurring-container">
-                            <label className="add_transaction-label">Recurring Transaction?</label>
+                            <label className="add-modal-input-label">Recurring Transaction?</label>
                             <input name="recurring" className="recurring-checkbox" type="checkbox" />
                         </div>
 
                         <div className="add_transaction-outer-radio-container">
                             <div className="add_transaction-radio-container">
-                                <label className="add_transaction-label">Expense</label>
+                                <label className="add-modal-input-label">Expense</label>
                                 <input required name="transactionType" value={"expense"} defaultChecked type="radio"/>
                             </div>
                             <div className="add_transaction-radio-container">
-                                <label className="add_transaction-label">Income</label>
+                                <label className="add-modal-input-label">Income</label>
                                 <input required name="transactionType" value={"income"} type="radio"/>
                             </div>
                         </div>
