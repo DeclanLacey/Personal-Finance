@@ -61,3 +61,12 @@ export type SpendPerBudget = {
 export type Category = {
     name: string
 }
+
+export type Theme = {
+    name: string,
+    hex: string,
+    id: string,
+    profileOwner: string,
+    createdAt: string,
+    updatedAt: string
+}

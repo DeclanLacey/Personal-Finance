@@ -1,4 +1,4 @@
-import {getPots, getTransactions, getBalances, getBudgets } from "../../utils/clientCalls"
+import {getPots, getTransactions, getBalances, getBudgets, getThemes, addThemes } from "../../utils/clientCalls"
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
@@ -17,6 +17,7 @@ export default function Overview() {
   const {authStatus} = useAuthenticator((context) => [context.authStatus])
   const navigate = useNavigate()
 
+  //// You might need to add this to every page
   useEffect(() => {
     if (authStatus === "unauthenticated") {
         navigate("/")
@@ -42,6 +43,8 @@ export default function Overview() {
     //  console.log(await getBudgets())
     //  console.log(await getTransactions())
     // console.log(await getCategories())
+    // console.log(await getThemes())
+    
   }
 
 

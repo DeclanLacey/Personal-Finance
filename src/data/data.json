@@ -207,7 +207,7 @@
         {
             "category": "Groceries",
             "maximum": 200.00,
-            "theme": "gold"
+            "theme": "orange"
         }
     ],
     "pots": [
@@ -273,6 +273,60 @@
         {
             "name": "Groceries"
         }
-    ]
+    ],
+    "themes": [
+        { 
+          "name": "green", 
+          "hex": "#277C78" 
+        },
+        { 
+          "name": "yellow", 
+          "hex": "#F2CDAC" 
+        },
+        { 
+          "name": "cyan", 
+          "hex": "#82C9D7" 
+        },
+        { 
+          "name": "navy", 
+          "hex": "#626070" 
+        },
+        { 
+          "name": "red", 
+          "hex": "#C94736" 
+        },
+        { 
+          "name": "purple", 
+          "hex": "#826CB0" 
+        },
+        { 
+          "name": "turquoise", 
+          "hex": "#597C7C" 
+        },
+        { 
+          "name": "magenta", 
+          "hex": "#934F6F" 
+        },
+        { 
+          "name": "brown", 
+          "hex": "#93674F" 
+        },
+        { 
+          "name": "blue", 
+          "hex": "#3F82B2" 
+        },
+        { 
+          "name": "armygreen", 
+          "hex": "#7F9161" 
+        },
+        { 
+          "name": "gold", 
+          "hex": "#CAB361" 
+        },
+        { 
+          "name": "orange", 
+          "hex": "#BE6C49" 
+        }
+      ]
     
 }

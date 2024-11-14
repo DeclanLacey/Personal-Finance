@@ -1,3 +1,8 @@
 .add_budget-amount-container {
     position: relative;
 }
+
+.add_budget-input-container {
+    display: flex;
+    flex-direction: column;
+}

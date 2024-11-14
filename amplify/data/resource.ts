@@ -77,9 +77,18 @@ const schema = a.schema({
     .model({
       name: a.string().required()
     })
-  .authorization((allow) => [
-    allow.ownerDefinedIn("profileOwner"),
-  ]),
+    .authorization((allow) => [
+      allow.ownerDefinedIn("profileOwner"),
+    ]),
+
+  Theme: a
+    .model({
+      name: a.string().required(),
+      hex: a.string().required()
+    })
+    .authorization((allow) => [
+      allow.ownerDefinedIn("profileOwner"),
+    ]),
 })
 .authorization(allow => [allow.resource(postConfirmation)]);
 

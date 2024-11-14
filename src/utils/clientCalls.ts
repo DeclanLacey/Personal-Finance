@@ -62,6 +62,16 @@ const client = generateClient<Schema>({
 
 // deleteTransaction()
 
+// export const addThemes = async () => {
+//     try {
+//         for (let i = 0; i < initialData.themes.length; i++) {
+//             await client.models.Theme.create(initialData.themes[i])
+//         }
+//     }catch (error) {
+//         console.log(error)
+//     }
+// }
+
 export const addTransaction = async (data: NewTransaction) => {
     try {
         await client.models.Transaction.create(data)
@@ -108,6 +118,15 @@ export const getTransactions = async () => {
 
 export const getPots = async () => {
     const { data, errors } = await client.models.Pot.list();
+    if (errors) {
+        console.log(errors);
+    } else {
+        return data;
+    }
+};
+
+export const getThemes = async () => {
+    const { data, errors } = await client.models.Theme.list();
     if (errors) {
         console.log(errors);
     } else {
