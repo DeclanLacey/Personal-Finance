@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import "./AddBudgetModal.css"
-import { FieldWrap, Select } from '@deque/cauldron-react'
+import { Combobox, ComboboxOption, FieldWrap } from '@deque/cauldron-react'
 import { Theme } from "../../types/types"
 import { getThemes } from "../../utils/clientCalls"
-import { render } from "react-dom"
+import '@deque/cauldron-styles'; 
+import { updatePassword } from "aws-amplify/auth"
 
 interface Props {
     setShowAddBudgetModal: Function,
@@ -41,14 +42,18 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
     }
 
     function renderColorOptions() {
-        const colorOptions = themes?.map((theme) => {
-            return {
-                value: theme.name.replace(/\w\S*/g, function(txt){
-                    return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-                }),
-                key: theme.name
-            }
+        const colorOptions = themes?.map((theme, index) => {
+            let upperCaseName = theme.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) as string
+            return (
+                <div className="combobox-container" key={index}>
+                    <span className="combobox-color-tag-color"></span>
+                    
+                    <ComboboxOption className="color-tag-input" value={theme.name}> </ComboboxOption>
+                </div>
+            )
         })
+
+        console.log(colorOptions)
         
         return colorOptions
     }
@@ -94,13 +99,17 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
                         </select>
                         
                     </div> */}
-                    <FieldWrap>
-                        <Select
-                            label="Do you like yogurt?"
-                            options={renderColorOptions()}
-                            defaultValue="Yes"
-                        />
-                    </FieldWrap>
+
+
+{/*     
+                    <FieldWrap className="input-field-wrap">
+                        <Combobox label="Color Tag">
+                             {renderColorOptions()}
+                        </Combobox>
+                    </FieldWrap> */}
+
+                    
+                    
                   
                 </form>
             </section>

@@ -6,3 +6,26 @@
     display: flex;
     flex-direction: column;
 }
+
+.Combobox {
+    width: 100%;
+}
+
+.combobox-container {
+    position: relative;
+}
+
+.combobox-color-tag-color {
+    width: 15px;
+    height: 15px;
+    border-radius: 100px;
+    background-color: red;
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translate(-50%, -50%);
+}
+
+.color-tag-input {
+    padding-left: 30px !important;
+}

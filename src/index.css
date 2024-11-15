@@ -309,6 +309,12 @@ input[type="date"]:before {
   font-size: 1.4rem
 }
 
+.input-field-wrap {
+  box-shadow: none !important;
+  padding: 0px !important;
+  border: none !important;
+}
+
 /* ///////////////////// hover //////////////////////// */
 
 /* .date-input:hover {
