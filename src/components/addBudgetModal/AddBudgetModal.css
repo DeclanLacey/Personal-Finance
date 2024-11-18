@@ -7,25 +7,18 @@
     flex-direction: column;
 }
 
-.Combobox {
+.add_budget-title-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: -10px;
+}
+
+.add-budget-btn {
     width: 100%;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.combobox-container {
-    position: relative;
-}
-
-.combobox-color-tag-color {
-    width: 15px;
-    height: 15px;
-    border-radius: 100px;
-    background-color: red;
-    position: absolute;
-    top: 50%;
-    left: 15px;
-    transform: translate(-50%, -50%);
-}
-
-.color-tag-input {
-    padding-left: 30px !important;
+.add_budget-title {
+    font-size: 2rem;
 }
