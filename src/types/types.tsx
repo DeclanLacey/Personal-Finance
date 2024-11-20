@@ -1,3 +1,4 @@
+// Type structure after AWS additions
 export type Transaction = {
     avatar: string,
     name: string,
@@ -10,7 +11,7 @@ export type Transaction = {
     profileOwner: string,
     updatedAt: string
 }
-
+// Type structure given by the user
 export type NewTransaction = {
     avatar: string,
     name: string,
@@ -20,6 +21,8 @@ export type NewTransaction = {
     recurring: boolean
 }
 
+
+// Type structure after AWS additions
 export type Budget = {
     category: string,
     createdAt: string,
@@ -29,7 +32,14 @@ export type Budget = {
     theme: string,
     updatedAt: string
 }
+// Type structure given by the user
+export type NewBudget = {
+    category: string,
+    maximum: number,
+    theme: string
+}
 
+// Type structure after AWS additions
 export type Pot = {
     name: string, 
     target: number,
@@ -41,11 +51,32 @@ export type Pot = {
     id: string,
 }
 
+
+// Type structure after AWS additions
 export type Balance = {
     current: number,
     income: number,
     expenses: number
 }
+
+
+// Type structure after AWS additions
+export type Category = {
+    name: string
+}
+
+
+// Type structure after AWS additions
+export type Theme = {
+    name: string,
+    hex: string,
+    id: string,
+    profileOwner: string,
+    createdAt: string,
+    updatedAt: string
+}
+
+
 
 export type PieChartSeries = {
     value: number,
@@ -56,17 +87,4 @@ export type SpendPerBudget = {
     name: string,
     max: number,
     amount: number
-}
-
-export type Category = {
-    name: string
-}
-
-export type Theme = {
-    name: string,
-    hex: string,
-    id: string,
-    profileOwner: string,
-    createdAt: string,
-    updatedAt: string
 }

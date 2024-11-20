@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import "./AddBudgetModal.css"
-import { Theme } from "../../types/types"
-import { getThemes } from "../../utils/clientCalls"
+import { NewBudget, Theme } from "../../types/types"
+import { addBudget, getThemes } from "../../utils/clientCalls"
 
 interface Props {
     setShowAddBudgetModal: Function,
@@ -38,6 +38,29 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
         return <div></div>
     }
 
+    async function handleSubmit(event: React.SyntheticEvent) {
+        event.preventDefault()
+        const target = event.target as typeof event.target & {
+            category: {value: string},
+            maximum: {value: number},
+            theme: {value: string}
+        }
+
+        const newTransaction: NewBudget = {
+            category: target.category.value,
+            maximum: target.maximum.value,
+            theme: target.theme.value
+        }
+
+        if (!newTransaction.maximum) {
+            window.alert("Please enter a valid transaction amount")
+        }else {
+            await addBudget(newTransaction)
+            setShowAddBudgetModal(false)
+            location.reload()
+        }
+    }
+
     function renderColorOptions() {
         const colorOptions = themes?.map((theme, index) => {
             let upperCaseName : string = theme.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) 
@@ -58,7 +81,7 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
                     <img className="close-modal-btn" onClick={() => setShowAddBudgetModal(false)} src="./assets/icon-close-modal.svg" />
                 </div>
 
-                <form>
+                <form onSubmit={handleSubmit}>
 
                     <div className="add_budget-amount-container">
                         <label className="add-modal-input-label">Amount</label>
