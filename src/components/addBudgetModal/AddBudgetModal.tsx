@@ -1,14 +1,15 @@
 import { useEffect, useState } from "react"
 import "./AddBudgetModal.css"
-import { NewBudget, Theme } from "../../types/types"
+import { Budget, NewBudget, Theme } from "../../types/types"
 import { addBudget, getThemes } from "../../utils/clientCalls"
 
 interface Props {
+    budgets: Budget[],
     setShowAddBudgetModal: Function,
     renderCategoryNameOptions: Function
 }
 
-export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
+export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
 
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
@@ -46,19 +47,32 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
             theme: {value: string}
         }
 
-        const newTransaction: NewBudget = {
-            category: target.category.value,
-            maximum: target.maximum.value,
-            theme: target.theme.value
-        }
-
-        if (!newTransaction.maximum) {
-            window.alert("Please enter a valid transaction amount")
+        if (checkIfBudgetExists(budgets, target.category.value)) {
+            window.alert("There is already a budget for the chosen category")
         }else {
-            await addBudget(newTransaction)
-            setShowAddBudgetModal(false)
-            location.reload()
+            const newTransaction: NewBudget = {
+                category: target.category.value,
+                maximum: target.maximum.value,
+                theme: target.theme.value
+            }
+    
+            if (!newTransaction.maximum) {
+                window.alert("Please enter a valid transaction amount")
+            }else {
+                await addBudget(newTransaction)
+                setShowAddBudgetModal(false)
+                location.reload()
+            }
         }
+    }
+
+    function checkIfBudgetExists(budgets: Budget[], newBudgetCategory: string) {
+        for (const budget of budgets) {
+            if (budget.category === newBudgetCategory) {
+                return true
+            }
+        }
+        return false
     }
 
     function renderColorOptions() {
@@ -86,7 +100,7 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
                     <div className="add_budget-amount-container">
                         <label className="add-modal-input-label">Amount</label>
                         <span className="dollar-sign">$</span>
-                        <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" />
+                        <input required name="maximum" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" />
                     </div>
                     
                     <div className="add_budget-input-container">
@@ -99,7 +113,7 @@ export default function AddBudgetModal({setShowAddBudgetModal, renderCategoryNam
 
                     <div className="add_budget-input-container">
                         <label className="add-modal-input-label">Color Tag</label>
-                        <select required name="category" className="rounded-select-input">
+                        <select required name="theme" className="rounded-select-input">
                             <option value="">-- Select Color</option>
                             {renderColorOptions()}
                         </select>

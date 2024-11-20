@@ -117,7 +117,7 @@ export default function Budgets() {
         <button className='black-add-btn' onClick={() => setShowAddBudgetModal(true)}>+ Add New Budget</button>
       </div>
 
-      {showAddBudgetModal && <AddBudgetModal renderCategoryNameOptions={renderCategoryNameOptions} setShowAddBudgetModal={setShowAddBudgetModal}></AddBudgetModal>}
+      {showAddBudgetModal && <AddBudgetModal renderCategoryNameOptions={renderCategoryNameOptions} setShowAddBudgetModal={setShowAddBudgetModal} budgets={budgets ? budgets : []}></AddBudgetModal>}
       
       <div className='budgets_page-content-container'>
         <section className='budgets_page-chart-overview-container'>
