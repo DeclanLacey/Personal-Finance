@@ -3,6 +3,7 @@ import { Budget, Transaction } from '../../types/types'
 import { currencyFormatCents, formatDate } from '../../utils/utils'
 import ProgressBar from '../progressBar/ProgressBar'
 import "./BudgetDetail.css"
+import { useState } from 'react'
 
 interface Props {
     budget: Budget,
@@ -11,6 +12,7 @@ interface Props {
 
 export default function BudgetDetail({budget, transactions} : Props)  {
 
+    const [openEllipsisModal, setOpenEllipsisModal] = useState<Boolean>()
     const totalSpent = calculateTotalSpent()
 
     function calculateTotalSpent() {
@@ -57,13 +59,24 @@ export default function BudgetDetail({budget, transactions} : Props)  {
         return lastThreeTransactions
     }
 
+    window.addEventListener('scroll', function() {
+        setOpenEllipsisModal(false)
+    });
+
 
     return (
         <div className='budget_detail'>
             <div className='budget_detail-name-container'>
                 <div className={`budget_detail-colored-circle ${budget.theme}`}></div>
                 <h2 className='budget_detail-name'>{budget.category}</h2>
-                <button className='detail-ellipsis'></button>
+                <button className='detail-ellipsis' onClick={() => setOpenEllipsisModal(prevState => !prevState)}></button>
+                {
+                    openEllipsisModal &&
+                    <div className='budget-detail-ellipsis-dropdown'>
+                        <p className='budget-detail-ellipsis-edit border-bottom'>Edit Budget</p>
+                        <p className='budget-detail-ellipsis-delete'>Delete Budget</p>
+                    </div>
+                }
             </div>
             <p className='budget_detail-max'>Maximum of {currencyFormatCents(budget.maximum)}</p>
             <ProgressBar budgetColor={budget.theme} budgetMax={budget.maximum} budgetSpend={totalSpent}></ProgressBar>

@@ -9,14 +9,13 @@
     display: grid;
     grid-template-columns: 30px 1fr 50px;
     align-items: center;
+    position: relative;
 }
 
 .budget_detail-name {
   font-size: 2rem;  
   margin: 0px;
 }
-
-
 
 .budget_detail-colored-circle {
     width: 16px;
@@ -113,4 +112,34 @@
 .budget_detail-transaction-name {
     font-size: 1.2rem;
     font-weight: 600;
+}
+
+.budget-detail-ellipsis-dropdown {
+    position: absolute;
+    background-color: white;
+    border-radius: 10px;
+    right: 5px; 
+    top: 30px;
+    border: 1px solid var(--grey-100);
+    padding: 5px 18px 5px 18px;
+}
+
+.budget-detail-ellipsis-edit,
+.budget-detail-ellipsis-delete {
+    font-size: 1.4rem;
+    padding: 0px;
+    margin: 0px;
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.budget-detail-ellipsis-delete {
+    color: var(--red);
+}
+
+/* //////////////// hover /////////////////// */
+
+.budget-detail-ellipsis-edit:hover,
+.budget-detail-ellipsis-delete:hover {
+    cursor: pointer;
 }
