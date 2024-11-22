@@ -64,10 +64,6 @@ export default function BudgetDetail({budget, transactions} : Props)  {
         setOpenConfirmDeleteModal(true)
     }
 
-    // async function handleConfirmDeleteBudgetClick() {
-    //     await deleteBudget
-    // }
-
     window.addEventListener('scroll', function() {
         setOpenEllipsisModal(false)
     });
@@ -86,7 +82,7 @@ export default function BudgetDetail({budget, transactions} : Props)  {
                         <p className='budget-detail-ellipsis-delete' id={budget.id} onClick={handleDeleteBudgetClick}>Delete Budget</p>
                     </div>
                 }
-                { openConfirmDeleteModal && <ConfirmDeleteModal budgetId={budget.id} deleteFunction={deleteBudget} /> }
+                { openConfirmDeleteModal && <ConfirmDeleteModal recordId={budget.id} deleteFunction={deleteBudget} recordName={budget.category} recordType={'budget'} setOpenConfirmDeleteModal={setOpenConfirmDeleteModal}/> }
             </div>
             <p className='budget_detail-max'>Maximum of {currencyFormatCents(budget.maximum)}</p>
             <ProgressBar budgetColor={budget.theme} budgetMax={budget.maximum} budgetSpend={totalSpent}></ProgressBar>

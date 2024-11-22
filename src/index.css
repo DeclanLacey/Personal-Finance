@@ -197,6 +197,18 @@ cursor: pointer;
     color: var(--white);
 }
 
+.red-delete-btn {
+  padding-left: 15px;
+  padding-right: 15px;
+  height: 50px;
+  font-size: 1.4rem;
+  border: none;
+  border-radius: 10px;
+  background-color: var(--red);
+  font-weight: 600;
+  color: var(--white);
+}
+
 .rounded-select-input {
   height: 45px;
   font-size: 1.4rem;
@@ -229,6 +241,7 @@ cursor: pointer;
   position: fixed;
   top:0px;
   width: 100%;
+  left: 0px;
   z-index: 100;
 }
 

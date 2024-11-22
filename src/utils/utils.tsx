@@ -1,7 +1,6 @@
 import { Budget, SpendPerBudget, Transaction } from "../types/types"
 
 export function currencyFormatCents(num: number) {
-    
     let formattedNum : string | string[] = '$' + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     if (num < 0) {
         formattedNum = formattedNum.split("")
@@ -11,6 +10,8 @@ export function currencyFormatCents(num: number) {
     }
     return formattedNum
 }
+
+
 
 export function currencyFormatNoCents(num: number) {
     let formattedNum : string | string[] = '$' + num?.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
