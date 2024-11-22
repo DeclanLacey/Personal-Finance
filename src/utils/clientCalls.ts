@@ -71,6 +71,17 @@ const client = generateClient<Schema>({
 //         console.log(error)
 //     }
 // }
+// Functions for deleting a single record
+
+export const deleteBudget = async (budgetId: string) => {
+    const idObject = {id: budgetId}
+    try {
+        await client.models.Budget.delete(idObject)
+    }catch(error) {
+        console.log(error)
+    }
+}
+
 
 // Functions for adding a single record
 export const addTransaction = async (data: NewTransaction) => {

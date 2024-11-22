@@ -4,6 +4,8 @@ import { currencyFormatCents, formatDate } from '../../utils/utils'
 import ProgressBar from '../progressBar/ProgressBar'
 import "./BudgetDetail.css"
 import { useState } from 'react'
+import { deleteBudget } from '../../utils/clientCalls'
+import ConfirmDeleteModal from '../confirmDeleteModal/ConfirmDeleteModal'
 
 interface Props {
     budget: Budget,
@@ -12,13 +14,13 @@ interface Props {
 
 export default function BudgetDetail({budget, transactions} : Props)  {
 
-    const [openEllipsisModal, setOpenEllipsisModal] = useState<Boolean>()
+    const [openEllipsisModal, setOpenEllipsisModal] = useState<Boolean>(false)
+    const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState<Boolean>(false)
     const totalSpent = calculateTotalSpent()
 
     function calculateTotalSpent() {
         let totalSpent = 0
         let currentTransactions = getTransactionsForBudget()
-
         for( let i = 0; i < currentTransactions.length; i++) {
             if (currentTransactions[i].category === budget.category && currentTransactions[i].amount < 0) {
                 totalSpent -= currentTransactions[i].amount
@@ -29,7 +31,6 @@ export default function BudgetDetail({budget, transactions} : Props)  {
     }
 
     function getTransactionsForBudget() {
-
         let currentTransactions : Transaction[] = []
         transactions.map((transaction) => {
             if (transaction.category === budget.category && transaction.amount < 0) { 
@@ -59,6 +60,14 @@ export default function BudgetDetail({budget, transactions} : Props)  {
         return lastThreeTransactions
     }
 
+    function handleDeleteBudgetClick() {
+        setOpenConfirmDeleteModal(true)
+    }
+
+    // async function handleConfirmDeleteBudgetClick() {
+    //     await deleteBudget
+    // }
+
     window.addEventListener('scroll', function() {
         setOpenEllipsisModal(false)
     });
@@ -74,9 +83,10 @@ export default function BudgetDetail({budget, transactions} : Props)  {
                     openEllipsisModal &&
                     <div className='budget-detail-ellipsis-dropdown'>
                         <p className='budget-detail-ellipsis-edit border-bottom'>Edit Budget</p>
-                        <p className='budget-detail-ellipsis-delete'>Delete Budget</p>
+                        <p className='budget-detail-ellipsis-delete' id={budget.id} onClick={handleDeleteBudgetClick}>Delete Budget</p>
                     </div>
                 }
+                { openConfirmDeleteModal && <ConfirmDeleteModal budgetId={budget.id} deleteFunction={deleteBudget} /> }
             </div>
             <p className='budget_detail-max'>Maximum of {currencyFormatCents(budget.maximum)}</p>
             <ProgressBar budgetColor={budget.theme} budgetMax={budget.maximum} budgetSpend={totalSpent}></ProgressBar>
