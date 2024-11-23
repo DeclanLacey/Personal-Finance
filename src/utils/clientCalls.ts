@@ -1,7 +1,7 @@
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/../../amplify/data/resource";
 import initialData from "../../src/data/data.json"
-import { Budget, NewBudget, NewTransaction } from "../types/types";
+import { Budget, NewBudget, NewTransaction, UpdatedBudget } from "../types/types";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -109,7 +109,7 @@ export const addBudget = async (data: NewBudget) => {
 //////////// Functions for updating a single record //////////////
 //////////////////////////////////////////////////////////////////
 
-export const updateBudget = async (data: Budget) => {
+export const updateBudget = async (data: UpdatedBudget) => {
     try {
         await client.models.Budget.update(data)
     }catch(error) {

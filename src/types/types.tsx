@@ -39,6 +39,13 @@ export type NewBudget = {
     theme: string
 }
 
+export type UpdatedBudget = {
+    id: string,
+    category: string,
+    maximum: number,
+    theme: string
+}
+
 // Type structure after AWS additions
 export type Pot = {
     name: string, 

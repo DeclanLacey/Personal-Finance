@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { Budget, Category, NewBudget, Theme } from '../../types/types'
+import { Budget, Category, NewBudget, Theme, UpdatedBudget } from '../../types/types'
 import { getBudgets, getCategories, getThemes, updateBudget } from '../../utils/clientCalls'
 import { checkIfBudgetExists, renderColorOptions } from '../../utils/utils'
 
@@ -59,14 +59,11 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
         window.alert("There is already a budget for the chosen category")
     }else {
 
-        const updatedBudget : Budget = {
-          category: target.category.value,
-          createdAt: currentBudget.createdAt,
+        const updatedBudget : UpdatedBudget = {
           id: currentBudget.id,
+          category: target.category.value,
           maximum: target.maximum.value,
-          profileOwner: currentBudget.profileOwner,
-          theme: target.theme.value,
-          updatedAt: ""
+          theme: target.theme.value
         }
 
         if (!updatedBudget.maximum) {
@@ -82,7 +79,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
   function renderCategoryNameOptions() {
     const categoryNameElements = categoryNames?.map((category, index) => {
       return (
-        <option key={index} value={category.name}>{category.name}</option>
+        <option key={index} value={category.name}> {category.name} </option>
       )
     })
     
@@ -108,7 +105,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
                 
                 <div className="add-edit-modal-input-container">
                     <label className="add-edit-modal-input-label">Category</label>
-                    <select required name="category" className="rounded-select-input">
+                    <select required name="category" className="rounded-select-input" value={category} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setCategory(e.currentTarget.value)}}>
                         <option value="">-- Select Category</option>
                         {renderCategoryNameOptions()}
                     </select>
@@ -116,7 +113,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
 
                 <div className="add-edit-modal-input-container">
                     <label className="add-edit-modal-input-label">Color Tag</label>
-                    <select required name="theme" className="rounded-select-input">
+                    <select required name="theme" className="rounded-select-input" value={theme} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setTheme(e.currentTarget.value)}}>
                         <option value="">-- Select Color</option>
                         {renderColorOptions(themes)}
                     </select>

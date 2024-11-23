@@ -75,6 +75,8 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
         setOpenEllipsisModal(false)
     });
 
+    console.log(budget)
+
 
     return (
         <div className='budget_detail'>
