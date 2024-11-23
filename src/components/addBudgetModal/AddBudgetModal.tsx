@@ -79,7 +79,7 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
         const colorOptions = themes?.map((theme, index) => {
             let upperCaseName : string = theme.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) 
             return (
-                <option className={`color-option`} value={theme.name}>{upperCaseName}</option>
+                <option key={index} className={`color-option`} value={theme.name}>{upperCaseName}</option>
             )
         })
         
