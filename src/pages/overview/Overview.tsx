@@ -1,4 +1,4 @@
-import {getPots, getTransactions, getBalances, getBudgets, getThemes, addThemes } from "../../utils/clientCalls"
+import {getPots, getTransactions, getBalances, getBudgets, getThemes } from "../../utils/clientCalls"
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'

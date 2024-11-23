@@ -1,7 +1,7 @@
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/../../amplify/data/resource";
 import initialData from "../../src/data/data.json"
-import { NewBudget, NewTransaction } from "../types/types";
+import { Budget, NewBudget, NewTransaction } from "../types/types";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -71,7 +71,10 @@ const client = generateClient<Schema>({
 //         console.log(error)
 //     }
 // }
-// Functions for deleting a single record
+
+///////////////////////////////////////////////////////////////////
+///////////// Functions for deleting a single record //////////////
+//////////////////////////////////////////////////////////////////
 
 export const deleteBudget = async (budgetId: string) => {
     const idObject = {id: budgetId}
@@ -82,8 +85,10 @@ export const deleteBudget = async (budgetId: string) => {
     }
 }
 
+//////////////////////////////////////////////////////////////////
+//////////// Functions for adding a single record ////////////////
+//////////////////////////////////////////////////////////////////
 
-// Functions for adding a single record
 export const addTransaction = async (data: NewTransaction) => {
     try {
         await client.models.Transaction.create(data)
@@ -100,7 +105,22 @@ export const addBudget = async (data: NewBudget) => {
     }
 }
 
-// Functions for getting all records
+//////////////////////////////////////////////////////////////////
+//////////// Functions for updating a single record //////////////
+//////////////////////////////////////////////////////////////////
+
+export const updateBudget = async (data: Budget) => {
+    try {
+        await client.models.Budget.update(data)
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+/////////////////////////////////////////////////////////////
+/////////// Functions for getting all records ///////////////
+/////////////////////////////////////////////////////////////
+
 export const getCategories = async () => {
     const {data, errors} = await client.models.Category.list()
     if (errors) {
@@ -154,3 +174,4 @@ export const getThemes = async () => {
         return data;
     }
 };
+

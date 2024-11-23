@@ -1,4 +1,8 @@
-import { Budget, SpendPerBudget, Transaction } from "../types/types"
+import { Budget, SpendPerBudget, Theme, Transaction } from "../types/types"
+
+///////////////////////////////////////////////////////
+////////////////// General Utils //////////////////////
+///////////////////////////////////////////////////////
 
 export function currencyFormatCents(num: number) {
     let formattedNum : string | string[] = '$' + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -10,8 +14,6 @@ export function currencyFormatCents(num: number) {
     }
     return formattedNum
 }
-
-
 
 export function currencyFormatNoCents(num: number) {
     let formattedNum : string | string[] = '$' + num?.toFixed(0).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
@@ -43,43 +45,64 @@ export function formatDate(dateString: string) {
     return dateFormat
 }
 
-//// Returns an array of objects that are passed into the chart when it is created
-export function setPieChartColorsAndValues(budgets : Budget[] ) {
-    const budgetPieChartData : any = budgets.map((budget) => {
-      return (
-        {
-          value: budget.maximum,
-          className: budget.theme
-        }
-      )
-    })
-
-    return budgetPieChartData
+export function getOrdinalSuffix(i: number) {
+    let j = i % 10,
+        k = i % 100;
+    if (j === 1 && k !== 11) {
+        return i + "st";
+    }
+    if (j === 2 && k !== 12) {
+        return i + "nd";
+    }
+    if (j === 3 && k !== 13) {
+        return i + "rd";
+    }
+    return i + "th";
 }
+
+export function capitalizeEachWord(string: string) {
+    return string.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()})
+}
+
+export function renderColorOptions(themes: Theme[]) {
+    const colorOptions = themes?.map((theme, index) => {
+        let upperCaseName : string = capitalizeEachWord(theme.name) 
+        return (
+            <option key={index} className={`color-option`} value={theme.name}>{upperCaseName}</option>
+        )
+    })
+    
+    return colorOptions
+}
+
+//////////////////////////////////////////////////////
+///////////// Transaction related utils //////////////
+//////////////////////////////////////////////////////
+
 
 export function sortTransactions(sortSelection: string, selectedTransactions : Transaction[]) {
     switch (sortSelection) {
-      case "latest":
+        case "latest":
         selectedTransactions = selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
         break;
-      case "oldest":
+        case "oldest":
         selectedTransactions = selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
         break;
-      case "a-z":
+        case "a-z":
         selectedTransactions = selectedTransactions.sort((a, b) => {
-          if (a.name < b.name) return -1
-          if (a.name > b.name) return 1
-          return 0
+            if (a.name < b.name) return -1
+            if (a.name > b.name) return 1
+            return 0
         })
         break;
-      case "z-a":
+        case "z-a":
         selectedTransactions = selectedTransactions.sort((a, b) => {
-          if (a.name > b.name) return -1
-          if (a.name < b.name) return 1
-          return 0
+            if (a.name > b.name) return -1
+            if (a.name < b.name) return 1
+            return 0
         })
         break;
-      case "highest":
+        case "highest":
         selectedTransactions = selectedTransactions.sort((a, b) => {
             if (a.amount > 0 && b.amount > 0) {
                 if ((a.amount* -1) < (b.amount* -1)) return -1
@@ -101,7 +124,7 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
             return 0
         })
         break;
-      case "lowest":
+        case "lowest":
         selectedTransactions = selectedTransactions.sort((a, b) => {
             if (a.amount > 0 && b.amount > 0) {
                 if ((a.amount* -1) > (b.amount* -1)) return -1
@@ -127,34 +150,19 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
     }
 
     return selectedTransactions
-  } 
+} 
 
-  export function filterTransactions(filterSelection: string, selectedTransactions : Transaction[]) {
+export function filterTransactions(filterSelection: string, selectedTransactions : Transaction[]) {
     if (filterSelection) {
-      selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterSelection.toLowerCase())
+        selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterSelection.toLowerCase())
     }
 
     return selectedTransactions
-  }
+}
 
-  export function filterTransactionsBySearch(search : string, selectedTransactions: Transaction[]) {
+export function filterTransactionsBySearch(search : string, selectedTransactions: Transaction[]) {
     selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.name).toLowerCase().includes(search.toLowerCase()))
     return selectedTransactions
-  }
-
-  export function getOrdinalSuffix(i: number) {
-    let j = i % 10,
-        k = i % 100;
-    if (j === 1 && k !== 11) {
-        return i + "st";
-    }
-    if (j === 2 && k !== 12) {
-        return i + "nd";
-    }
-    if (j === 3 && k !== 13) {
-        return i + "rd";
-    }
-    return i + "th";
 }
 
 /////////////////////////////////////////////////////////////////
@@ -223,6 +231,30 @@ export function getBudgetCategoryNamesAndMax(budgets : Budget[]) {
     }
     return budgetNamesAndMax
 }
+
+//// Returns an array of objects that are passed into the chart when it is created
+export function setPieChartColorsAndValues(budgets : Budget[] ) {
+    const budgetPieChartData : any = budgets.map((budget) => {
+      return (
+        {
+          value: budget.maximum,
+          className: budget.theme
+        }
+      )
+    })
+
+    return budgetPieChartData
+}
+
+export function checkIfBudgetExists(budgets: Budget[], newBudgetCategory: string) {
+    for (const budget of budgets) {
+        if (budget.category === newBudgetCategory) {
+            return true
+        }
+    }
+    return false
+}
+
 
 ///////////////////////////////////////////////////////////////////
 /////////////////// Utils for recurring bills /////////////////////

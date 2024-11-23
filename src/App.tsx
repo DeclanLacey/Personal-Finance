@@ -6,7 +6,6 @@ import Pots from './pages/pots/Pots'
 import RecurringBills from './pages/recurringBills/RecurringBills'
 import Transactions from './pages/transactions/Transactions'
 import { useState } from 'react'
-import { addBalanceData, addBudgetData, addPotData, addTransactionData } from './utils/clientCalls'
 import outputs from "../amplify_outputs.json"
 import { Amplify } from 'aws-amplify'
 import Nav from './components/nav/Nav'
@@ -14,7 +13,6 @@ import Nav from './components/nav/Nav'
 Amplify.configure(outputs)
 
 function App() {
-  const [addOwnDataChosen, setAddOwnDataChosen] = useState(false)
   const location = useLocation()
 
   return (

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "./AddBudgetModal.css"
 import { Budget, NewBudget, Theme } from "../../types/types"
 import { addBudget, getThemes } from "../../utils/clientCalls"
+import { checkIfBudgetExists, renderColorOptions } from "../../utils/utils"
 
 interface Props {
     budgets: Budget[],
@@ -65,26 +66,6 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
             }
         }
     }
-
-    function checkIfBudgetExists(budgets: Budget[], newBudgetCategory: string) {
-        for (const budget of budgets) {
-            if (budget.category === newBudgetCategory) {
-                return true
-            }
-        }
-        return false
-    }
-
-    function renderColorOptions() {
-        const colorOptions = themes?.map((theme, index) => {
-            let upperCaseName : string = theme.name.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase()}) 
-            return (
-                <option key={index} className={`color-option`} value={theme.name}>{upperCaseName}</option>
-            )
-        })
-        
-        return colorOptions
-    }
     
     return (
         <>
@@ -115,7 +96,7 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
                         <label className="add-modal-input-label">Color Tag</label>
                         <select required name="theme" className="rounded-select-input">
                             <option value="">-- Select Color</option>
-                            {renderColorOptions()}
+                            {renderColorOptions(themes)}
                         </select>
                     </div>
 
