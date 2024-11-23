@@ -1,7 +1,6 @@
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
-import React from 'react'
 import './SignIn.css'
 
 export default function SignIn() {

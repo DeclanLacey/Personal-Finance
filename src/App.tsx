@@ -5,7 +5,6 @@ import Budgets from './pages/budgets/Budgets'
 import Pots from './pages/pots/Pots'
 import RecurringBills from './pages/recurringBills/RecurringBills'
 import Transactions from './pages/transactions/Transactions'
-import { useState } from 'react'
 import outputs from "../amplify_outputs.json"
 import { Amplify } from 'aws-amplify'
 import Nav from './components/nav/Nav'

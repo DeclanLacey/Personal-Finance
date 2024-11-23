@@ -36,9 +36,8 @@ export default function RecurringBillsOverview() {
   if (!transactions) {
     return <div></div>
   }
-
+  
   recurringBillTotals = getRecurringBillTotals(transactions)
-
 
   return (
     <section className='recurring_bills-container'>

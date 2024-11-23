@@ -3,9 +3,9 @@ import { Budget, Category, Transaction } from '../../types/types'
 import { getBudgets, getCategories, getTransactions } from '../../utils/clientCalls'
 import { PieChart } from 'chartist'
 import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils'
-import "./Budgets.css"
 import BudgetDetail from '../../components/budgetDetail/BudgetDetail'
 import AddBudgetModal from '../../components/addBudgetModal/AddBudgetModal'
+import "./Budgets.css"
 
 export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()

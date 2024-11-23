@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react'
 import { getTransactions } from '../../utils/clientCalls'
 import { calculateTotalBills, currencyFormatCents, filterTransactionsBySearch, getOrdinalSuffix, getRecurringBillTotals, sortTransactions } from '../../utils/utils'
-import "./RecurringBills.css"
 import { Transaction } from '../../types/types'
 import { CiSearch } from 'react-icons/ci'
+import "./RecurringBills.css"
 
 export default function RecurringBills() {
   const [transactions, setTransactions] = useState<any[]>()
@@ -72,7 +72,6 @@ export default function RecurringBills() {
       )
     })
 
-
     return recurringBillElements
   }
 
@@ -94,8 +93,6 @@ export default function RecurringBills() {
     return selectedTransactions
   }
 
-  
-  
   return (
     <div className='recurring_bills_page'>
       <h1 className='recurring_bills_page-title'>Recurring Bills</h1>
@@ -133,7 +130,6 @@ export default function RecurringBills() {
             <CiSearch className='recurring_bills_page-search-icon' />
           </div>
 
-       
           <div className='recurring_bills_page-sort-container'>
             <label className='recurring_bills_page-select-label'>Sort by</label>
             <select className='recurring_bills_page-select rounded-select-input' name='sort' onChange={changeSort}>
@@ -145,8 +141,6 @@ export default function RecurringBills() {
               <option className='recurring_bills_page-select-option' value="lowest">Lowest</option>
             </select>
           </div>
-        
-          
         </form>
         <div>
           {transactions ? renderRecurringBills(transactions) : <></>}

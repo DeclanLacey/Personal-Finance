@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import "./AddBudgetModal.css"
 import { Budget, NewBudget, Theme } from "../../types/types"
 import { addBudget, getThemes } from "../../utils/clientCalls"
 import { checkIfBudgetExists, renderColorOptions } from "../../utils/utils"
+import "./AddBudgetModal.css"
 
 interface Props {
     budgets: Budget[],
@@ -11,7 +11,6 @@ interface Props {
 }
 
 export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
-
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
 
@@ -77,7 +76,6 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
                 </div>
 
                 <form onSubmit={handleSubmit}>
-
                     <div className="add-edit-modal-amount-container">
                         <label className="add-edit-modal-input-label">Amount</label>
                         <span className="dollar-sign">$</span>
@@ -101,7 +99,6 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
                     </div>
 
                     <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Add Budget"}></input>
-
                 </form>
             </section>
         </>

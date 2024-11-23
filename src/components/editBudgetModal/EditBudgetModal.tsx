@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
-import { Budget, Category, NewBudget, Theme, UpdatedBudget } from '../../types/types'
-import { getBudgets, getCategories, getThemes, updateBudget } from '../../utils/clientCalls'
+import { Budget, Category, Theme, UpdatedBudget } from '../../types/types'
+import {getCategories, getThemes, updateBudget } from '../../utils/clientCalls'
 import { checkIfBudgetExists, renderColorOptions } from '../../utils/utils'
 
 interface Props {
@@ -96,7 +96,6 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
             </div>
 
             <form onSubmit={handleSubmit}>
-
                 <div className="add-edit-modal-amount-container">
                     <label className="add-edit-modal-input-label">Amount</label>
                     <span className="dollar-sign">$</span>
@@ -120,7 +119,6 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
                 </div>
 
                 <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Save Changes"}></input>
-
             </form>
         </section>
     </>

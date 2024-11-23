@@ -7,8 +7,7 @@ interface Props {
     potSaved: number
 }
 export default function ThinProgressBar({potColor, potTarget, potSaved} : Props) {
-
-    let percentSpent = calculatePercentOfTotal(potTarget, potSaved)
+  let percentSpent = calculatePercentOfTotal(potTarget, potSaved)
 
   return (
     <div className='thin_progress_bar-container'>

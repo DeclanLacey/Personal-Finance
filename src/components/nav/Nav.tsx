@@ -1,9 +1,7 @@
-import { Link, NavLink } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import "./Nav.css"
 
-
 export default function Nav() {
-
   return (
     <nav className='nav-container'>
         <NavLink className='nav-link' to={"/overview"}> 

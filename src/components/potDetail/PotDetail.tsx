@@ -28,9 +28,8 @@ export default function PotDetail({pot} : Props) {
                 <p className='pot_detail-amount-saved'>{currencyFormatCents(pot.total)}</p>
             </div>
 
-    
             <ThinProgressBar potColor={pot.theme} potTarget={pot.target} potSaved={pot.total} />
-
+            
             <div className='pot_detail-flex-container'>
                 <p className='pot_detail-percent-saved'>{calculatePercentOfPotSaved()}%</p>
                 <p className='pot_detail-pot-target'>Target of {currencyFormatNoCents(pot.target)}</p>

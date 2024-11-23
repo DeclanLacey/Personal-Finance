@@ -83,7 +83,6 @@ export default function PotsOverview() {
       <div className='pots_overview-pots-container'>
         {renderFirstFourPotElements()}
       </div>
-
     </section>
   )
 }

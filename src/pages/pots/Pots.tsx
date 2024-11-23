@@ -35,7 +35,6 @@ export default function Pots() {
     return <div></div>
   }
 
-
   function renderPotDetailElements(potData: Pot[]) {
     const potElements = potData.map((pot, index) => {
       return (
@@ -45,7 +44,6 @@ export default function Pots() {
 
     return potElements
   }
-
 
   return (
     <div className='pots_page-container'>

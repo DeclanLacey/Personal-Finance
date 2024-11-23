@@ -8,9 +8,8 @@ interface Props {
 }
 
 export default function ProgressBar({budgetColor, budgetMax, budgetSpend} : Props) {
-
     let percentSpent = calculatePercentOfTotal(budgetMax, budgetSpend)
-
+    
     return (
         <div className='progress_bar-container'>
             <div className={`progress_bar-value ${budgetColor}`} style={{width: `${percentSpent}%`}}>

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { CiSearch } from "react-icons/ci";
-import "./Transactions.css"
 import { getCategories, getTransactions } from '../../utils/clientCalls';
 import { currencyFormatCents, filterTransactions, filterTransactionsBySearch, formatDate, sortTransactions } from '../../utils/utils';
 import ReactPaginate from 'react-paginate';
 import { Category, Transaction } from '../../types/types';
 import AddTransactionModal from '../../components/addTransactionModal/AddTransactionModal';
+import "./Transactions.css"
 
 export default function Transactions() {
   const [categoryNames, setCategoryNames] = useState<Category[]>()

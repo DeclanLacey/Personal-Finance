@@ -2,11 +2,11 @@ import { NavLink } from 'react-router-dom'
 import { Budget, Transaction } from '../../types/types'
 import { currencyFormatCents, formatDate } from '../../utils/utils'
 import ProgressBar from '../progressBar/ProgressBar'
-import "./BudgetDetail.css"
 import { useState } from 'react'
-import { deleteBudget, getBudgets } from '../../utils/clientCalls'
+import { deleteBudget} from '../../utils/clientCalls'
 import ConfirmDeleteModal from '../confirmDeleteModal/ConfirmDeleteModal'
 import EditBudgetModal from '../editBudgetModal/EditBudgetModal'
+import "./BudgetDetail.css"
 
 interface Props {
     budgets: Budget[],
@@ -15,7 +15,6 @@ interface Props {
 }
 
 export default function BudgetDetail({budget, transactions, budgets} : Props)  {
-
     const [openEllipsisModal, setOpenEllipsisModal] = useState<Boolean>(false)
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState<Boolean>(false)
     const [showEditBudgetModal, setShowEditBudgetModal] = useState<Boolean>()
@@ -75,9 +74,6 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
         setOpenEllipsisModal(false)
     });
 
-    console.log(budget)
-
-
     return (
         <div className='budget_detail'>
             <div className='budget_detail-name-container'>
@@ -125,7 +121,6 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
                         <NavLink to="/transactions" className='see-details-link'>See All</NavLink>
                         <img className='see-details-caret' src='./assets/icon-caret-right.svg'/>
                     </div>
-                    
                 </div>
                 <div className='budget_detail-spending-transactions'>
                     {renderLastThreeTransactions()}
