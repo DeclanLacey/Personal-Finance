@@ -1,80 +1,131 @@
 import { useEffect, useState } from 'react'
-import { Budget, NewBudget, Theme } from '../../types/types'
-import { getThemes, updateBudget } from '../../utils/clientCalls'
-import { checkIfBudgetExists } from '../../utils/utils'
+import { Budget, Category, NewBudget, Theme } from '../../types/types'
+import { getBudgets, getCategories, getThemes, updateBudget } from '../../utils/clientCalls'
+import { checkIfBudgetExists, renderColorOptions } from '../../utils/utils'
 
 interface Props {
   budgets: Budget[],
   currentBudget: Budget,
   setShowEditBudgetModal: Function,
-  renderCategoryNameOptions: Function
 }
 
-export default function EditDataModal({budgets, currentBudget, setShowEditBudgetModal, renderCategoryNameOptions} : Props) {
-  
-    const [themes, setThemes] = useState<Theme[]>()
-    const [loading, setLoading] = useState<Boolean>()
+export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal, budgets} : Props) {
+  const [themes, setThemes] = useState<Theme[]>()
+  const [loading, setLoading] = useState<Boolean>()
+  const [categoryNames, setCategoryNames] = useState<Category[]>()
+  const [category, setCategory] = useState<string>()
+  const [maximum, setMaximum] = useState<number>()
+  const [theme, setTheme] = useState<string>()
 
-    useEffect(() => {
-        async function getData() {
-            try {
-                setLoading(true)
-                const themeData : any = await getThemes()
-                setThemes(themeData)
-                setLoading(false)
-              }catch(error) {
-                setLoading(false)
-                console.log(error)
-              }
+  useEffect(() => {
+      async function getData() {
+          try {
+              setLoading(true)
+              const themeData = await getThemes()
+              const categoryData = await getCategories()
+              setThemes(themeData)
+              setCategoryNames(categoryData)
+              setCategory(currentBudget.category)
+              setMaximum(currentBudget.maximum)
+              setTheme(currentBudget.theme)
+              setLoading(false)
+            }catch(error) {
+              setLoading(false)
+              console.log(error)
+            }
+      }
+      getData()
+  }, [])
+
+  /// Checks if the data is currently loading
+  if (loading) {
+      return <div></div>
+  }
+
+  //// Checks if the budgets or transactions are falsey values
+  if (!themes || !budgets) {
+      return <div></div>
+  }
+
+  async function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault()
+    const target = event.target as typeof event.target & {
+        category: {value: string},
+        maximum: {value: number},
+        theme: {value: string}
+    }
+
+    if (checkIfBudgetExists(budgets, target.category.value) && target.category.value !== currentBudget.category) {
+        window.alert("There is already a budget for the chosen category")
+    }else {
+
+        const updatedBudget : Budget = {
+          category: target.category.value,
+          createdAt: currentBudget.createdAt,
+          id: currentBudget.id,
+          maximum: target.maximum.value,
+          profileOwner: currentBudget.profileOwner,
+          theme: target.theme.value,
+          updatedAt: ""
         }
-        getData()
-    }, [])
 
-    /// Checks if the data is currently loading
-    if (loading) {
-        return <div></div>
+        if (!updatedBudget.maximum) {
+            window.alert("Please enter a valid transaction amount")
+        }else {
+            await updateBudget(updatedBudget)
+            setShowEditBudgetModal(false)
+            location.reload()
+        }
     }
+  } 
 
-    //// Checks if the budgets or transactions are falsey values
-    if (!themes) {
-        return <div></div>
-    }
-
-    async function handleSubmit(event: React.SyntheticEvent) {
-      event.preventDefault()
-      const target = event.target as typeof event.target & {
-          category: {value: string},
-          maximum: {value: number},
-          theme: {value: string}
-      }
-
-      if (checkIfBudgetExists(budgets, target.category.value) && target.category.value !== currentBudget.category) {
-          window.alert("There is already a budget for the chosen category")
-      }else {
-
-          const updatedBudget : Budget = {
-            category: target.category.value,
-            createdAt: currentBudget.createdAt,
-            id: currentBudget.id,
-            maximum: target.maximum.value,
-            profileOwner: currentBudget.profileOwner,
-            theme: target.theme.value,
-            updatedAt: ""
-          }
-  
-          if (!updatedBudget.maximum) {
-              window.alert("Please enter a valid transaction amount")
-          }else {
-              await updateBudget(updatedBudget)
-              setShowEditBudgetModal(false)
-              location.reload()
-          }
-      }
+  function renderCategoryNameOptions() {
+    const categoryNameElements = categoryNames?.map((category, index) => {
+      return (
+        <option key={index} value={category.name}>{category.name}</option>
+      )
+    })
+    
+    return categoryNameElements
   }
 
   return (
-    <div>
-        
-    </div>
+    <>
+        <div className='page-cover'></div>
+        <section className='add-edit-modal'>
+            <div className="add-edit-modal-title-container">
+                <h2 className="add-edit-modal-title">Edit Budget</h2>
+                <img className="close-modal-btn" onClick={() => setShowEditBudgetModal(false)} src="./assets/icon-close-modal.svg" />
+            </div>
+
+            <form onSubmit={handleSubmit}>
+
+                <div className="add-edit-modal-amount-container">
+                    <label className="add-edit-modal-input-label">Amount</label>
+                    <span className="dollar-sign">$</span>
+                    <input required name="maximum" maxLength={9} value={maximum} onChange={(e: React.FormEvent<HTMLInputElement>) => {setMaximum(Number(e.currentTarget.value) | 0)}} placeholder="e.g 49.99" className="rounded-input amount-input" />
+                </div>
+                
+                <div className="add-edit-modal-input-container">
+                    <label className="add-edit-modal-input-label">Category</label>
+                    <select required name="category" className="rounded-select-input">
+                        <option value="">-- Select Category</option>
+                        {renderCategoryNameOptions()}
+                    </select>
+                </div>
+
+                <div className="add-edit-modal-input-container">
+                    <label className="add-edit-modal-input-label">Color Tag</label>
+                    <select required name="theme" className="rounded-select-input">
+                        <option value="">-- Select Color</option>
+                        {renderColorOptions(themes)}
+                    </select>
+                </div>
+
+                <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Save Changes"}></input>
+
+            </form>
+        </section>
+    </>
   )
 }

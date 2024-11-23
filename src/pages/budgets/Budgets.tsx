@@ -103,7 +103,7 @@ export default function Budgets() {
   function renderBudgetDetailComponents(budgets : Budget[], transactions : Transaction[]) {    
     const budgetDetailElements = budgets.map((budget, index) => {
       return (
-        <BudgetDetail key={index} budget={budget} transactions={transactions}/>
+        <BudgetDetail key={index} budget={budget} transactions={transactions} budgets={budgets}/>
       )
     })
 

@@ -287,7 +287,7 @@ input[type="date"]:before {
   width: 25px;
 }
 
-.add-modal {
+.add-edit-modal {
   z-index: 150;
   background-color: var(--white);
   position: fixed;
@@ -301,7 +301,7 @@ input[type="date"]:before {
   border-radius: 10px;
 }
 
-.add-modal-input-label {
+.add-edit-modal-input-label {
   font-size: 1.2rem;
     font-weight: 600;
     color: var(--grey-500);
@@ -328,6 +328,34 @@ input[type="date"]:before {
   box-shadow: none !important;
   padding: 0px !important;
   border: none !important;
+}
+
+
+/* //////////////// Add/edit modal styling ////////////////// */
+
+.add-edit-modal-amount-container {
+  position: relative;
+}
+
+.add-edit-modal-input-container{
+  display: flex;
+  flex-direction: column;
+}
+
+.add-edit-modal-title-container{
+  display: flex;
+  justify-content: space-between;
+  margin-top: -10px;
+}
+
+.add-edit-modal-btn {
+  width: 100%;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.add-edit-modal-title {
+  font-size: 2rem;
 }
 
 /* ///////////////////// hover //////////////////////// */

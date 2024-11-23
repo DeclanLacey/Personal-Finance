@@ -28,7 +28,7 @@ export type Budget = {
     createdAt: string,
     id: string,
     maximum: number,
-    profileOwner: string,
+    profileOwner: string | null,
     theme: string,
     updatedAt: string
 }
@@ -71,7 +71,7 @@ export type Theme = {
     name: string,
     hex: string,
     id: string,
-    profileOwner: string,
+    profileOwner: string | null,
     createdAt: string,
     updatedAt: string
 }
