@@ -4,10 +4,12 @@ import { getPots } from '../../utils/clientCalls'
 import { Pot } from '../../types/types'
 import PotDetail from '../../components/potDetail/PotDetail'
 import "./Pots.css"
+import AddPotModal from '../../components/addPotModal/AddPotModal'
 
 export default function Pots() {
   const [pots, setPots] = useState<Pot[]>()
   const [loading, setLoading] = useState<Boolean>(false)
+  const [showAddPotModal, setShowAddPotModal] = useState<Boolean>(false)
 
   useEffect(() => {
    //// Calls utility functions to get the data from the backend
@@ -49,8 +51,10 @@ export default function Pots() {
     <div className='pots_page-container'>
       <header className='pots_page-header'>
         <h1 className='pots_page-title'>Pots</h1>
-        <button className='black-add-btn'>+ Add New Pot</button>
+        <button className='black-add-btn' onClick={() => setShowAddPotModal(true)}>+ Add New Pot</button>
       </header>
+
+      {showAddPotModal && <AddPotModal setShowAddPotModal={setShowAddPotModal}/>}
 
       <section>
         {pots ? renderPotDetailElements(pots) : <></>}
