@@ -330,6 +330,34 @@ input[type="date"]:before {
   border: none !important;
 }
 
+.ellipsis-dropdown {
+  position: absolute;
+  background-color: white;
+  border-radius: 10px;
+  right: 0px; 
+  top: 30px;
+  border: 1px solid var(--grey-100);
+  padding: 5px 18px 5px 18px;
+}
+
+.ellipsis-edit,
+.ellipsis-delete {
+  font-size: 1.4rem;
+  padding: 0px;
+  margin: 0px;
+  padding-bottom: 8px;
+  padding-top: 8px;
+}
+
+.ellipsis-delete {
+  color: var(--red);
+}
+
+.ellipsis-edit:hover,
+.ellipsis-delete:hover {
+  cursor: pointer;
+}
+
 
 /* //////////////// Add/edit modal styling ////////////////// */
 

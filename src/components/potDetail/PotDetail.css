@@ -36,6 +36,7 @@
 .pot_detail-upper-container {
     margin-bottom: 20px;
     margin-top: 5px;
+    position: relative;
 }
 
 .pot_detail-saved-title {

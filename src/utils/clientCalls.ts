@@ -85,6 +85,15 @@ export const deleteBudget = async (budgetId: string) => {
     }
 }
 
+export const deletePot = async (potId: string) => {
+    const idObject = {id: potId} 
+    try {
+        await client.models.Pot.delete(idObject)
+    }catch(error) {
+        console.log(error)
+    }
+}
+
 //////////////////////////////////////////////////////////////////
 //////////// Functions for adding a single record ////////////////
 //////////////////////////////////////////////////////////////////

@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom'
 import { Budget, Transaction } from '../../types/types'
 import { currencyFormatCents, formatDate } from '../../utils/utils'
 import ProgressBar from '../progressBar/ProgressBar'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { deleteBudget} from '../../utils/clientCalls'
 import ConfirmDeleteModal from '../confirmDeleteModal/ConfirmDeleteModal'
 import EditBudgetModal from '../editBudgetModal/EditBudgetModal'
@@ -15,7 +15,7 @@ interface Props {
 }
 
 export default function BudgetDetail({budget, transactions, budgets} : Props)  {
-    const [openEllipsisModal, setOpenEllipsisModal] = useState<Boolean>(false)
+    const [showEllipsesModal, setShowEllipsesModal] = useState<Boolean>(false)
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState<Boolean>(false)
     const [showEditBudgetModal, setShowEditBudgetModal] = useState<Boolean>()
     const totalSpent = calculateTotalSpent()
@@ -70,21 +70,28 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
         setShowEditBudgetModal(true)
     }
 
-    window.addEventListener('scroll', function() {
-        setOpenEllipsisModal(false)
-    });
+    useEffect(() => {
+        if (showEllipsesModal) {
+            window.addEventListener('scroll', function() {
+                setShowEllipsesModal(false)
+            });
+        }else {
+            window.removeEventListener('scroll', function() {
+            });
+        }
+    }, [showEllipsesModal])
 
     return (
         <div className='budget_detail'>
             <div className='budget_detail-name-container'>
                 <div className={`budget_detail-colored-circle ${budget.theme}`}></div>
                 <h2 className='budget_detail-name'>{budget.category}</h2>
-                <button className='detail-ellipsis' onClick={() => setOpenEllipsisModal(prevState => !prevState)}></button>
+                <button className='detail-ellipsis' onClick={() => setShowEllipsesModal(prevState => !prevState)}></button>
                 {
-                    openEllipsisModal &&
-                    <div className='budget-detail-ellipsis-dropdown'>
-                        <p className='budget-detail-ellipsis-edit border-bottom' onClick={handleEditBudgetClick}>Edit Budget</p>
-                        <p className='budget-detail-ellipsis-delete' id={budget.id} onClick={handleDeleteBudgetClick}>Delete Budget</p>
+                    showEllipsesModal &&
+                    <div className='ellipsis-dropdown'>
+                        <p className='ellipsis-edit border-bottom' onClick={handleEditBudgetClick}>Edit Budget</p>
+                        <p className='ellipsis-delete' id={budget.id} onClick={handleDeleteBudgetClick}>Delete Budget</p>
                     </div>
                 }
 
