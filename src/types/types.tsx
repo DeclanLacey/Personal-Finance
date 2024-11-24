@@ -58,6 +58,13 @@ export type Pot = {
     id: string,
 }
 
+export type NewPot = {
+    name: string,
+    target: number,
+    theme: string,
+    total: number
+}
+
 
 // Type structure after AWS additions
 export type Balance = {

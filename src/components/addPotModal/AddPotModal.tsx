@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { renderColorOptions } from "../../utils/utils"
-import { getThemes } from "../../utils/clientCalls"
-import { Theme } from "../../types/types"
+import { addPot, getThemes } from "../../utils/clientCalls"
+import { NewPot, Theme } from "../../types/types"
 
 interface Props {
   setShowAddPotModal: Function
@@ -36,8 +36,28 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
       return <div></div>
   }
 
-  function handleSubmit() {
+  async function handleSubmit(event: React.SyntheticEvent) {
+    event.preventDefault()
+    const target = event.target as typeof event.target & {
+        name: {value: string},
+        target: {value: number},
+        theme: {value: string}
+    }
 
+    const newTransaction: NewPot = {
+        name: target.name.value,
+        target: target.target.value,
+        theme: target.theme.value,
+        total: 0
+    }
+
+    if (!newTransaction.target) {
+        window.alert("Please enter a valid transaction amount")
+    }else {
+        await addPot(newTransaction)
+        setShowAddPotModal(false)
+        location.reload()
+    }
   }
 
   return (
