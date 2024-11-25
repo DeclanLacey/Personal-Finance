@@ -14,7 +14,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
   const [loading, setLoading] = useState<Boolean>()
   const [categoryNames, setCategoryNames] = useState<Category[]>()
   const [category, setCategory] = useState<string>(currentBudget.category)
-  const [maximum, setMaximum] = useState<number>(currentBudget.maximum)
+  const [maximum, setMaximum] = useState<string>(currentBudget.maximum.toString())
   const [theme, setTheme] = useState<string>(currentBudget.theme)
 
   useEffect(() => {
@@ -54,7 +54,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
         const updatedBudget : UpdatedBudget = {
           id: currentBudget.id,
           category: category,
-          maximum: maximum,
+          maximum: Number(maximum),
           theme: theme
         }
 
@@ -80,7 +80,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
 
   function handleMaximumChange(e: React.FormEvent<HTMLInputElement>) {
     if (checkIfStringIsNumber(e.currentTarget.value)) {
-      setMaximum(Number(e.currentTarget.value))
+      setMaximum(e.currentTarget.value)
     }
   }
 

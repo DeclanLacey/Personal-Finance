@@ -13,7 +13,7 @@ interface Props {
 export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
-    const [maximum, setMaximum] = useState<number>(0)
+    const [maximum, setMaximum] = useState<string>("")
     const [category, setCategory] = useState<string>("")
     const [theme, setTheme] = useState<string>("")
 
@@ -50,7 +50,7 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
         }else {
             const newTransaction: NewBudget = {
                 category: category,
-                maximum: maximum,
+                maximum: Number(maximum),
                 theme: theme
             }
     
@@ -66,7 +66,7 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
 
     function handleMaximumChange(e: React.FormEvent<HTMLInputElement>) {
         if (checkIfStringIsNumber(e.currentTarget.value)) {
-            setMaximum(Number(e.currentTarget.value))
+            setMaximum(e.currentTarget.value)
         }
     }
 

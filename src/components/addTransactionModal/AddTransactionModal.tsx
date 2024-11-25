@@ -13,7 +13,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
     const currentDate = new Date().toISOString().split('T')[0]
     const [name, setName] = useState<string>("")
     const [category, setCategory] = useState<string>("")
-    const [amount, setAmount] = useState<string>("0")
+    const [amount, setAmount] = useState<string>("")
     const [date, setDate] = useState<string>(currentDate)
     const [recurring, setRecurring] = useState<boolean>(false)
     const [transactionType, setTransactionType] = useState<TransactionType>("expense")

@@ -12,7 +12,7 @@ interface Props {
 export default function EditPotModal({currentPot, setShowEditPotModal} : Props) {
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
-    const [target, setTarget] = useState<number>(currentPot.target)
+    const [target, setTarget] = useState<string>(currentPot.target.toString())
     const [theme, setTheme] = useState<string>(currentPot.theme)
     const [potName, setPotName] = useState<string>(currentPot.name)
 
@@ -46,7 +46,7 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
         const updatedPot : UpdatedPot = {
             id: currentPot.id,
             name: potName,
-            target: target,
+            target: Number(target),
             theme: theme
         }
 
@@ -61,7 +61,7 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
 
     function handleTargetChange(e: React.FormEvent<HTMLInputElement>) {
         if (checkIfStringIsNumber(e.currentTarget.value)) {
-            setTarget(Number(e.currentTarget.value))
+            setTarget(e.currentTarget.value)
         }
     }
 

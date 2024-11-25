@@ -11,7 +11,7 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
   const [themes, setThemes] = useState<Theme[]>()
   const [loading, setLoading] = useState<Boolean>()
   const [name, setName] = useState<string>("")
-  const [target, setTarget] = useState<number>(0)
+  const [target, setTarget] = useState<string>("")
   const [theme, setTheme] = useState<string>("")
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
 
     const newTransaction: NewPot = {
         name: name,
-        target: target,
+        target: Number(target),
         theme: theme,
         total: 0
     }
@@ -60,7 +60,7 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
 
   function handleTargetChange(e: React.FormEvent<HTMLInputElement>) {
     if (checkIfStringIsNumber(e.currentTarget.value)) {
-        setTarget(Number(e.currentTarget.value))
+        setTarget(e.currentTarget.value)
     }
   }
 
