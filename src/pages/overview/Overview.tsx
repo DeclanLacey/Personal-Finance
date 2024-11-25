@@ -22,7 +22,7 @@ export default function Overview() {
   
   return (
     <div className="overview-container">
-      <h1 className="overview-title">Overview</h1>
+      <h1 className="overview-title text-1-bold">Overview</h1>
       <BalancesOverview></BalancesOverview>
       <PotsOverview></PotsOverview>
       <TransactionsOverview></TransactionsOverview>

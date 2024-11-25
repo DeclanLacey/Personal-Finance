@@ -59,7 +59,7 @@ export default function Pots() {
   return (
     <div className='pots_page-container'>
       <header className='pots_page-header'>
-        <h1 className='pots_page-title'>Pots</h1>
+        <h1 className='text-1-bold'>Pots</h1>
         <button className='black-add-btn' onClick={() => setShowAddPotModal(true)}>+ Add New Pot</button>
       </header>
 

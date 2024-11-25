@@ -71,12 +71,12 @@ export default function RecurringBills() {
         <div className={`recurring_bills_page-bill ${index === sortedTransactions.length - 1 ? "" : "bill-border-bottom"}`} key={index}>
           <div className='recurring_bills_page-bill-name-container'>
             <img className='recurring_bills_page-bill-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
-            <p className='recurring_bills_page-bill-name'>{transaction.name}</p>
+            <p className='recurring_bills_page-bill-name text-4-bold'>{transaction.name}</p>
           </div>
 
           <div className='recurring_bills_page-bill-amount-container'>
-            <p className='recurring_bills_page-date'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
-            <p className='recurring_bills_page-bill-amount'>{currencyFormatCents(-transaction.amount)}</p>
+            <p className='recurring_bills_page-date text-5'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
+            <p className='recurring_bills_page-bill-amount text-4-bold'>{currencyFormatCents(-transaction.amount)}</p>
           </div>
         </div>
       )
@@ -105,31 +105,31 @@ export default function RecurringBills() {
 
   return (
     <div className='recurring_bills_page'>
-      <h1 className='recurring_bills_page-title'>Recurring Bills</h1>
+      <h1 className='recurring_bills_page-title text-1-bold'>Recurring Bills</h1>
       <section className='recurring_bills_page-total-container'>
         <img className='recurring_bills_page-bill-icon' alt={`A black and white icon of a receipt with un-readable writing on it.`} src='./assets/icon-recurring-bills.svg' />
         <div>
-          <h2 className='recurring_bills_page-total-title'>Total Bills</h2>
-          {transactions ? <p className='recurring_bills_page-total'>{currencyFormatCents(calculateTotalBills(transactions))}</p> : <></>}
+          <h2 className='recurring_bills_page-total-title text-4'>Total Bills</h2>
+          {transactions ? <p className='recurring_bills_page-total text-1-bold'>{currencyFormatCents(calculateTotalBills(transactions))}</p> : <></>}
         </div>
       </section>
 
       <section className='recurring_bills_page-summary-container'>
-        <h2 className='recurring_bills_page-summary-title'>Summary</h2>
+        <h2 className='recurring_bills_page-summary-title text-3-bold'>Summary</h2>
 
         <div className='recurring_bills_page-flex-container border-bottom'>
-          <p className='recurring_bills_page-summary-subtitle'>Paid Bills</p>
-          <p className='recurring_bills_page-summary-total'>{`${recurringBillTotals.billTypeCounts.paidBillsCount} (${currencyFormatCents(-recurringBillTotals.paidBills)})`}</p>
+          <p className='text-5-grey'>Paid Bills</p>
+          <p className='text-5-bold'>{`${recurringBillTotals.billTypeCounts.paidBillsCount} (${currencyFormatCents(-recurringBillTotals.paidBills)})`}</p>
         </div>
 
         <div className='recurring_bills_page-flex-container border-bottom'>
-          <p className='recurring_bills_page-summary-subtitle'>Total Upcoming</p>
-          <p className='recurring_bills_page-summary-total'>{`${recurringBillTotals.billTypeCounts.totalUpcomingCount} (${currencyFormatCents(-recurringBillTotals.totalUpcoming)})`}</p>
+          <p className='text-5-grey'>Total Upcoming</p>
+          <p className='text-5-bold'>{`${recurringBillTotals.billTypeCounts.totalUpcomingCount} (${currencyFormatCents(-recurringBillTotals.totalUpcoming)})`}</p>
         </div>
 
         <div className='recurring_bills_page-flex-container'>
-          <p className='recurring_bills_page-summary-subtitle red-text'>Due Soon</p>
-          <p className='recurring_bills_page-summary-total red-text'>{`${recurringBillTotals.billTypeCounts.dueSoonCount} (${currencyFormatCents(-recurringBillTotals.dueSoon)})`}</p>
+          <p className='text-5 red-text'>Due Soon</p>
+          <p className='text-5-bold red-text'>{`${recurringBillTotals.billTypeCounts.dueSoonCount} (${currencyFormatCents(-recurringBillTotals.dueSoon)})`}</p>
         </div>
       </section>
 
@@ -141,7 +141,7 @@ export default function RecurringBills() {
           </div>
 
           <div className='recurring_bills_page-sort-container'>
-            <label className='recurring_bills_page-select-label'>Sort by</label>
+            <label className='text-4-grey'>Sort by</label>
             <select className='recurring_bills_page-select rounded-select-input' name='sort' onChange={changeSort}>
               <option className='recurring_bills_page-select-option' value="latest">Latest</option>
               <option className='recurring_bills_page-select-option' value="oldest">Oldest</option>

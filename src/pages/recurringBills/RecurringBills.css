@@ -5,7 +5,6 @@
 }
 
 .recurring_bills_page-title {
-    font-size: 3.2rem;
     margin-bottom: 30px;
     margin-top: 30px;
 }
@@ -26,16 +25,12 @@
 }
 
 .recurring_bills_page-total-title {
-    font-size: 1.4rem;
-    font-weight: 500;
     margin: 0px;
     margin-bottom: 5px;
 }
 
 .recurring_bills_page-total {
-    font-size: 3.2rem;
     margin: 0px;
-    font-weight: 600;
 }
 
 .recurring_bills_page-summary-container {
@@ -54,16 +49,6 @@
     justify-content: space-between;
     padding-bottom: 5px;
     padding-top: 5px;
-}
-
-.recurring_bills_page-summary-subtitle {
-    font-size: 1.2rem;
-    color: var(--grey-500);
-}
-
-.recurring_bills_page-summary-total {
-    font-weight: 600;
-    font-size: 1.2rem;
 }
 
 .red-text {
@@ -103,11 +88,6 @@
     width: 16px;
     height: 16px;
     top: 25%;
-}
-
-.recurring_bills_page-select-label  {
-    color: var(--grey-500);
-    font-size: 1.4rem;
 }
 
 .recurring_bills_page-select-container {
@@ -157,22 +137,17 @@
 }
 
 .recurring_bills_page-bill-amount {
-    font-size: 1.4rem;
-    font-weight: 600;
     margin-bottom: 0px;
     margin-top: 0px;
 }
 
 .recurring_bills_page-date {
-    font-size: 1.2rem;
     color: var(--green);
     margin-bottom: 0px;
     margin-top: 0px;
 }
 
 .recurring_bills_page-bill-name {
-    font-size: 1.4rem;
-    font-weight: 600;
     margin-bottom: 0px;
     margin-top: 0px;
 }
