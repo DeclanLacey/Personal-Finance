@@ -72,7 +72,7 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
           <form onSubmit={handleSubmit}>
               <div className="add-edit-modal-input-container">
                   <label className="add-edit-modal-input-label">Pot Name</label>
-                  <input required name="name" maxLength={9} placeholder="e.g. Rainy Days" className="rounded-input" />
+                  <input required name="name" maxLength={30} placeholder="e.g. Rainy Days" className="rounded-input" />
               </div>
 
               <div className="add-edit-modal-amount-container">

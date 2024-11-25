@@ -5,6 +5,7 @@ import ThinProgressBar from '../thinProgressBar/ThinProgressBar'
 import "./PotDetail.css"
 import ConfirmDeleteModal from '../confirmDeleteModal/ConfirmDeleteModal'
 import { deletePot } from '../../utils/clientCalls'
+import EditPotModal from '../editPotModal/EditPotModal'
 
 interface Props {
     pot: Pot
@@ -14,13 +15,14 @@ export default function PotDetail({pot} : Props) {
 
     const [showEllipsesModal, setShowEllipsesModal] = useState<Boolean>()
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState<Boolean>(false)
+    const [showEditPotModal, setShowEditPotModal] = useState<Boolean>()
 
     function calculatePercentOfPotSaved() {
         return ((pot.total / pot.target) * 100).toFixed(2)
     }
     
     function handleEditPotClick() {
-
+        setShowEditPotModal(true)
     }
 
     function handleDeletePotClick() {
@@ -53,13 +55,11 @@ export default function PotDetail({pot} : Props) {
                         <p className='ellipsis-edit border-bottom' onClick={handleEditPotClick}>Edit Pot</p>
                         <p className='ellipsis-delete' id={pot.id} onClick={handleDeletePotClick}>Delete Pot</p>
                     </div>
-                }
-                
-                { openConfirmDeleteModal && <ConfirmDeleteModal recordId={pot.id} deleteFunction={deletePot} recordName={pot.name} recordType={'pot'} setOpenConfirmDeleteModal={setOpenConfirmDeleteModal}/> }
-
+                }                
             </div>
 
-            
+            { openConfirmDeleteModal && <ConfirmDeleteModal recordId={pot.id} deleteFunction={deletePot} recordName={pot.name} recordType={'pot'} setOpenConfirmDeleteModal={setOpenConfirmDeleteModal}/> }
+            { showEditPotModal && <EditPotModal currentPot={pot} setShowEditPotModal={setShowEditPotModal} />}
 
             <div className='pot_detail-flex-container'>
                 <p className='pot_detail-saved-title'>Total Saved</p>

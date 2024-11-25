@@ -1,7 +1,7 @@
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/../../amplify/data/resource";
 import initialData from "../../src/data/data.json"
-import { Budget, NewBudget, NewPot, NewTransaction, UpdatedBudget } from "../types/types";
+import { Budget, NewBudget, NewPot, NewTransaction, UpdatedBudget, UpdatedPot } from "../types/types";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -129,6 +129,14 @@ export const addPot = async (data: NewPot) => {
 export const updateBudget = async (data: UpdatedBudget) => {
     try {
         await client.models.Budget.update(data)
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+export const updatePot = async (data: UpdatedPot) => {
+    try {
+        await client.models.Pot.update(data)
     }catch(error) {
         console.log(error)
     }
