@@ -5,11 +5,15 @@ import { Pot } from '../../types/types'
 import PotDetail from '../../components/potDetail/PotDetail'
 import "./Pots.css"
 import AddPotModal from '../../components/addPotModal/AddPotModal'
+import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Pots() {
   const [pots, setPots] = useState<Pot[]>()
   const [loading, setLoading] = useState<Boolean>(false)
   const [showAddPotModal, setShowAddPotModal] = useState<Boolean>(false)
+  const {authStatus} = useAuthenticator((context) => [context.authStatus])
+  const navigate = useNavigate()
 
   useEffect(() => {
    //// Calls utility functions to get the data from the backend
@@ -26,6 +30,12 @@ export default function Pots() {
     }
     getData()
   }, [])
+
+  useEffect(() => {
+    if (authStatus === "unauthenticated") {
+        navigate("/")
+    }
+  }, [authStatus])
 
   /// Checks if the data is currently loading
   if (loading) {
@@ -59,7 +69,6 @@ export default function Pots() {
       <section>
         {pots ? renderPotDetailElements(pots) : <></>}
       </section>
-      <Nav></Nav>
     </div>
   )
 }

@@ -6,6 +6,8 @@ import ReactPaginate from 'react-paginate';
 import { Category, Transaction } from '../../types/types';
 import AddTransactionModal from '../../components/addTransactionModal/AddTransactionModal';
 import "./Transactions.css"
+import { useAuthenticator } from '@aws-amplify/ui-react';
+import { useNavigate } from 'react-router-dom';
 
 export default function Transactions() {
   const [categoryNames, setCategoryNames] = useState<Category[]>()
@@ -15,6 +17,8 @@ export default function Transactions() {
   const [currentSearch, setCurrentSearch] = useState<string>("")
   const [loading, setLoading] = useState<Boolean>(false)
   const [showAddTransactionModal, setShowTransactionModal] = useState<Boolean>(false)
+  const {authStatus} = useAuthenticator((context) => [context.authStatus])
+  const navigate = useNavigate()
 
   useEffect(() => {
     async function getData() {
@@ -34,6 +38,11 @@ export default function Transactions() {
     getData()
   }, [])
 
+  useEffect(() => {
+    if (authStatus === "unauthenticated") {
+        navigate("/")
+    }
+  }, [authStatus])
 
   /// Checks if the data is currently loading
   if (loading) {

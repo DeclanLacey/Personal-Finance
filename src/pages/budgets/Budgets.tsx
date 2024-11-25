@@ -6,6 +6,8 @@ import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTo
 import BudgetDetail from '../../components/budgetDetail/BudgetDetail'
 import AddBudgetModal from '../../components/addBudgetModal/AddBudgetModal'
 import "./Budgets.css"
+import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useNavigate } from 'react-router-dom'
 
 export default function Budgets() {
   const [budgets, setBudgets]  = useState<Budget[]>()
@@ -13,6 +15,8 @@ export default function Budgets() {
   const [loading, setLoading] = useState<Boolean>(false)
   const [categoryNames, setCategoryNames] = useState<Category[]>()
   const [showAddBudgetModal, setShowAddBudgetModal] = useState<Boolean>(false)
+  const {authStatus} = useAuthenticator((context) => [context.authStatus])
+  const navigate = useNavigate()
 
   useEffect(() => {
     //// Calls utility functions to get the data from the backend
@@ -33,6 +37,12 @@ export default function Budgets() {
     }
     getData()
   }, [])
+
+  useEffect(() => {
+    if (authStatus === "unauthenticated") {
+        navigate("/")
+    }
+  }, [authStatus])
 
   /// Checks if the data is currently loading
   if (loading) {

@@ -4,12 +4,16 @@ import { calculateTotalBills, currencyFormatCents, filterTransactionsBySearch, g
 import { Transaction } from '../../types/types'
 import { CiSearch } from 'react-icons/ci'
 import "./RecurringBills.css"
+import { useAuthenticator } from '@aws-amplify/ui-react'
+import { useNavigate } from 'react-router-dom'
 
 export default function RecurringBills() {
   const [transactions, setTransactions] = useState<any[]>()
   const [loading, setLoading] = useState<Boolean>(false)
   const [sortBySelection, setSortBySelection] = useState<string>("latest")
   const [currentSearch, setCurrentSearch] = useState<string>("")
+  const {authStatus} = useAuthenticator((context) => [context.authStatus])
+  const navigate = useNavigate()
   let recurringBillTotals
 
   useEffect(() => {
@@ -27,6 +31,12 @@ export default function RecurringBills() {
     }
     getData()
   }, [])
+
+  useEffect(() => {
+    if (authStatus === "unauthenticated") {
+        navigate("/")
+    }
+  }, [authStatus])
 
   useEffect(() => {
     
