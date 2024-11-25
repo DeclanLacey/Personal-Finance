@@ -399,3 +399,116 @@ input[type="date"]:before {
 .close-modal-btn:hover {
   cursor: pointer;
 }
+
+/* ////////////////// preset text styles ////////////////// */
+
+.text-1 {
+  font-size: 3.2rem;
+  font-weight: 500;
+}
+
+.text-1-bold {
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+
+.text-2 {
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.text-2-bold {
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.text-3 {
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.text-3-bold {
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.text-4 {
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.text-4-bold {
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.text-5 {
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.text-5-bold {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.text-1-grey {
+  color: var(--grey-500);
+  font-size: 3.2rem;
+  font-weight: 500;
+}
+
+.text-1-bold-grey {
+  color: var(--grey-500);
+  font-size: 3.2rem;
+  font-weight: 600;
+}
+
+.text-2-grey {
+  color: var(--grey-500);
+  font-size: 2rem;
+  font-weight: 500;
+}
+
+.text-2-bold-grey {
+  color: var(--grey-500);
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+
+.text-3-grey {
+  color: var(--grey-500);
+  font-size: 1.6rem;
+  font-weight: 500;
+}
+
+.text-3-bold-grey {
+  color: var(--grey-500);
+  font-size: 1.6rem;
+  font-weight: 600;
+}
+
+.text-4-grey {
+  color: var(--grey-500);
+  font-size: 1.4rem;
+  font-weight: 500;
+}
+
+.text-4-bold-grey {
+  color: var(--grey-500);
+  font-size: 1.4rem;
+  font-weight: 600;
+}
+
+.text-5-grey {
+  color: var(--grey-500);
+  font-size: 1.2rem;
+  font-weight: 500;
+}
+
+.text-5-bold-grey {
+  color: var(--grey-500);
+  font-size: 1.2rem;
+  font-weight: 600;
+}

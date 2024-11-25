@@ -6,6 +6,7 @@ import "./PotDetail.css"
 import ConfirmDeleteModal from '../confirmDeleteModal/ConfirmDeleteModal'
 import { deletePot } from '../../utils/clientCalls'
 import EditPotModal from '../editPotModal/EditPotModal'
+import AddToPotModal from '../addToPotModal/AddToPotModal'
 
 interface Props {
     pot: Pot
@@ -13,9 +14,11 @@ interface Props {
 
 export default function PotDetail({pot} : Props) {
 
-    const [showEllipsesModal, setShowEllipsesModal] = useState<Boolean>()
+    const [showEllipsesModal, setShowEllipsesModal] = useState<Boolean>(false)
     const [openConfirmDeleteModal, setOpenConfirmDeleteModal] = useState<Boolean>(false)
-    const [showEditPotModal, setShowEditPotModal] = useState<Boolean>()
+    const [showEditPotModal, setShowEditPotModal] = useState<Boolean>(false)
+    const [showAddToPotModal, setShowAddToPotModal] = useState<Boolean>(false)
+    const [showRemoveFromPotModal, setShowRemoveFromPotModal] = useState<Boolean>(false)
 
     function calculatePercentOfPotSaved() {
         return ((pot.total / pot.target) * 100).toFixed(2)
@@ -60,6 +63,7 @@ export default function PotDetail({pot} : Props) {
 
             { openConfirmDeleteModal && <ConfirmDeleteModal recordId={pot.id} deleteFunction={deletePot} recordName={pot.name} recordType={'pot'} setOpenConfirmDeleteModal={setOpenConfirmDeleteModal}/> }
             { showEditPotModal && <EditPotModal currentPot={pot} setShowEditPotModal={setShowEditPotModal} />}
+            { showAddToPotModal && <AddToPotModal currentPot={pot} setShowAddToPotModal={setShowAddToPotModal} />}
 
             <div className='pot_detail-flex-container'>
                 <p className='pot_detail-saved-title'>Total Saved</p>
@@ -74,7 +78,7 @@ export default function PotDetail({pot} : Props) {
             </div>
 
             <div className='pot_detail-flex-container'>
-                <button className='pot_detail-btn'>+ Add Money</button>
+                <button className='pot_detail-btn' onClick={() => setShowAddToPotModal(true)}>+ Add Money</button>
                 <button className='pot_detail-btn'>Withdraw</button>
             </div>
         </section>

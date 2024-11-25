@@ -72,6 +72,10 @@ export type UpdatedPot = {
     theme: string
 }
 
+export type UpdatedTotalPot = {
+    id: string, 
+    total: number
+}
 
 // Type structure after AWS additions
 export type Balance = {

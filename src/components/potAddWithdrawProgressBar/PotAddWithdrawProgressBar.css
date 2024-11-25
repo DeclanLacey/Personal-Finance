@@ -1,0 +1,36 @@
+.pot_thin_progress_bar-container {
+    height: 8px;
+    width: 100%;
+    background-color: var(--beige-100);
+    border-radius: 10px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.pot_thin_progress_bar-value-new {
+    height: 100%;
+    border-radius: 5px;
+}
+
+.pot_thin_progress_bar-value-old {
+    height: 100%;
+    border-radius: 5px;
+    background-color: var(--black);
+}
+
+.right-flat  {
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+
+.left-flat {
+    border-top-left-radius: 0px;
+    border-bottom-left-radius: 0px;
+}
+
+.progressBar-separator {
+    width: .75%;
+    height: 100%;
+    background-color: white;
+}
