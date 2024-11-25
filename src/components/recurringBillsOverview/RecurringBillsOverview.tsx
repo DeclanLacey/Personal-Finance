@@ -45,7 +45,7 @@ export default function RecurringBillsOverview() {
         <h2 className='recurring_bills-title'>Recurring Bills</h2>
         <NavLink to={"/recurring-bills"}  className='see-details-link-container see-details-link'>
           <p className="see-details-link">See Details </p>
-          <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
+          <img alt='an arrow pointing to the right indicating that more can be seen upon clicking' className='see-details-caret' src='/assets/icon-caret-right.svg' />
         </NavLink>
       </div>
 

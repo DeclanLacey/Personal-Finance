@@ -86,7 +86,7 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
             <div className='budget_detail-name-container'>
                 <div className={`budget_detail-colored-circle ${budget.theme}`}></div>
                 <h2 className='budget_detail-name'>{budget.category}</h2>
-                <button className='detail-ellipsis' onClick={() => setShowEllipsesModal(prevState => !prevState)}></button>
+                <button aria-label='an ellipsis indicating a button that can be clicked for more options' className='detail-ellipsis' onClick={() => setShowEllipsesModal(prevState => !prevState)}></button>
                 {
                     showEllipsesModal &&
                     <div className='ellipsis-dropdown'>
@@ -125,8 +125,10 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
                     <h3 className='budget_detail-spending-title'>Latest Spending</h3>
                     <div className='see-details-link-container'>
                         {/* You may want to have this link send data that will select the transactions for this category only */}
-                        <NavLink to="/transactions" className='see-details-link'>See All</NavLink>
-                        <img className='see-details-caret' src='./assets/icon-caret-right.svg'/>
+                        <NavLink to="/transactions" className='see-details-link'>
+                            See All
+                            <img alt="an arrow pointing right indicating that more can be seen upon clicking" className='see-details-caret' src='./assets/icon-caret-right.svg'/>
+                        </NavLink>
                     </div>
                 </div>
                 <div className='budget_detail-spending-transactions'>

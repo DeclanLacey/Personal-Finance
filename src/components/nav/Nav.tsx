@@ -5,23 +5,23 @@ export default function Nav() {
   return (
     <nav className='nav-container'>
         <NavLink className='nav-link' to={"/overview"}> 
-            <img className='nav-link-img' src='/assets/icon-nav-overview.svg' />
+            <img alt='representing the navigation element that can be clicked to go to the overview page' className='nav-link-img' src='/assets/icon-nav-overview.svg' />
         </NavLink>
 
         <NavLink className='nav-link' to={"/transactions"}> 
-            <img className='nav-link-img' src='/assets/icon-nav-transactions.svg' />
+            <img alt='representing the navigation element that can be clicked to go to the transactions page' className='nav-link-img' src='/assets/icon-nav-transactions.svg' />
         </NavLink>
 
         <NavLink className='nav-link' to={"/budgets"}> 
-            <img className='nav-link-img' src='/assets/icon-nav-budgets.svg' />
+            <img alt='representing the navigation element that can be clicked to go to the budgets page' className='nav-link-img' src='/assets/icon-nav-budgets.svg' />
         </NavLink>
 
         <NavLink className='nav-link' to={"/pots"}> 
-            <img className='nav-link-img' src='/assets/icon-nav-pots.svg' />
+            <img alt='representing the navigation element that can be clicked to go to the pots page' className='nav-link-img' src='/assets/icon-nav-pots.svg' />
         </NavLink>
 
         <NavLink className='nav-link' to={"/recurring-bills"}> 
-            <img className='nav-link-img' src='/assets/icon-nav-recurring-bills.svg' />
+            <img alt='representing the navigation element that can be clicked to go to the recurring bills page' className='nav-link-img' src='/assets/icon-nav-recurring-bills.svg' />
         </NavLink>
     </nav>
   )

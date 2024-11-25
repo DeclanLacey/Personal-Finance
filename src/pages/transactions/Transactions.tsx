@@ -76,7 +76,7 @@ export default function Transactions() {
 
       return (
         <div className='transaction-container' key={index}>
-          <img className='transaction-img' src={`${transaction.avatar}`}/>
+          <img className='transaction-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
 
           <div>
             <p className='transaction-name'>{transaction.name}</p>
@@ -146,13 +146,13 @@ export default function Transactions() {
           marginPagesDisplayed={2}
           pageClassName={'pagination-page'}
           nextClassName={"next "}
-          nextLabel={<img src='./assets/icon-caret-right.svg' />}
+          nextLabel={<img alt='icon of an arrow pointing right to indicate a button to move to the next page of transactions' src='./assets/icon-caret-right.svg' />}
           onPageChange={handlePageClick}
           pageCount={pageCount}
           pageRangeDisplayed={2}
           pageLinkClassName={"pagination-item"}
           previousClassName={"previous"}
-          previousLabel={<img src='./assets/icon-caret-left.svg'/>}
+          previousLabel={<img alt='icon of an arrow pointing left to indicate a button to move to the last page of transactions' src='./assets/icon-caret-left.svg'/>}
           previousLinkClassName={'nextOrPreviousLink'}
           nextLinkClassName={'nextOrPreviousLink'}
         />

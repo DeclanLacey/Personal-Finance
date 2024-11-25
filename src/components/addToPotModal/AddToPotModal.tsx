@@ -51,7 +51,7 @@ export default function AddToPotModal({currentPot, setShowAddToPotModal} : Props
             <section className='add-edit-modal'>
                 <div className="add-edit-modal-title-container">
                     <h2 className="add-edit-modal-title">Add to '{currentPot.name}'</h2>
-                    <img className="close-modal-btn" onClick={() => setShowAddToPotModal(false)} src="./assets/icon-close-modal.svg" />
+                    <button aria-label="Button to close the current modal" className="close-modal-btn" onClick={() => setShowAddToPotModal(false)}> <img alt="a circle with an x inside of it"  className="close-modal-btn-img" src="./assets/icon-close-modal.svg" /></button>
                 </div>
 
                 <div className="add_to_pot-title-container">
@@ -69,11 +69,11 @@ export default function AddToPotModal({currentPot, setShowAddToPotModal} : Props
 
                 <form onSubmit={handleSubmit}>
                     <div className="add-edit-modal-amount-container">
-                        <label className="add-edit-modal-input-label">Amount to Add</label>
+                        <label htmlFor="addition" className="add-edit-modal-input-label">Amount to Add</label>
                         <span className="dollar-sign">$</span>
-                        <input required name="target" maxLength={6} placeholder="e.g 50" className="rounded-input amount-input" value={potAddition} onChange={handlePotAdditionChange} />
+                        <input required name="addition" maxLength={6} placeholder="e.g 50" className="rounded-input amount-input" value={potAddition} onChange={handlePotAdditionChange} />
                     </div>
-                    <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Confirm Addition"}></input>
+                    <input aria-label="button to submit the form" type="submit" className="black-add-btn add-edit-modal-btn" value={"Confirm Addition"}></input>
                 </form>
             </section>
         </div>

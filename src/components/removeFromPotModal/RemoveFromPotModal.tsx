@@ -52,7 +52,7 @@ export default function RemoveFromPotModal({currentPot, setShowRemoveFromPotModa
                 <section className='add-edit-modal'>
                     <div className="add-edit-modal-title-container">
                         <h2 className="add-edit-modal-title">Withdraw from '{currentPot.name}'</h2>
-                        <img className="close-modal-btn" onClick={() => setShowRemoveFromPotModal(false)} src="./assets/icon-close-modal.svg" />
+                        <button aria-label="Button to close the current modal" className="close-modal-btn" onClick={() => setShowRemoveFromPotModal(false)}> <img alt="a circle with an x inside of it"  className="close-modal-btn-img" src="./assets/icon-close-modal.svg" /></button>
                     </div>
 
                     <div className="add_to_pot-title-container">
@@ -70,11 +70,11 @@ export default function RemoveFromPotModal({currentPot, setShowRemoveFromPotModa
 
                     <form onSubmit={handleSubmit}>
                         <div className="add-edit-modal-amount-container">
-                            <label className="add-edit-modal-input-label">Amount to Withdraw</label>
+                            <label htmlFor="target" className="add-edit-modal-input-label">Amount to Withdraw</label>
                             <span className="dollar-sign">$</span>
                             <input required name="target" maxLength={6} placeholder="e.g 50" className="rounded-input amount-input" value={potSubtraction} onChange={handlePotSubtractionChange} />
                         </div>
-                        <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Confirm Withdraw"}></input>
+                        <input aria-label="a button that will submit the current form" type="submit" className="black-add-btn add-edit-modal-btn" value={"Confirm Withdraw"}></input>
                     </form>
                 </section>
             </div>

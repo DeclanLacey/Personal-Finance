@@ -94,7 +94,7 @@ export default function BudgetsOverview() {
         <h2 className='budgets_overview-title'>Budgets</h2>
         <NavLink to="/budgets" className='see-details-link-container see-details-link'>
           <p className="see-details-link"> See Details</p>
-          <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
+          <img alt='an arrow pointing right indicating that more can be seen upon clicking' className='see-details-caret' src='/assets/icon-caret-right.svg' />
         </NavLink>
       </div>
       <div className='budgets_overview-chart-container'>

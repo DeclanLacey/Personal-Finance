@@ -11,7 +11,7 @@ export default function ProgressBar({budgetColor, budgetMax, budgetSpend} : Prop
     let percentSpent = calculatePercentOfTotal(budgetMax, budgetSpend)
     
     return (
-        <div className='progress_bar-container'>
+        <div aria-hidden="true" className='progress_bar-container'>
             <div className={`progress_bar-value ${budgetColor}`} style={{width: `${percentSpent}%`}}>
             </div>
         </div>

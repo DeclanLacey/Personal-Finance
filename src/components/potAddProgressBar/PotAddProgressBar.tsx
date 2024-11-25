@@ -15,7 +15,7 @@ export default function PotAddWithdrawProgressBar({potColor, potTarget, potSaved
   let newPercentSaved = calculatePercentOfTotal(potTarget, additionAmount) > maxNewPercent ? maxNewPercent : calculatePercentOfTotal(potTarget, additionAmount)
   
   return (
-    <div className='pot_thin_progress_bar-container'>
+    <div aria-hidden="true" className='pot_thin_progress_bar-container'>
         <div className={originalPercentSaved < 100 ? 'pot_thin_progress_bar-value-old right-flat' : 'pot_thin_progress_bar-value-old'} style={{width: `${originalPercentSaved}%`}}></div>
         <div className="progressBar-separator"></div>
         <div className={`pot_thin_progress_bar-value-new left-flat ${potColor}`} style={{width: `${newPercentSaved}%`, maxWidth: `${maxNewPercent}`}}></div>

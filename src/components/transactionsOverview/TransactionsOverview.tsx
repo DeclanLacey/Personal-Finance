@@ -64,7 +64,7 @@ export default function TransactionsOverview() {
       return (
         <div key={index} className={determineTransactionClass()}>
           <div className='transaction_overview-transaction-name-container'>
-            <img className='transaction_overview-transaction-img' src={`${transaction.avatar}`} />
+            <img alt={`representing the category of ${transaction.category}`} className='transaction_overview-transaction-img' src={`${transaction.avatar}`} />
             <p className='transaction_overview-transaction-name'>{transaction.name}</p>
           </div>
           
@@ -85,7 +85,7 @@ export default function TransactionsOverview() {
         <h2 className='transaction_overview-title'>Transactions</h2>
         <NavLink to="/transactions" className='see-details-link-container see-details-link'>
           <p className="see-details-link">View All</p>
-          <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
+          <img alt='an arrow pointing to the right indicating that more can be seen upon clicking' className='see-details-caret' src='/assets/icon-caret-right.svg' />
         </NavLink>
       </div>
 

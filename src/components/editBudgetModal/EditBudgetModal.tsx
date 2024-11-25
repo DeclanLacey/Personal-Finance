@@ -90,18 +90,18 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
         <section className='add-edit-modal'>
             <div className="add-edit-modal-title-container">
                 <h2 className="add-edit-modal-title">Edit Budget</h2>
-                <img className="close-modal-btn" onClick={() => setShowEditBudgetModal(false)} src="./assets/icon-close-modal.svg" />
+                <button aria-label="Button to close the current modal" className="close-modal-btn" onClick={() => setShowEditBudgetModal(false)}> <img alt="a circle with an x inside of it"  className="close-modal-btn-img" src="./assets/icon-close-modal.svg" /></button>
             </div>
 
             <form onSubmit={handleSubmit}>
                 <div className="add-edit-modal-amount-container">
-                    <label className="add-edit-modal-input-label">Amount</label>
+                    <label htmlFor='maximum' className="add-edit-modal-input-label">Amount</label>
                     <span className="dollar-sign">$</span>
                     <input required name="maximum" maxLength={9} value={maximum} onChange={handleMaximumChange} placeholder="e.g 49.99" className="rounded-input amount-input" />
                 </div>
                 
                 <div className="add-edit-modal-input-container">
-                    <label className="add-edit-modal-input-label">Category</label>
+                    <label htmlFor='category' className="add-edit-modal-input-label">Category</label>
                     <select required name="category" className="rounded-select-input" value={category} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setCategory(e.currentTarget.value)}}>
                         <option value="">-- Select Category</option>
                         {renderCategoryNameOptions()}
@@ -109,14 +109,14 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
                 </div>
 
                 <div className="add-edit-modal-input-container">
-                    <label className="add-edit-modal-input-label">Color Tag</label>
+                    <label htmlFor='theme' className="add-edit-modal-input-label">Color Tag</label>
                     <select required name="theme" className="rounded-select-input" value={theme} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setTheme(e.currentTarget.value)}}>
                         <option value="">-- Select Color</option>
                         {renderColorOptions(themes)}
                     </select>
                 </div>
 
-                <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Save Changes"}></input>
+                <input aria-label='a button that submits the current form' type="submit" className="black-add-btn add-edit-modal-btn" value={"Save Changes"}></input>
             </form>
         </section>
     </>

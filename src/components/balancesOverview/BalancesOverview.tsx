@@ -45,7 +45,7 @@ export default function BalancesOverview() {
 
       <div className='balances_overview-amount-container'>
         <h2 className='balances_overview-type'>Income</h2>
-          <p className='balances_overview-amount'>{balanceData.length > 0 ? currencyFormatCents(balanceData[0]?.income) : currencyFormatCents(0)}</p>
+        <p className='balances_overview-amount'>{balanceData.length > 0 ? currencyFormatCents(balanceData[0]?.income) : currencyFormatCents(0)}</p>
       </div>
 
       <div className='balances_overview-amount-container'>

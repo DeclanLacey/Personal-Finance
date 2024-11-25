@@ -51,7 +51,7 @@ export default function RecurringBills() {
   if (!transactions) {
     return <div></div>
   }
-
+  
   recurringBillTotals = getRecurringBillTotals(transactions)
 
   function renderRecurringBills(recurringTransactions: Transaction[]) {
@@ -70,7 +70,7 @@ export default function RecurringBills() {
       return (
         <div className={`recurring_bills_page-bill ${index === sortedTransactions.length - 1 ? "" : "bill-border-bottom"}`} key={index}>
           <div className='recurring_bills_page-bill-name-container'>
-            <img className='recurring_bills_page-bill-img' src={`${transaction.avatar}`}/>
+            <img className='recurring_bills_page-bill-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
             <p className='recurring_bills_page-bill-name'>{transaction.name}</p>
           </div>
 
@@ -107,7 +107,7 @@ export default function RecurringBills() {
     <div className='recurring_bills_page'>
       <h1 className='recurring_bills_page-title'>Recurring Bills</h1>
       <section className='recurring_bills_page-total-container'>
-        <img className='recurring_bills_page-bill-icon' src='./assets/icon-recurring-bills.svg' />
+        <img className='recurring_bills_page-bill-icon' alt={`A black and white icon of a receipt with un-readable writing on it.`} src='./assets/icon-recurring-bills.svg' />
         <div>
           <h2 className='recurring_bills_page-total-title'>Total Bills</h2>
           {transactions ? <p className='recurring_bills_page-total'>{currencyFormatCents(calculateTotalBills(transactions))}</p> : <></>}

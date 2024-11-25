@@ -68,12 +68,12 @@ export default function PotsOverview() {
         <h2 className='pots_overview-title'>Pots</h2>
         <NavLink to={"/pots"} className='see-details-link-container see-details-link'>
           <p className="see-details-link">See Details </p>
-          <img className='see-details-caret' src='/assets/icon-caret-right.svg' />
+          <img alt='arrow pointing to the right to indicate more can be seen upon clicking' className='see-details-caret' src='/assets/icon-caret-right.svg' />
         </NavLink>
       </div>
 
       <div className='pots_overview-total-section-container'>
-        <img className='pots_overview-total-icon' src='/assets/icon-pot.svg' />
+        <img className='pots_overview-total-icon' alt='a jar with a lid and a money sign on it' src='/assets/icon-pot.svg' />
         <div className='pots_overview-total-container'>
           <h3 className='pots_overview-total-title'>Total Saved</h3>
           <p className='pots_overview-total'>{currencyFormatNoCents(calculateTotalSavings())}</p>

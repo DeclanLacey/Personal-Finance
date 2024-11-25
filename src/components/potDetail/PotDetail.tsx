@@ -51,7 +51,7 @@ export default function PotDetail({pot} : Props) {
                     <div className={`pot_detail-color-circle ${pot.theme}`}></div>
                     <h2 className='pot_detail-name'>{pot.name}</h2>
                 </div>
-                <button className='detail-ellipsis' onClick={() => {setShowEllipsesModal(prevState => !prevState)}}></button>
+                <button aria-label="an ellipsis icon that indicates that it can be clicked to reveal more options" className='detail-ellipsis' onClick={() => {setShowEllipsesModal(prevState => !prevState)}}></button>
 
                 {
                     showEllipsesModal &&

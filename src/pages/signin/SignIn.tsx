@@ -25,7 +25,7 @@ export default function SignIn() {
   return (
     <div className='sign_in-container'>
         <header className='sign_in-header'>
-          <img className='sign_in-header-logo' src='/assets/logo-large.svg' />
+          <img className='sign_in-header-logo' alt='The logo for Personal Finance in large white lettering reading simply "finance".' src='/assets/logo-large.svg' />
         </header>
         <div className='sign_in-authenticator-container'>
           <Authenticator formFields={formFields} ></Authenticator>

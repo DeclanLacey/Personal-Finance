@@ -71,30 +71,30 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
             <section className='add-edit-modal'>
                 <div className="add-edit-modal-title-container">
                     <h2 className="add-edit-modal-title">Edit Pot</h2>
-                    <img className="close-modal-btn" onClick={() => setShowEditPotModal(false)} src="./assets/icon-close-modal.svg" />
+                    <button aria-label="Button to close the current modal" className="close-modal-btn" onClick={() => setShowEditPotModal(false)}> <img alt="a circle with an x inside of it"  className="close-modal-btn-img" src="./assets/icon-close-modal.svg" /></button>
                 </div>
 
                 <form onSubmit={handleSubmit}>
                     <div className="add-edit-modal-input-container">
-                        <label className="add-edit-modal-input-label">Pot Name</label>
+                        <label htmlFor="name" className="add-edit-modal-input-label">Pot Name</label>
                         <input required name="name" maxLength={30} value={potName} onChange={(e: React.FormEvent<HTMLInputElement>) => {setPotName(e.currentTarget.value)}} placeholder="e.g. Rainy Days" className="rounded-input" />
                     </div>
 
                     <div className="add-edit-modal-amount-container">
-                        <label className="add-edit-modal-input-label">Target</label>
+                        <label htmlFor="target" className="add-edit-modal-input-label">Target</label>
                         <span className="dollar-sign">$</span>
                         <input required name="target" maxLength={9} value={target} onChange={handleTargetChange} placeholder="e.g 2000" className="rounded-input amount-input" />
                     </div>
 
                     <div className="add-edit-modal-input-container">
-                        <label className="add-edit-modal-input-label">Color Tag</label>
+                        <label htmlFor="theme" className="add-edit-modal-input-label">Color Tag</label>
                         <select required name="theme" className="rounded-select-input" value={theme} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setTheme(e.currentTarget.value)}}>
                             <option value="">-- Select Color</option>
                             {renderColorOptions(themes)}
                         </select>
                     </div>
 
-                    <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Save Changes"}></input>
+                    <input aria-label="a button that submits the current form when clicked" type="submit" className="black-add-btn add-edit-modal-btn" value={"Save Changes"}></input>
                 </form>
             </section>
         </>

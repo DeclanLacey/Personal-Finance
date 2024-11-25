@@ -171,6 +171,9 @@ cursor: pointer;
   font-size: 1.4rem;
   text-decoration: none;
   color: var(--grey-500);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .detail-ellipsis {
@@ -284,7 +287,15 @@ input[type="date"]:before {
 }
 
 .close-modal-btn {
-  width: 25px;
+  width: 35px;
+  padding-left: 5px;
+  padding-right: 5px;
+  background-color: transparent;
+  border: none;
+}
+
+.close-modal-btn-img {
+  width: 100%;
 }
 
 .add-edit-modal {

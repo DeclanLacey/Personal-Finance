@@ -59,19 +59,19 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
             <section className='add-edit-modal'>
                 <div className="add_transaction-title-container">
                     <h2 className="add_transaction-title">Add New Transaction</h2>
-                    <img onClick={() => setShowTransactionModal(false)} className="close-modal-btn" src="./assets/icon-close-modal.svg" />
+                    <button aria-label="Button to close the current modal" className="close-modal-btn" onClick={() => setShowTransactionModal(false)}> <img alt="a circle with an x inside of it"  className="close-modal-btn-img" src="./assets/icon-close-modal.svg" /></button>
                 </div>
 
                 <form onSubmit={handleSubmit}>
                     {/* Name */}
                     <div className="add_transaction-input-container">
-                        <label className="add-edit-modal-input-label">Name</label>
+                        <label htmlFor="name" className="add-edit-modal-input-label">Name</label>
                         <input required name="name" maxLength={75} className="rounded-input" placeholder="Flavor Fiesta" value={name} onChange={(e: React.FormEvent<HTMLInputElement>) => {setName(e.currentTarget.value)}}/>
                     </div>
 
                     {/* Category */}
                     <div className="add_transaction-input-container">
-                        <label className="add-edit-modal-input-label">Category</label>
+                        <label htmlFor="category" className="add-edit-modal-input-label">Category</label>
                         <select required name="category" className="rounded-select-input" value={category} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setCategory(e.currentTarget.value)}}>
                             <option value="">-- Select Category</option>
                             {renderCategoryNameOptions()}
@@ -81,14 +81,14 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                     <div className="add_transaction-input-container add_transaction-date-amount">
                          {/* Amount */}
                         <div className="transaction-amount-input-container">
-                            <label className="add-edit-modal-input-label">Amount</label>
+                            <label htmlFor="amount" className="add-edit-modal-input-label">Amount</label>
                             <span className="dollar-sign">$</span>
                             <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" value={amount} onChange={handleAmountChange}/>
                         </div>
 
                         {/* Date */}
                         <div className="add_transaction-input-container add_transaction-date-container">
-                            <label className="add-edit-modal-input-label">Date</label>
+                            <label htmlFor="date" className="add-edit-modal-input-label">Date</label>
                             <input required name="date" type="date" id="transaction-date-input" className="rounded-input date-input" value={date} onChange={(e: React.FormEvent<HTMLInputElement>) => {setDate(e.currentTarget.value)}}/>
                         </div>  
                     </div>
@@ -96,24 +96,24 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                     <div className="add_transaction-selection-container">
                          {/* Recurring */}
                         <div className="add_transaction-recurring-container">
-                            <label className="add-edit-modal-input-label">Recurring Transaction?</label>
+                            <label htmlFor="recurring" className="add-edit-modal-input-label">Recurring Transaction?</label>
                             <input name="recurring" className="recurring-checkbox" type="checkbox" checked={recurring} onChange={handleRecurringChange}/>
                         </div>
 
                         {/* Expense/Income */}
                         <div className="add_transaction-outer-radio-container">
                             <div className="add_transaction-radio-container">
-                                <label className="add-edit-modal-input-label">Expense</label>
+                                <label htmlFor="transactionType" className="add-edit-modal-input-label">Expense</label>
                                 <input required name="transactionType" value={"expense"} defaultChecked type="radio" onChange={handleTypeChange}/>
                             </div>
                             <div className="add_transaction-radio-container">
-                                <label className="add-edit-modal-input-label">Income</label>
+                                <label htmlFor="transactionType" className="add-edit-modal-input-label">Income</label>
                                 <input required name="transactionType" value={"income"} type="radio" onChange={handleTypeChange}/>
                             </div>
                         </div>
                     </div>
 
-                    <input type="submit" className="black-add-btn add_transaction-add-btn" value={"Add Transaction"} />
+                    <input aria-label="button to submit the form" type="submit" className="black-add-btn add_transaction-add-btn" value={"Add Transaction"} />
                 </form>
             </section>
         </>

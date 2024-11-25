@@ -10,7 +10,7 @@ export default function ThinProgressBar({potColor, potTarget, potSaved} : Props)
   let percentSpent = calculatePercentOfTotal(potTarget, potSaved)
 
   return (
-    <div className='thin_progress_bar-container'>
+    <div aria-hidden="true" className='thin_progress_bar-container'>
         <div className={`thin_progress_bar-value ${potColor}`} style={{width: `${percentSpent}%`}}>
         </div>
     </div>

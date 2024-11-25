@@ -142,7 +142,7 @@ export default function Budgets() {
           <h2 className='budgets_page-overview-title'>Spending Summary</h2>
           {budgets && transactions ? renderBudgetSummaries(budgets, transactions) : <></>}
         </section>
-
+      
         <section>
           {budgets && transactions ? renderBudgetDetailComponents(budgets, transactions) : <></>}
         </section>

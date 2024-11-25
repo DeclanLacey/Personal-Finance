@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import Nav from '../../components/nav/Nav'
 import { getPots } from '../../utils/clientCalls'
 import { Pot } from '../../types/types'
 import PotDetail from '../../components/potDetail/PotDetail'
@@ -56,7 +55,7 @@ export default function Pots() {
 
     return potElements
   }
-
+  
   return (
     <div className='pots_page-container'>
       <header className='pots_page-header'>
