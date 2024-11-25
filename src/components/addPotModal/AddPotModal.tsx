@@ -65,31 +65,31 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
       <div className='page-cover'></div>
       <section className='add-edit-modal'>
           <div className="add-edit-modal-title-container">
-              <h2 className="add-edit-modal-title">Add New Budget</h2>
+              <h2 className="add-edit-modal-title">Add New Pot</h2>
               <img className="close-modal-btn" onClick={() => setShowAddPotModal(false)} src="./assets/icon-close-modal.svg" />
           </div>
 
           <form onSubmit={handleSubmit}>
               <div className="add-edit-modal-input-container">
-                  <label className="add-edit-modal-input-label">Name</label>
+                  <label className="add-edit-modal-input-label">Pot Name</label>
                   <input required name="name" maxLength={9} placeholder="e.g. Rainy Days" className="rounded-input" />
               </div>
 
               <div className="add-edit-modal-amount-container">
-                  <label className="add-edit-modal-input-label">Amount</label>
+                  <label className="add-edit-modal-input-label">Target</label>
                   <span className="dollar-sign">$</span>
                   <input required name="target" maxLength={9} placeholder="e.g 2000" className="rounded-input amount-input" />
               </div>
 
               <div className="add-edit-modal-input-container">
-                  <label className="add-edit-modal-input-label">Theme</label>
+                  <label className="add-edit-modal-input-label">Color Tag</label>
                   <select required name="theme" className="rounded-select-input">
                       <option value="">-- Select Color</option>
                       {renderColorOptions(themes)}
                   </select>
               </div>
 
-              <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Add Budget"}></input>
+              <input type="submit" className="black-add-btn add-edit-modal-btn" value={"Add Pot"}></input>
           </form>
       </section>
     </>
