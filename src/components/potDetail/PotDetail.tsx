@@ -7,6 +7,7 @@ import ConfirmDeleteModal from '../confirmDeleteModal/ConfirmDeleteModal'
 import { deletePot } from '../../utils/clientCalls'
 import EditPotModal from '../editPotModal/EditPotModal'
 import AddToPotModal from '../addToPotModal/AddToPotModal'
+import RemoveFromPotModal from '../removeFromPotModal/RemoveFromPotModal'
 
 interface Props {
     pot: Pot
@@ -64,6 +65,7 @@ export default function PotDetail({pot} : Props) {
             { openConfirmDeleteModal && <ConfirmDeleteModal recordId={pot.id} deleteFunction={deletePot} recordName={pot.name} recordType={'pot'} setOpenConfirmDeleteModal={setOpenConfirmDeleteModal}/> }
             { showEditPotModal && <EditPotModal currentPot={pot} setShowEditPotModal={setShowEditPotModal} />}
             { showAddToPotModal && <AddToPotModal currentPot={pot} setShowAddToPotModal={setShowAddToPotModal} />}
+            { showRemoveFromPotModal && <RemoveFromPotModal currentPot={pot} setShowRemoveFromPotModal={setShowRemoveFromPotModal} />}
 
             <div className='pot_detail-flex-container'>
                 <p className='pot_detail-saved-title'>Total Saved</p>
@@ -79,7 +81,7 @@ export default function PotDetail({pot} : Props) {
 
             <div className='pot_detail-flex-container'>
                 <button className='pot_detail-btn' onClick={() => setShowAddToPotModal(true)}>+ Add Money</button>
-                <button className='pot_detail-btn'>Withdraw</button>
+                <button className='pot_detail-btn' onClick={() => setShowRemoveFromPotModal(true)}>Withdraw</button>
             </div>
         </section>
     )
