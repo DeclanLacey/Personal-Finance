@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { NewTransaction, TransactionType } from "../../types/types"
-import { addTransaction } from "../../utils/clientCalls"
+import { addTransaction, updateBalance } from "../../utils/clientCalls"
 import { checkIfStringIsNumber } from "../../utils/utils"
 import "./AddTransactionModal.css"
 
@@ -33,6 +33,7 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
             window.alert("Please enter a valid transaction amount")
         }else {
             await addTransaction(newTransaction)
+            await updateBalance(newTransaction.amount)
             setShowTransactionModal(false)
             location.reload()
         }

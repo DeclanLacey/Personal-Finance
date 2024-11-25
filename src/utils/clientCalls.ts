@@ -1,7 +1,7 @@
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/../../amplify/data/resource";
 import initialData from "../../src/data/data.json"
-import { Budget, NewBudget, NewPot, NewTransaction, UpdatedBudget, UpdatedPot, UpdatedTotalPot } from "../types/types";
+import { UpdatedBalance, Balance, NewBudget, NewPot, NewTransaction, UpdatedBudget, UpdatedPot, UpdatedTotalPot } from "../types/types";
 
 const client = generateClient<Schema>({
     authMode: "userPool",
@@ -148,6 +148,37 @@ export const updatePotTotal = async (data: UpdatedTotalPot) => {
     }catch(error) {
         console.log(error)
     }
+}
+
+export const updateBalance = async (newTransactionAmount: number) => {
+    const currentBalanceData = await getBalances()
+    
+    if (currentBalanceData) {
+        let newIncome = currentBalanceData[0].income
+        let newExpenses = currentBalanceData[0].expenses
+        let newBalance = currentBalanceData[0].current
+        if (newTransactionAmount < 0) {
+            newExpenses += newTransactionAmount / -1
+        }else {
+            newIncome += newTransactionAmount
+        }
+        newBalance = newIncome - newExpenses
+
+        const newBalanceData : UpdatedBalance = {
+            current: newBalance,
+            income: newIncome,
+            expenses: newExpenses,
+            id: currentBalanceData[0].id
+        }
+    
+        try {
+            await client.models.Balance.update(newBalanceData)
+        }catch(error) {
+            console.log(error)
+        }
+    }
+
+    
 }
 
 /////////////////////////////////////////////////////////////

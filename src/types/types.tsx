@@ -81,7 +81,18 @@ export type UpdatedTotalPot = {
 export type Balance = {
     current: number,
     income: number,
-    expenses: number
+    expenses: number,
+    id: string,
+    profileOwner: string | null,
+    createdAt: string,
+    updatedAt: string
+}
+
+export type UpdatedBalance = {
+    current: number,
+    income: number,
+    expenses: number,
+    id: string
 }
 
 
