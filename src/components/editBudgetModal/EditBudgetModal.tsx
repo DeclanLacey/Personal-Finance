@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Budget, Category, Theme, UpdatedBudget } from '../../types/types'
 import {getCategories, getThemes, updateBudget } from '../../utils/clientCalls'
-import { checkIfBudgetExists, renderColorOptions } from '../../utils/utils'
+import { checkIfBudgetExists, checkIfStringIsNumber, renderColorOptions } from '../../utils/utils'
 
 interface Props {
   budgets: Budget[],
@@ -13,9 +13,9 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
   const [themes, setThemes] = useState<Theme[]>()
   const [loading, setLoading] = useState<Boolean>()
   const [categoryNames, setCategoryNames] = useState<Category[]>()
-  const [category, setCategory] = useState<string>()
-  const [maximum, setMaximum] = useState<number>()
-  const [theme, setTheme] = useState<string>()
+  const [category, setCategory] = useState<string>(currentBudget.category)
+  const [maximum, setMaximum] = useState<number>(currentBudget.maximum)
+  const [theme, setTheme] = useState<string>(currentBudget.theme)
 
   useEffect(() => {
       async function getData() {
@@ -25,9 +25,6 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
               const categoryData = await getCategories()
               setThemes(themeData)
               setCategoryNames(categoryData)
-              setCategory(currentBudget.category)
-              setMaximum(currentBudget.maximum)
-              setTheme(currentBudget.theme)
               setLoading(false)
             }catch(error) {
               setLoading(false)
@@ -49,25 +46,20 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
-    const target = event.target as typeof event.target & {
-        category: {value: string},
-        maximum: {value: number},
-        theme: {value: string}
-    }
 
-    if (checkIfBudgetExists(budgets, target.category.value) && target.category.value !== currentBudget.category) {
+    if (checkIfBudgetExists(budgets, category) && category !== currentBudget.category) {
         window.alert("There is already a budget for the chosen category")
     }else {
 
         const updatedBudget : UpdatedBudget = {
           id: currentBudget.id,
-          category: target.category.value,
-          maximum: target.maximum.value,
-          theme: target.theme.value
+          category: category,
+          maximum: maximum,
+          theme: theme
         }
 
-        if (!updatedBudget.maximum) {
-            window.alert("Please enter a valid transaction amount")
+        if (!updatedBudget.maximum || updatedBudget.maximum < 1) {
+            window.alert("Please enter a valid budget maximum. Budget maximum must be at least $1.")
         }else {
             await updateBudget(updatedBudget)
             setShowEditBudgetModal(false)
@@ -86,6 +78,12 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
     return categoryNameElements
   }
 
+  function handleMaximumChange(e: React.FormEvent<HTMLInputElement>) {
+    if (checkIfStringIsNumber(e.currentTarget.value)) {
+      setMaximum(Number(e.currentTarget.value))
+    }
+  }
+
   return (
     <>
         <div className='page-cover'></div>
@@ -99,7 +97,7 @@ export default function EditBudgetModal({ currentBudget, setShowEditBudgetModal,
                 <div className="add-edit-modal-amount-container">
                     <label className="add-edit-modal-input-label">Amount</label>
                     <span className="dollar-sign">$</span>
-                    <input required name="maximum" maxLength={9} value={maximum} onChange={(e: React.FormEvent<HTMLInputElement>) => {setMaximum(Number(e.currentTarget.value) | 0)}} placeholder="e.g 49.99" className="rounded-input amount-input" />
+                    <input required name="maximum" maxLength={9} value={maximum} onChange={handleMaximumChange} placeholder="e.g 49.99" className="rounded-input amount-input" />
                 </div>
                 
                 <div className="add-edit-modal-input-container">

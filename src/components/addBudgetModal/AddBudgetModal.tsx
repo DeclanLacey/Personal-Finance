@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { Budget, NewBudget, Theme } from "../../types/types"
 import { addBudget, getThemes } from "../../utils/clientCalls"
-import { checkIfBudgetExists, renderColorOptions } from "../../utils/utils"
+import { checkIfBudgetExists, checkIfStringIsNumber, renderColorOptions } from "../../utils/utils"
 import "./AddBudgetModal.css"
 
 interface Props {
@@ -13,6 +13,9 @@ interface Props {
 export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
+    const [maximum, setMaximum] = useState<number>(0)
+    const [category, setCategory] = useState<string>("")
+    const [theme, setTheme] = useState<string>("")
 
     useEffect(() => {
         async function getData() {
@@ -41,28 +44,29 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
 
     async function handleSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        const target = event.target as typeof event.target & {
-            category: {value: string},
-            maximum: {value: number},
-            theme: {value: string}
-        }
-
-        if (checkIfBudgetExists(budgets, target.category.value)) {
+        
+        if (checkIfBudgetExists(budgets, category)) {
             window.alert("There is already a budget for the chosen category")
         }else {
             const newTransaction: NewBudget = {
-                category: target.category.value,
-                maximum: target.maximum.value,
-                theme: target.theme.value
+                category: category,
+                maximum: maximum,
+                theme: theme
             }
     
-            if (!newTransaction.maximum) {
-                window.alert("Please enter a valid transaction amount")
+            if (!newTransaction.maximum || newTransaction.maximum < 1) {
+                window.alert("Please enter a valid budget amount. The minimum for a budget is $1")
             }else {
                 await addBudget(newTransaction)
                 setShowAddBudgetModal(false)
                 location.reload()
             }
+        }
+    }
+
+    function handleMaximumChange(e: React.FormEvent<HTMLInputElement>) {
+        if (checkIfStringIsNumber(e.currentTarget.value)) {
+            setMaximum(Number(e.currentTarget.value))
         }
     }
 
@@ -79,12 +83,12 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
                     <div className="add-edit-modal-amount-container">
                         <label className="add-edit-modal-input-label">Amount</label>
                         <span className="dollar-sign">$</span>
-                        <input required name="maximum" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" />
+                        <input required name="maximum" maxLength={9} value={maximum} placeholder="e.g 49.99" className="rounded-input amount-input" onChange={handleMaximumChange}/>
                     </div>
                     
                     <div className="add-edit-modal-input-container">
                         <label className="add-edit-modal-input-label">Category</label>
-                        <select required name="category" className="rounded-select-input">
+                        <select required name="category" value={category} className="rounded-select-input" onChange={(e: React.FormEvent<HTMLSelectElement>) => {setCategory(e.currentTarget.value)}}>
                             <option value="">-- Select Category</option>
                             {renderCategoryNameOptions()}
                         </select>
@@ -92,7 +96,7 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
 
                     <div className="add-edit-modal-input-container">
                         <label className="add-edit-modal-input-label">Color Tag</label>
-                        <select required name="theme" className="rounded-select-input">
+                        <select required name="theme" value={theme} className="rounded-select-input" onChange={(e: React.FormEvent<HTMLSelectElement>) => {setTheme(e.currentTarget.value)}}>
                             <option value="">-- Select Color</option>
                             {renderColorOptions(themes)}
                         </select>

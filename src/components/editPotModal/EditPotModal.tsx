@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import "./EditPotModal.css"
 import { Pot, Theme, UpdatedPot } from "../../types/types"
 import { getThemes, updatePot } from "../../utils/clientCalls"
-import { renderColorOptions } from "../../utils/utils"
+import { checkIfStringIsNumber, renderColorOptions } from "../../utils/utils"
 
 interface Props {
     currentPot: Pot,
@@ -12,9 +12,9 @@ interface Props {
 export default function EditPotModal({currentPot, setShowEditPotModal} : Props) {
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
-    const [target, setTarget] = useState<number>()
-    const [theme, setTheme] = useState<string>()
-    const [potName, setPotName] = useState<string>()
+    const [target, setTarget] = useState<number>(currentPot.target)
+    const [theme, setTheme] = useState<string>(currentPot.theme)
+    const [potName, setPotName] = useState<string>(currentPot.name)
 
     useEffect(() => {
         async function getData() {
@@ -22,9 +22,6 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
                 setLoading(true)
                 const themeData = await getThemes()
                 setThemes(themeData)
-                setTarget(currentPot.target)
-                setTheme(currentPot.theme)
-                setPotName(currentPot.name)
                 setLoading(false)
             }catch(error) {
                 setLoading(false)
@@ -46,17 +43,11 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
 
     async function handleSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        const target = event.target as typeof event.target & {
-            name: {value: string},
-            target: {value: number},
-            theme: {value: string}
-        }
-
         const updatedPot : UpdatedPot = {
             id: currentPot.id,
-            name: target.name.value,
-            target: target.target.value,
-            theme: target.theme.value
+            name: potName,
+            target: target,
+            theme: theme
         }
 
         if (!updatedPot.target) {
@@ -66,8 +57,13 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
             setShowEditPotModal(false)
             location.reload()
         }
-    
     } 
+
+    function handleTargetChange(e: React.FormEvent<HTMLInputElement>) {
+        if (checkIfStringIsNumber(e.currentTarget.value)) {
+            setTarget(Number(e.currentTarget.value))
+        }
+    }
 
     return (
         <>
@@ -87,7 +83,7 @@ export default function EditPotModal({currentPot, setShowEditPotModal} : Props) 
                     <div className="add-edit-modal-amount-container">
                         <label className="add-edit-modal-input-label">Target</label>
                         <span className="dollar-sign">$</span>
-                        <input required name="target" maxLength={9} value={target} onChange={(e: React.FormEvent<HTMLInputElement>) => {setTarget(Number(e.currentTarget.value) | 0)}} placeholder="e.g 2000" className="rounded-input amount-input" />
+                        <input required name="target" maxLength={9} value={target} onChange={handleTargetChange} placeholder="e.g 2000" className="rounded-input amount-input" />
                     </div>
 
                     <div className="add-edit-modal-input-container">

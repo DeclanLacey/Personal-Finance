@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { renderColorOptions } from "../../utils/utils"
+import { checkIfStringIsNumber, renderColorOptions } from "../../utils/utils"
 import { addPot, getThemes } from "../../utils/clientCalls"
 import { NewPot, Theme } from "../../types/types"
 
@@ -10,6 +10,9 @@ interface Props {
 export default function AddPotModal({setShowAddPotModal} : Props) {
   const [themes, setThemes] = useState<Theme[]>()
   const [loading, setLoading] = useState<Boolean>()
+  const [name, setName] = useState<string>("")
+  const [target, setTarget] = useState<number>(0)
+  const [theme, setTheme] = useState<string>("")
 
   useEffect(() => {
       async function getData() {
@@ -38,25 +41,26 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
 
   async function handleSubmit(event: React.SyntheticEvent) {
     event.preventDefault()
-    const target = event.target as typeof event.target & {
-        name: {value: string},
-        target: {value: number},
-        theme: {value: string}
-    }
 
     const newTransaction: NewPot = {
-        name: target.name.value,
-        target: target.target.value,
-        theme: target.theme.value,
+        name: name,
+        target: target,
+        theme: theme,
         total: 0
     }
 
-    if (!newTransaction.target) {
-        window.alert("Please enter a valid transaction amount")
+    if (!newTransaction.target || newTransaction.target < 1) {
+        window.alert("Please enter a valid pot target. The minimum for a pot is $1.")
     }else {
         await addPot(newTransaction)
         setShowAddPotModal(false)
         location.reload()
+    }
+  }
+
+  function handleTargetChange(e: React.FormEvent<HTMLInputElement>) {
+    if (checkIfStringIsNumber(e.currentTarget.value)) {
+        setTarget(Number(e.currentTarget.value))
     }
   }
 
@@ -72,18 +76,18 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
           <form onSubmit={handleSubmit}>
               <div className="add-edit-modal-input-container">
                   <label className="add-edit-modal-input-label">Pot Name</label>
-                  <input required name="name" maxLength={30} placeholder="e.g. Rainy Days" className="rounded-input" />
+                  <input required name="name" maxLength={30} placeholder="e.g. Rainy Days" className="rounded-input" value={name} onChange={(e: React.FormEvent<HTMLInputElement>) => {setName(e.currentTarget.value)}}/>
               </div>
 
               <div className="add-edit-modal-amount-container">
                   <label className="add-edit-modal-input-label">Target</label>
                   <span className="dollar-sign">$</span>
-                  <input required name="target" maxLength={9} placeholder="e.g 2000" className="rounded-input amount-input" />
+                  <input required name="target" maxLength={9} placeholder="e.g 2000" value={target} className="rounded-input amount-input" onChange={handleTargetChange}/>
               </div>
 
               <div className="add-edit-modal-input-container">
                   <label className="add-edit-modal-input-label">Color Tag</label>
-                  <select required name="theme" className="rounded-select-input">
+                  <select required name="theme" className="rounded-select-input" value={theme} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setTheme(e.currentTarget.value)}}>
                       <option value="">-- Select Color</option>
                       {renderColorOptions(themes)}
                   </select>
@@ -93,6 +97,5 @@ export default function AddPotModal({setShowAddPotModal} : Props) {
           </form>
       </section>
     </>
-
   )
 }

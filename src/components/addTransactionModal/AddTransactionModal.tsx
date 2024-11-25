@@ -1,5 +1,7 @@
-import { NewTransaction } from "../../types/types"
+import { useState } from "react"
+import { NewTransaction, TransactionType } from "../../types/types"
 import { addTransaction } from "../../utils/clientCalls"
+import { checkIfStringIsNumber } from "../../utils/utils"
 import "./AddTransactionModal.css"
 
 interface Props {
@@ -9,30 +11,22 @@ interface Props {
 
 export default function AddTransactionModal({setShowTransactionModal, renderCategoryNameOptions}: Props) {
     const currentDate = new Date().toISOString().split('T')[0]
+    const [name, setName] = useState<string>("")
+    const [category, setCategory] = useState<string>("")
+    const [amount, setAmount] = useState<string>("0")
+    const [date, setDate] = useState<string>(currentDate)
+    const [recurring, setRecurring] = useState<boolean>(false)
+    const [transactionType, setTransactionType] = useState<TransactionType>("expense")
 
     async function handleSubmit(event: React.SyntheticEvent) {
         event.preventDefault()
-        const target = event.target as typeof event.target & {
-            name: {value: string},
-            category: {value: string},
-            amount: {value: number},
-            date: {value: string},
-            recurring: {checked: boolean},
-            transactionType: {value: string}
-        }
-
-        let amount = target.amount.value
-        if (target.transactionType.value === "expense") {
-            amount = amount * -1
-        }
-
         const newTransaction: NewTransaction = {
-            avatar: "./assets/avatars/" + target.category.value.toLowerCase().replace(" ", "-") + ".jpg",
-            name: target.name.value,
-            category: target.category.value,
-            amount: amount,
-            date: target.date.value,
-            recurring: target.recurring.checked
+            avatar: "./assets/avatars/" + category.toLowerCase().replace(" ", "-") + ".jpg",
+            name: name,
+            category: category,
+            amount: transactionType === "expense" ? Number(amount) * -1 : Number(amount),
+            date: date,
+            recurring: recurring
         }
 
         if (!newTransaction.amount) {
@@ -41,6 +35,20 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
             await addTransaction(newTransaction)
             setShowTransactionModal(false)
             location.reload()
+        }
+    }
+
+    function handleRecurringChange() {
+        setRecurring(prevState => !prevState)
+    }
+
+    function handleTypeChange(e: React.FormEvent<HTMLInputElement>) {
+        setTransactionType(e.currentTarget.value as TransactionType)
+    }
+
+    function handleAmountChange(e: React.FormEvent<HTMLInputElement>) {
+        if (checkIfStringIsNumber(e.currentTarget.value)) {
+            setAmount(e.currentTarget.value)
         }
     }
 
@@ -57,13 +65,13 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                     {/* Name */}
                     <div className="add_transaction-input-container">
                         <label className="add-edit-modal-input-label">Name</label>
-                        <input required name="name" maxLength={75} className="rounded-input" placeholder="Flavor Fiesta"/>
+                        <input required name="name" maxLength={75} className="rounded-input" placeholder="Flavor Fiesta" value={name} onChange={(e: React.FormEvent<HTMLInputElement>) => {setName(e.currentTarget.value)}}/>
                     </div>
 
                     {/* Category */}
                     <div className="add_transaction-input-container">
                         <label className="add-edit-modal-input-label">Category</label>
-                        <select required name="category" className="rounded-select-input">
+                        <select required name="category" className="rounded-select-input" value={category} onChange={(e: React.FormEvent<HTMLSelectElement>) => {setCategory(e.currentTarget.value)}}>
                             <option value="">-- Select Category</option>
                             {renderCategoryNameOptions()}
                         </select>
@@ -74,13 +82,13 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                         <div className="transaction-amount-input-container">
                             <label className="add-edit-modal-input-label">Amount</label>
                             <span className="dollar-sign">$</span>
-                            <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" />
+                            <input required name="amount" maxLength={9} placeholder="e.g 49.99" className="rounded-input amount-input" value={amount} onChange={handleAmountChange}/>
                         </div>
 
                         {/* Date */}
                         <div className="add_transaction-input-container add_transaction-date-container">
                             <label className="add-edit-modal-input-label">Date</label>
-                            <input required name="date" type="date" id="transaction-date-input" defaultValue={currentDate} className="rounded-input date-input"/>
+                            <input required name="date" type="date" id="transaction-date-input" className="rounded-input date-input" value={date} onChange={(e: React.FormEvent<HTMLInputElement>) => {setDate(e.currentTarget.value)}}/>
                         </div>  
                     </div>
 
@@ -88,18 +96,18 @@ export default function AddTransactionModal({setShowTransactionModal, renderCate
                          {/* Recurring */}
                         <div className="add_transaction-recurring-container">
                             <label className="add-edit-modal-input-label">Recurring Transaction?</label>
-                            <input name="recurring" className="recurring-checkbox" type="checkbox" />
+                            <input name="recurring" className="recurring-checkbox" type="checkbox" checked={recurring} onChange={handleRecurringChange}/>
                         </div>
 
                         {/* Expense/Income */}
                         <div className="add_transaction-outer-radio-container">
                             <div className="add_transaction-radio-container">
                                 <label className="add-edit-modal-input-label">Expense</label>
-                                <input required name="transactionType" value={"expense"} defaultChecked type="radio"/>
+                                <input required name="transactionType" value={"expense"} defaultChecked type="radio" onChange={handleTypeChange}/>
                             </div>
                             <div className="add_transaction-radio-container">
                                 <label className="add-edit-modal-input-label">Income</label>
-                                <input required name="transactionType" value={"income"} type="radio"/>
+                                <input required name="transactionType" value={"income"} type="radio" onChange={handleTypeChange}/>
                             </div>
                         </div>
                     </div>

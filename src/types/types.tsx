@@ -109,3 +109,5 @@ export type SpendPerBudget = {
     max: number,
     amount: number
 }
+
+export type TransactionType = "expense" | "income"

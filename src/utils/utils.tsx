@@ -4,6 +4,11 @@ import { Budget, SpendPerBudget, Theme, Transaction } from "../types/types"
 ////////////////// General Utils //////////////////////
 ///////////////////////////////////////////////////////
 
+export function checkIfStringIsNumber(num : string) {
+    let reg = /^-?\d*\.?\d*$/
+    return reg.test(num)
+}
+
 export function currencyFormatCents(num: number) {
     let formattedNum : string | string[] = '$' + num?.toFixed(2).replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,')
     if (num < 0) {
