@@ -13,6 +13,7 @@ export default function RecurringBills() {
   const [sortBySelection, setSortBySelection] = useState<string>("latest")
   const [currentSearch, setCurrentSearch] = useState<string>("")
   const {authStatus} = useAuthenticator((context) => [context.authStatus])
+  const currentDate = new Date().toISOString().split('T')[0]
   const navigate = useNavigate()
   let recurringBillTotals
 
@@ -57,9 +58,9 @@ export default function RecurringBills() {
   function renderRecurringBills(recurringTransactions: Transaction[]) {
     const sortedTransactions = sortBySelection === "latest" || sortBySelection === "oldest" 
       ? 
-      filterTransactionsBySearch(currentSearch, sortTransactionsByDay(sortBySelection, recurringTransactions)) 
+        filterTransactionsBySearch(currentSearch, sortTransactionsByDay(sortBySelection, recurringTransactions)) 
       : 
-      filterTransactionsBySearch(currentSearch, sortTransactions(sortBySelection, recurringTransactions))
+        filterTransactionsBySearch(currentSearch, sortTransactions(sortBySelection, recurringTransactions))
 
     const currentBills : string[] = []
 
@@ -67,16 +68,36 @@ export default function RecurringBills() {
       if (transaction.recurring === false) return
       if (currentBills.includes(transaction.name)) return
       currentBills.push(transaction.name)
+
+      function getClassNameForText() {
+        if (new Date(transaction.date).getDate() < new Date(currentDate).getDate()) {
+          return ""
+        }else if (new Date(transaction.date).getDate() - new Date(currentDate).getDate() <= 7 ) {
+          return "red-text"
+        }
+      }
+
+      function getCorrectIconForTransaction() {
+        if (new Date(transaction.date).getDate() < new Date(currentDate).getDate()) {
+          return <img className='recurring_bills_page-transaction-icon' alt='circle with a checkmark in it to indicate a paid bill' src='./assets/icon-bill-paid.svg'/>
+        }else if (new Date(transaction.date).getDate() - new Date(currentDate).getDate() <= 7 ) {
+          return <img className='recurring_bills_page-transaction-icon' alt='circle with an exclamation point in it to indicate a bill that is due soon' src='./assets/icon-bill-due.svg'/>
+        }
+      }
+      console.log(new Date(transaction.date).getDate() < new Date(currentDate).getDate())
+     
       return (
         <div className={`recurring_bills_page-bill ${index === sortedTransactions.length - 1 ? "" : "bill-border-bottom"}`} key={index}>
           <div className='recurring_bills_page-bill-name-container'>
             <img className='recurring_bills_page-bill-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
             <p className='recurring_bills_page-bill-name text-4-bold'>{transaction.name}</p>
           </div>
-
           <div className='recurring_bills_page-bill-amount-container'>
-            <p className='recurring_bills_page-date text-5'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
-            <p className='recurring_bills_page-bill-amount text-4-bold'>{currencyFormatCents(-transaction.amount)}</p>
+            <div className='recurring_bills-monthly-container'>
+              <p className='recurring_bills_page-date text-5'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
+              {getCorrectIconForTransaction()}
+            </div>
+            <p className={`recurring_bills_page-bill-amount text-4-bold ${getClassNameForText()}`}>{currencyFormatCents(-transaction.amount)}</p>
           </div>
         </div>
       )

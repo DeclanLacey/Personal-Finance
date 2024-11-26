@@ -13,6 +13,18 @@
     width: 30px;
 }
 
+.recurring_bills-monthly-container {
+    display: flex;
+    gap: 5px;
+    position: relative;
+}
+
+.recurring_bills_page-transaction-icon {
+    width: 16px;
+    position: absolute;
+    left: 80px;
+}
+
 .recurring_bills_page-total-container {
     background-color: var(--grey-900);
     color: var(--white);
