@@ -84,7 +84,6 @@ export default function RecurringBills() {
           return <img className='recurring_bills_page-transaction-icon' alt='circle with an exclamation point in it to indicate a bill that is due soon' src='./assets/icon-bill-due.svg'/>
         }
       }
-      console.log(new Date(transaction.date).getDate() < new Date(currentDate).getDate())
      
       return (
         <div className={`recurring_bills_page-bill ${index === sortedTransactions.length - 1 ? "" : "bill-border-bottom"}`} key={index}>
