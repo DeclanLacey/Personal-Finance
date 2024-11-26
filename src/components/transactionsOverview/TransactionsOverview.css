@@ -16,24 +16,9 @@
     font-size: 2rem;
 }
 
-/* .transaction_overview-link-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: row;
-} */
-
 .transaction_overview-caret {
     height: 8px;
 }
-
-/* .transaction_overview-link {
-    white-space: nowrap;
-    margin-right: 10px;
-    font-size: 1.4rem;
-    text-decoration: none;
-    color: var(--grey-500);
-} */
 
 /* /////////////// transaction styling //////////////// */
 
@@ -89,7 +74,13 @@
 
 @media (min-width: 450px) {
     .transaction_overview-transaction-name {
-       
         max-width: initial;
+    }
+}
+
+@media (min-width: 750px) {
+    .transaction_overview-container {
+        padding-left: 30px;
+        padding-right: 30px;
     }
 }
