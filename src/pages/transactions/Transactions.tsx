@@ -77,16 +77,10 @@ export default function Transactions() {
       return (
         <div className='transaction-container' key={index}>
           <img className='transaction-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
-
-          <div>
-            <p className='transaction-name'>{transaction.name}</p>
-            <p className='transaction-category'>{transaction.category}</p>
-          </div>
-
-          <div className='transaction-amount-date-container'>
-            <p className={`transaction-amount ${positiveTransactionClassName}`}>{currencyFormatCents(transaction.amount)}</p>
-            <p className='transaction-date'>{formatDate(transaction.date)}</p>
-          </div>
+          <p className='transaction-name'>{transaction.name}</p>
+          <p className='transaction-category'>{transaction.category}</p>
+          <p className={`transaction-amount ${positiveTransactionClassName}`}>{transaction.amount > 0 ? "+" : ""}{currencyFormatCents(transaction.amount)}</p>
+          <p className='transaction-date'>{formatDate(transaction.date)}</p>         
         </div>
       )
     })
@@ -136,6 +130,12 @@ export default function Transactions() {
   
     return (
       <>
+        <div className='text-5-grey transaction-column-headers-container'>
+          <p className='text-5-grey transaction-name-header'> Transaction Name </p>
+          <p className='text-5-grey transaction-category-header'> Category </p>
+          <p className='text-5-grey transaction-date-header'> Date </p>
+          <p className='text-5-grey transaction-amount-header'> Amount </p>
+        </div>
         {renderTransactions(currentItems)}
         <ReactPaginate
           activeClassName={'active-item'}
@@ -175,7 +175,6 @@ export default function Transactions() {
             <CiSearch className='transactions-search-bar-icon' />
           </div>
 
-          <div className='transactions-select-inputs-container'>
             <div className='transactions-sort-select-container'>
               <label className='transactions-select-label'>Sort by</label>
               <select className='transactions-sort-select rounded-select-input' name='sort' onChange={changeSort}>
@@ -195,7 +194,7 @@ export default function Transactions() {
                 {renderCategoryNameOptions()}
               </select>
             </div>
-          </div>
+         
           
         </form>
         <div className='transactions-paginate-container'>
