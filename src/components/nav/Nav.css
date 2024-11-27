@@ -33,6 +33,34 @@
     border-bottom: 5px solid var(--green);
 }
 
+.active p {
+    color: var(--black);
+}
+
 .active img {
     filter: invert(40%) sepia(62%) saturate(418%) hue-rotate(128deg) brightness(89%) contrast(93%);
+}
+
+.nav-text {
+    display: none;
+}
+
+/* /////////////////////////// Media query ////////////////////////// */
+
+@media (min-width: 750px) {
+
+    .nav-container {
+        height: 75px;
+    }
+
+    .nav-link {
+        display: flex;
+        flex-direction: column;
+        text-decoration: none;
+    }
+    .nav-text {
+        display: block;
+        margin-bottom: 0px;
+        margin-top: 5px;
+    }
 }
