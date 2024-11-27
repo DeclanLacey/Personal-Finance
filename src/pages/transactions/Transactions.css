@@ -174,6 +174,7 @@ select::-ms-expand {
     position: relative;
     margin-top: 15px;
     height: 40px;
+    align-items: center;
 }
 
 .pagination-item {
@@ -219,6 +220,20 @@ select::-ms-expand {
     border-radius: 10px;
 } 
 
+.paginate-next-arrow-text {
+    display: none;
+    margin: 0px;
+    margin-right: 15px;
+}
+
+.paginate-next-arrow-container {
+    display: flex;
+    flex-direction: row-reverse;
+    height: fit-content;
+    align-items: center;
+    height: 15px;
+}
+
 .previous {
     border-left: solid 1px #808e9b;
     position: absolute;
@@ -231,6 +246,19 @@ select::-ms-expand {
     justify-content: center;
     border: 1px solid var(--grey-500);
     border-radius: 10px;
+}
+
+.paginate-prev-arrow-text {
+    display: none;
+    margin: 0px;
+    margin-left: 15px;
+}
+
+.paginate-prev-arrow-container {
+    display: flex;
+    height: fit-content;
+    align-items: center;
+    height: 15px;
 }
 
 .nextOrPreviousLink {
@@ -357,4 +385,17 @@ select::-ms-expand {
         width: 100%;
         text-align: right;
     }   
+
+    .paginate-next-arrow-text {
+        display: block;
+    }
+
+    .nextOrPreviousLink {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    } 
+
+    .paginate-prev-arrow-text {
+        display: block;
+    }
 }

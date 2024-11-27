@@ -146,13 +146,24 @@ export default function Transactions() {
           marginPagesDisplayed={2}
           pageClassName={'pagination-page'}
           nextClassName={"next "}
-          nextLabel={<img alt='icon of an arrow pointing right to indicate a button to move to the next page of transactions' src='./assets/icon-caret-right.svg' />}
+          nextLabel={
+            <div className='paginate-next-arrow-container'>
+              <img alt='icon of an arrow pointing right to indicate a button to move to the next page of transactions' src='./assets/icon-caret-right.svg' />
+              <p className='paginate-next-arrow-text'>Next</p>
+            </div>
+          
+          }
           onPageChange={handlePageClick}
           pageCount={pageCount}
           pageRangeDisplayed={2}
           pageLinkClassName={"pagination-item"}
           previousClassName={"previous"}
-          previousLabel={<img alt='icon of an arrow pointing left to indicate a button to move to the last page of transactions' src='./assets/icon-caret-left.svg'/>}
+          previousLabel={
+            <div className='paginate-prev-arrow-container'>
+              <img alt='icon of an arrow pointing left to indicate a button to move to the last page of transactions' src='./assets/icon-caret-left.svg'/>
+              <p className='paginate-prev-arrow-text'> Prev</p>
+            </div>
+          }
           previousLinkClassName={'nextOrPreviousLink'}
           nextLinkClassName={'nextOrPreviousLink'}
         />
