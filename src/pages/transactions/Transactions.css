@@ -3,14 +3,15 @@
 }
 
 .transactions-page-container {
-    padding-bottom: 80px;
+    width: 90%;
+    margin: 0 auto;
+    margin-bottom: 80px;
 }
 
 .transactions-title-container {
     display: flex;
     align-items: center;
     flex-wrap: wrap;
-    width: 92%;
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
@@ -20,10 +21,9 @@
 
 .transactions-content-container {
     background-color: white;
-    width: 92%;
-    margin: 0 auto;
     border-radius: 10px;
     padding: 18px;
+    padding-bottom: 5px !important;
 }
 
 .transactions-title {
@@ -397,5 +397,11 @@ select::-ms-expand {
 
     .paginate-prev-arrow-text {
         display: block;
+    }
+
+    .transactions-page-container {
+        width: 88%;
+        margin: 0 auto;
+        margin-bottom: 110px;
     }
 }

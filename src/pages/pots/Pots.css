@@ -11,8 +11,6 @@
     margin-top: 30px;
 }
 
-
-
 .pots_page-add-pot-btn {
     height: 50px;
     font-size: 1.4rem;
@@ -22,4 +20,13 @@
     padding: 0px 13px 0px 13px;
     background-color: black;
     font-weight: 600;
+}
+
+/* //////////////////// Media Query //////////////////////// */
+
+@media (min-width: 750px) {
+    .pots_page-container {
+        width: 88%;
+        margin-bottom: 110px;
+    }
 }

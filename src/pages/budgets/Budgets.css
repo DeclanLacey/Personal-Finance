@@ -1,6 +1,7 @@
 .budgets_page-container{
     margin: 0 auto;
     margin-bottom: 80px;
+    width: 90%;
 }
 
 .budgets_page-title-container {
@@ -10,11 +11,9 @@
     margin: 0 auto;
     margin-top: 30px;
     margin-bottom: 40px;
-    width: 92%;
 }
 
 .budgets_page-content-container {
-    width: 92%;
     margin: 0 auto;
 }
 
@@ -102,5 +101,13 @@
     justify-self: end;
     font-size: 1.2rem;
     color: var(--grey-500);
-    
+}
+
+/* ////////////////// media query /////////////////// */
+
+@media (min-width: 750px) {
+    .budgets_page-container{
+        width: 88%;
+        margin-bottom: 110px;
+    }
 }

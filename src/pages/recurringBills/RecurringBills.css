@@ -163,3 +163,12 @@
     margin-bottom: 0px;
     margin-top: 0px;
 }
+
+/* /////////////////// meida query ///////////////////// */
+
+@media (min-width: 750px) {
+    .recurring_bills_page {
+        width: 88%;
+        margin-bottom: 110px;
+    }
+}
