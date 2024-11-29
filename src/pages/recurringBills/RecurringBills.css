@@ -17,6 +17,9 @@
     display: flex;
     gap: 5px;
     position: relative;
+    grid-column: span 2;
+    grid-row: 2;
+    align-items: center;
 }
 
 .recurring_bills_page-transaction-icon {
@@ -54,6 +57,7 @@
 
 .recurring_bills_page-summary-title {
     margin-top: 0px;
+    margin-bottom: 0px;
 }
 
 .recurring_bills_page-flex-container {
@@ -71,6 +75,8 @@
     width: 30px;
     height: 30px;
     border-radius: 100px;
+    grid-column: 1;
+    grid-row: 1;
 }
 
 .recurring_bills_page-transaction-section {
@@ -127,41 +133,34 @@
 .recurring_bills_page-bill {
     padding-bottom: 20px;
     padding-top: 20px;
+    display: grid;
+    grid-template-columns: 40px 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
 }
 
 .bill-border-bottom {
     border-bottom: 1px solid var(--grey-100);
 }
 
-.recurring_bills_page-bill-name-container {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 0px;
-}
-
-.recurring_bills_page-bill-amount-container {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: 3px;
-}
-
 .recurring_bills_page-bill-amount {
     margin-bottom: 0px;
     margin-top: 0px;
+    grid-column: 4;
+    grid-row: 2;
 }
 
 .recurring_bills_page-date {
     color: var(--green);
     margin-bottom: 0px;
     margin-top: 0px;
+    text-wrap: nowrap;
 }
 
 .recurring_bills_page-bill-name {
     margin-bottom: 0px;
     margin-top: 0px;
+    grid-column: 2;
+    text-wrap: nowrap;
 }
 
 /* /////////////////// meida query ///////////////////// */
@@ -170,5 +169,118 @@
     .recurring_bills_page {
         width: 88%;
         margin-bottom: 110px;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 110px auto 1fr;
+        column-gap: 25px;
     }
+
+    .recurring_bills_page-title {
+        grid-row: 1;
+        grid-column: 1;
+    }
+
+    .recurring_bills_page-total-container {
+        grid-row: 2;
+        grid-column: 1;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-end;
+        align-items: flex-start;
+    }
+
+    .recurring_bills_page-bill-icon {
+        margin-bottom: 20px;
+    }
+
+    .recurring_bills_page-summary-container {
+        grid-row: 2;
+        grid-column: 2;
+        height: fit-content;
+    }
+
+    .recurring_bills_page-transaction-section {
+        grid-row: 3;
+        grid-column: span 2;
+        height: fit-content;
+    }
+
+    .recurring_bills_page-search-form {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    .recurring_bills_page-searchbar-container {
+        width: 50%;
+    }
+
+    .recurring_bills_page-select {
+        margin-bottom: 0px;
+        width: 75%;
+    }
+
+    .recurring_bills_page-sort-container {
+        display: flex;
+        justify-content: space-between;
+        width: 35%;
+        align-items: center;
+        padding-bottom: 0px;
+    }
+
+    .recurring_bills_page-select-label {
+        width: fit-content;
+        margin-top: -8px;
+    }
+
+    .recurring_bills_page-bill {
+        grid-template-columns: 40px 1fr 20% 25%;
+        grid-template-rows: 100%;
+        align-items: center;
+    }
+
+    .recurring_bills_page-bill-img {
+        grid-column: 1;
+        grid-row: 1;
+    }
+
+    .recurring_bills_page-bill-name {
+        grid-column: 2;
+        grid-row: 1;
+    }
+
+    .recurring_bills-monthly-container {
+        grid-column: 3;
+        grid-row: 1;
+    }
+
+    .recurring_bills_page-bill-amount {
+        grid-column: 4;
+        grid-row: 1;
+        justify-self: flex-end;
+        margin-right: 25px;
+    }
+
+    .recurring_bills_page-labels-container {
+        display: grid;
+        grid-template-columns: 40px 1fr 20% 25%;
+        border-bottom: 1px solid var(--grey-100);
+        padding-bottom: 8px;
+    }
+
+    .bill-title-label {
+        grid-column: 1 / 2;
+        grid-column: span 2;
+    }
+
+    .due-date-label {
+        grid-column: 3;
+    }
+
+    .amount-label {
+        grid-column: 4;
+        justify-self: flex-end;
+        margin-right: 25px;
+    }   
+
 }

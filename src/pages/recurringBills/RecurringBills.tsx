@@ -87,17 +87,13 @@ export default function RecurringBills() {
      
       return (
         <div className={`recurring_bills_page-bill ${index === sortedTransactions.length - 1 ? "" : "bill-border-bottom"}`} key={index}>
-          <div className='recurring_bills_page-bill-name-container'>
-            <img className='recurring_bills_page-bill-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
-            <p className='recurring_bills_page-bill-name text-4-bold'>{transaction.name}</p>
+          <img className='recurring_bills_page-bill-img' alt={`A colored icon representing a transaction under the category of ${transaction.category}`} src={`${transaction.avatar}`}/>
+          <p className='recurring_bills_page-bill-name text-4-bold'>{transaction.name}</p>
+          <div className='recurring_bills-monthly-container'>
+            <p className='recurring_bills_page-date text-5'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
+            {getCorrectIconForTransaction()}
           </div>
-          <div className='recurring_bills_page-bill-amount-container'>
-            <div className='recurring_bills-monthly-container'>
-              <p className='recurring_bills_page-date text-5'>Monthly - {getOrdinalSuffix(Number(Number(transaction.date.slice(-2)) >= 10 ? transaction.date.slice(-2) : transaction.date.slice(-1)))}</p>
-              {getCorrectIconForTransaction()}
-            </div>
-            <p className={`recurring_bills_page-bill-amount text-4-bold ${getClassNameForText()}`}>{currencyFormatCents(-transaction.amount)}</p>
-          </div>
+          <p className={`recurring_bills_page-bill-amount text-4-bold ${getClassNameForText()}`}>{currencyFormatCents(-transaction.amount)}</p>
         </div>
       )
     })
@@ -161,7 +157,7 @@ export default function RecurringBills() {
           </div>
 
           <div className='recurring_bills_page-sort-container'>
-            <label className='text-4-grey'>Sort by</label>
+            <label className='text-4-grey recurring_bills_page-select-label'>Sort by</label>
             <select className='recurring_bills_page-select rounded-select-input' name='sort' onChange={changeSort}>
               <option className='recurring_bills_page-select-option' value="latest">Latest</option>
               <option className='recurring_bills_page-select-option' value="oldest">Oldest</option>
@@ -173,6 +169,11 @@ export default function RecurringBills() {
           </div>
         </form>
         <div>
+          <div className='recurring_bills_page-labels-container'>
+            <p className='bill-title-label text-5-grey'>Bill Title</p>
+            <p className='due-date-label text-5-grey'>Due Date</p>
+            <p className='amount-label text-5-grey'>Amount</p>
+          </div>
           {transactions ? renderRecurringBills(transactions) : <></>}
         </div>
       </section>
