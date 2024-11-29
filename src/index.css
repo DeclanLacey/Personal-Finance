@@ -79,6 +79,51 @@ summary,
 cursor: pointer;
 }
 
+.app {
+  display: flex;
+  gap: 40px;
+}
+
+.padding-right {
+  padding-right: 40px;
+}
+
+/* ///////// Show menu styling /////////////// */
+
+.show-menu-btn {
+  height: 50px;
+  width: 200px;
+  bottom: 20px;
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  background-color: var(--grey-900);
+  color: var(--grey-100);
+  border: none;
+  border-top-right-radius: 10px;
+  border-bottom-right-radius: 10px;
+  padding-left: 20px;
+}
+
+.show-menu-img {
+  transform: scale(-1,1);
+  width: 20px;
+}
+
+.show-menu-text {
+  opacity: .8;
+}
+
+@media (max-width: 1199px) {
+  .show-menu-btn {
+    display: none;
+  }
+
+  .padding-right {
+    padding-right: 0px;
+  }
+}
 
 /* //////////////// color classes for budget bar chart ////////////////// */
 

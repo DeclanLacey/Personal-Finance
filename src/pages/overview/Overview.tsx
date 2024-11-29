@@ -23,11 +23,25 @@ export default function Overview() {
   return (
     <div className="overview-container">
       <h1 className="overview-title text-1-bold">Overview</h1>
-      <BalancesOverview></BalancesOverview>
-      <PotsOverview></PotsOverview>
-      <TransactionsOverview></TransactionsOverview>
-      <BudgetsOverview></BudgetsOverview>
-      <RecurringBillsOverview></RecurringBillsOverview>
+      <div className='balances-overview-container'>
+        <BalancesOverview></BalancesOverview>
+      </div>
+
+      <div className='pots-overview-container'>
+        <PotsOverview></PotsOverview>
+      </div>
+
+      <div className='transactions-overview-container'>
+        <TransactionsOverview></TransactionsOverview>
+      </div>
+
+      <div className='budgets-overview-container'>
+        <BudgetsOverview></BudgetsOverview>
+      </div>
+
+      <div className='recurring-bills-overview-container'>
+        <RecurringBillsOverview></RecurringBillsOverview>
+      </div>
     </div>
   )
 }

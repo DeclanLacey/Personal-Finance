@@ -1,10 +1,14 @@
 import { NavLink } from 'react-router-dom'
-import "./Nav.css"
+import "./DesktopNav.css"
 
+interface Props {
+    desktopNavOpen: Boolean,
+    setDesktopNavOpen: Function
+}
 
-export default function Nav() {
+export default function DesktopNav({desktopNavOpen, setDesktopNavOpen} : Props) {
   return (
-    <nav className='nav-container'>
+    <nav className={`desktop-nav-container ${!desktopNavOpen ? 'hide-nav' : ''}`}>
         <img className='nav-logo' alt='The logo for Personal Finance in large white lettering reading simply "finance".' src='/assets/logo-large.svg' />
         <NavLink className='nav-link' to={"/overview"}> 
             <img alt='representing the navigation element that can be clicked to go to the overview page' className='nav-link-img' src='/assets/icon-nav-overview.svg' />
@@ -31,10 +35,10 @@ export default function Nav() {
             <p className='nav-text text-5-bold-grey'>Recurring Bills</p>
         </NavLink>
 
-        {/* <button className='minimize-menu-btn' onClick={() => setDesktopNavOpen(false)}> 
+        <button className='minimize-menu-btn' onClick={() => setDesktopNavOpen(false)}> 
             <img className='close-nav-icon' src='./assets/icon-minimize-menu.svg' alt='arrow pointing left'/>
             <p className='text-3 close-nav-text'>Minimize Menu</p>
-        </button> */}
+        </button>
     </nav>
   )
 }

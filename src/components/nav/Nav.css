@@ -34,7 +34,7 @@
 }
 
 .active p {
-    color: var(--black);
+    color: var(--black) !important;
 }
 
 .active img {
@@ -42,6 +42,16 @@
 }
 
 .nav-text {
+    display: none;
+    color: var(--grey-100) !important;
+    opacity: .8;
+}
+
+.nav-logo {
+    display: none;
+}
+
+.hide-nav {
     display: none;
 }
 
@@ -62,5 +72,11 @@
         display: block;
         margin-bottom: 0px;
         margin-top: 5px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .nav-container {
+        display: none;
     }
 }
