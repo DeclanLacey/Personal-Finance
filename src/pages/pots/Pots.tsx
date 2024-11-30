@@ -65,7 +65,7 @@ export default function Pots() {
 
       {showAddPotModal && <AddPotModal setShowAddPotModal={setShowAddPotModal}/>}
 
-      <section>
+      <section className='pot-detail-elements-container'>
         {pots ? renderPotDetailElements(pots) : <></>}
       </section>
     </div>

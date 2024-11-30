@@ -284,3 +284,35 @@
     }   
 
 }
+
+@media (min-width: 1200px) {
+    .recurring_bills_page {
+        display: grid;
+        grid-template-columns: 38% 58%;
+        column-gap: 4%;
+        grid-template-rows: 80px 20% 1fr;
+        row-gap: 30px;
+        margin-bottom: 0px;
+    }
+
+    .recurring_bills_page-title {
+        grid-column: span 2;
+        grid-row: 1;
+    }
+
+    .recurring_bills_page-total-container {
+        grid-column: 1;
+        grid-row: 2;
+    }
+
+    .recurring_bills_page-summary-container {
+        grid-column: 1;
+        grid-row: 3;
+    }
+
+    .recurring_bills_page-transaction-section {
+        grid-column: 2;
+        grid-row: span 2;
+        margin-top: 0px;
+    }
+}
