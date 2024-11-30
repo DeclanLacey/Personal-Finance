@@ -30,6 +30,12 @@ export default function SignIn() {
         <div className='sign_in-authenticator-container'>
           <Authenticator formFields={formFields} ></Authenticator>
         </div>
+
+        <div className='sign_in-img-container'>
+          <img className='sign_in-img' src="./assets/illustration-authentication.svg" />
+          <h1 className='sign_in-img-title text-1-bold'>Keep track of your money and save for your future</h1>
+          <p className='sign_in-img-subtitle text-4'>Personal finance app puts you in control of your spending. Track transactions, set budgets, and add to savings pots easily.</p>
+        </div>
     </div>
   )
 }

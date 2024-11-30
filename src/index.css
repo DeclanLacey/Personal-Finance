@@ -104,6 +104,7 @@ cursor: pointer;
   border-top-right-radius: 10px;
   border-bottom-right-radius: 10px;
   padding-left: 20px;
+  transition: background-color 350ms;
 }
 
 .show-menu-img {
@@ -465,6 +466,10 @@ input[type="date"]:before {
 }
 
 .black-add-btn:hover {
+  background-color: var(--grey-500);
+}
+
+.show-menu-btn:hover {
   background-color: var(--grey-500);
 }
 
