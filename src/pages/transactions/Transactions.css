@@ -188,6 +188,8 @@ select::-ms-expand {
     width: 40px;
     height: 40px;
     border-radius: 10px;
+    transition-property: color background-color;
+    transition-duration: 350ms;
 }
 
 .pagination-page {
@@ -203,7 +205,7 @@ select::-ms-expand {
 
 .active-item {
     background-color: black;
-    color: var(--white);
+    color: var(--white) ;
 }
 
 .next {
@@ -218,7 +220,14 @@ select::-ms-expand {
     justify-content: center;
     border: 1px solid var(--grey-500);
     border-radius: 10px;
+    transition-property: color background-color;
+    transition-duration: 350ms;
 } 
+
+.next-arrow,
+.prev-arrow {
+    transition: filter 350ms;
+}
 
 .paginate-next-arrow-text {
     display: none;
@@ -246,6 +255,8 @@ select::-ms-expand {
     justify-content: center;
     border: 1px solid var(--grey-500);
     border-radius: 10px;
+    transition-property: color background-color;
+    transition-duration: 350ms;
 }
 
 .paginate-prev-arrow-text {
@@ -410,4 +421,25 @@ select::-ms-expand {
     .transactions-page-container {
         margin-bottom: 40px;
     }
+}
+
+/* /////////////////////// hover //////////////////////////// */
+
+.next:hover,
+.previous:hover  {
+    background-color: var(--grey-500);
+    color: var(--white);
+}
+
+.next:hover .next-arrow {
+    filter: invert(100%) sepia(53%) saturate(2%) hue-rotate(74deg) brightness(140%) contrast(110%);
+}
+
+.previous:hover .prev-arrow {
+    filter: invert(100%) sepia(53%) saturate(2%) hue-rotate(74deg) brightness(140%) contrast(110%);
+}
+
+.pagination-item:hover {
+    background-color: var(--grey-500);
+    color: var(--white);
 }

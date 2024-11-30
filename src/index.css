@@ -215,6 +215,11 @@ cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
+  transition: color 350ms;
+}
+
+.see-details-link:hover {
+  color: var(--grey-900);
 }
 
 .detail-ellipsis {
@@ -241,6 +246,7 @@ cursor: pointer;
     background-color: var(--black);
     font-weight: 600;
     color: var(--white);
+    transition: background-color 350ms;
 }
 
 .red-delete-btn {
@@ -253,6 +259,7 @@ cursor: pointer;
   background-color: var(--red);
   font-weight: 600;
   color: var(--white);
+  transition: opacity 350ms;
 }
 
 .rounded-select-input {
@@ -390,6 +397,7 @@ input[type="date"]:before {
   top: 30px;
   border: 1px solid var(--grey-100);
   padding: 5px 18px 5px 18px;
+  box-shadow: 2px 1px 12px 4px var(--beige-500);
 }
 
 .ellipsis-edit,
@@ -444,12 +452,20 @@ input[type="date"]:before {
   cursor: pointer;
 } */
 
+.red-delete-btn:hover {
+  opacity: .8;
+}
+
 .date-input::-webkit-calendar-picker-indicator:hover {
   cursor: pointer;
 }
 
 .close-modal-btn:hover {
   cursor: pointer;
+}
+
+.black-add-btn:hover {
+  background-color: var(--grey-500);
 }
 
 /* ////////////////// preset text styles ////////////////// */

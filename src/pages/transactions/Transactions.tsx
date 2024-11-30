@@ -148,7 +148,7 @@ export default function Transactions() {
           nextClassName={"next "}
           nextLabel={
             <div className='paginate-next-arrow-container'>
-              <img alt='icon of an arrow pointing right to indicate a button to move to the next page of transactions' src='./assets/icon-caret-right.svg' />
+              <img className='next-arrow' alt='icon of an arrow pointing right to indicate a button to move to the next page of transactions' src='./assets/icon-caret-right.svg' />
               <p className='paginate-next-arrow-text'>Next</p>
             </div>
           
@@ -160,7 +160,7 @@ export default function Transactions() {
           previousClassName={"previous"}
           previousLabel={
             <div className='paginate-prev-arrow-container'>
-              <img alt='icon of an arrow pointing left to indicate a button to move to the last page of transactions' src='./assets/icon-caret-left.svg'/>
+              <img className='prev-arrow' alt='icon of an arrow pointing left to indicate a button to move to the last page of transactions' src='./assets/icon-caret-left.svg'/>
               <p className='paginate-prev-arrow-text'> Prev</p>
             </div>
           }

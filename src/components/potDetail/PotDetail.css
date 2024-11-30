@@ -74,4 +74,13 @@
     font-weight: 600;
     margin-bottom: 15px;
     margin-top: 25px;
+    transition-property: background-color border;
+    transition-duration: 450ms;
+}
+
+/* /////////////////////////// Hover //////////////////////// */
+
+.pot_detail-btn:hover {
+    background-color: var(--white);
+    border: 1px solid var(--grey-900);
 }

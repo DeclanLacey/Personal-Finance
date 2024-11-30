@@ -24,6 +24,14 @@
     border-top-left-radius: 10px;
 }
 
+.nav-link p {
+    transition: color 350ms;
+}
+
+.nav-link-img {
+    transition: filter 350ms;
+}
+
 .nav-link-img {
     height: 20px;
 }
@@ -53,6 +61,17 @@
 .hide-nav {
     display: none;
 }
+
+.minimize-menu-btn {
+    background-color: var(--grey-900);
+    transition: background-color 350ms;
+}
+
+.minimize-menu-btn p {
+    transition: color 350ms;
+}
+
+/* //////////////////// media query //////////////////// */
 
 @media (max-width: 1199px) {
     .desktop-nav-container {
@@ -117,7 +136,7 @@
         align-items: center;
         height: 55px;
         width: 95%;
-        border-top-left-radius: 0px;
+        border-top-right-radius: 10px;
         border-bottom-right-radius: 10px;
         padding-left: 20px;
         background-color: var(--grey-900);
@@ -136,3 +155,23 @@
         opacity: .8;
     }
 }
+
+/* ////////////////////// Hover /////////////////////// */
+
+.minimize-menu-btn:hover {
+    background-color: white;
+}
+
+.minimize-menu-btn:hover p {
+    color: var(--grey-500);
+}
+
+.nav-link:hover p {
+    color: var(--turquoise) !important;
+    opacity: 1;
+}
+
+.nav-link:hover img {
+    filter: invert(40%) sepia(62%) saturate(418%) hue-rotate(128deg) brightness(89%) contrast(93%);
+}
+
