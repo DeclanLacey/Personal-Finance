@@ -24,14 +24,20 @@
     }
 }
 
+@media (min-width: 1200px) {
+    .overview-container {
+        margin-bottom: 40px;
+    }
+}
+
 @media (min-width: 1550px) {
     .overview-container {
         display: grid;
         grid-template-columns: 45% 55%;
-        grid-template-rows: 110px 130px 250px 220px;
+        grid-template-rows: 110px 130px 250px 210px;
         column-gap: 30px;
-        margin-bottom: 50px;
         padding-right: 30px;
+        margin-bottom: 40px;
     }
 
     .balances-overview-container {

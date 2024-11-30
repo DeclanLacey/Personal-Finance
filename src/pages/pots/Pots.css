@@ -37,6 +37,10 @@
         grid-template-columns: 48% 48%;
         column-gap: 4%;
     }
+}
 
-    
+@media (min-width: 1200px) {
+    .pots_page-container {
+        margin-bottom: 30px;
+    }
 }

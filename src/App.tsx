@@ -14,7 +14,7 @@ import DesktopNav from './components/desktopNav/DesktopNav'
 Amplify.configure(outputs)
 
 function App() {
-  const [desktopNavOpen, setDesktopNavOpen] = useState<Boolean>(false)
+  const [desktopNavOpen, setDesktopNavOpen] = useState<Boolean>(true)
   const location = useLocation()
 
   return (

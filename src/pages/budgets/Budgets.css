@@ -129,5 +129,9 @@
     .budgets_page-chart-overview-container {
         height: fit-content;
     }
+
+    .budgets_page-container {
+        margin-bottom: 20px;
+    }
     
 }

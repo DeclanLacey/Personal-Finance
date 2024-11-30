@@ -405,3 +405,9 @@ select::-ms-expand {
         margin-bottom: 110px;
     }
 }
+
+@media (min-width: 1200px) {
+    .transactions-page-container {
+        margin-bottom: 40px;
+    }
+}
