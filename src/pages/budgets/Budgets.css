@@ -115,9 +115,10 @@
 @media (min-width: 1200px) {
     .budgets_page-container {
         display: grid;
-        grid-template-columns: 45% 55%;
+        grid-template-columns: 44% 54%;
         grid-template-rows: 100px 1fr;
-        column-gap: 35px;
+        column-gap: 2%;
+
     }
 
     .budgets_page-title-container {
