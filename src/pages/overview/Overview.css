@@ -3,6 +3,7 @@
     margin-bottom: 80px;
     width: 90%;
     margin: 0 auto;
+    height: fit-content;
 }
 
 .overview-title {
@@ -23,6 +24,43 @@
     }
 }
 
-@media (min-width: 1200px) {
-    
+@media (min-width: 1550px) {
+    .overview-container {
+        display: grid;
+        grid-template-columns: 45% 55%;
+        grid-template-rows: 110px 130px 250px 220px;
+        column-gap: 30px;
+        margin-bottom: 50px;
+        
+    }
+
+    .balances-overview-container {
+        grid-column: span 2;
+        grid-row: 2;
+    }
+
+    .pots-overview-container {
+        grid-column: 1;
+        grid-row: 3;
+
+    }
+
+    .transactions-overview-container {
+        grid-column: 1;
+        grid-row: 4 / 5;
+        align-self: flex-start;
+        border: 1px solid red;
+        margin-bottom: 0px;
+    }
+
+    .budgets-overview-container {
+        grid-column: 2;
+        grid-row: 3 / 4;
+    }
+
+    .recurring-bills-overview-container {
+        grid-column: 2;
+        grid-row: 5;
+        height: fit-content;
+    }
 }

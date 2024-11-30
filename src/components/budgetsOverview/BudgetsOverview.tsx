@@ -74,6 +74,8 @@ export default function BudgetsOverview() {
         }
       }
 
+
+
       return (  
         <div className='budgets_overview-category' key={index}>
           <div className={`budgets_overview-category-color-line ${categoryColor}`} ></div>
