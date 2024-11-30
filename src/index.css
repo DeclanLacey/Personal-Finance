@@ -91,8 +91,8 @@ cursor: pointer;
 /* ///////// Show menu styling /////////////// */
 
 .show-menu-btn {
-  height: 50px;
-  width: 200px;
+  height: 55px;
+  width: 300px;
   bottom: 20px;
   position: fixed;
   display: flex;

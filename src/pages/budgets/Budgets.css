@@ -111,3 +111,23 @@
         margin-bottom: 110px;
     }
 }
+
+@media (min-width: 1200px) {
+    .budgets_page-container {
+        display: grid;
+        grid-template-columns: 45% 55%;
+        grid-template-rows: 100px 1fr;
+        column-gap: 35px;
+    }
+
+    .budgets_page-title-container {
+        grid-column: span 2;
+        grid-row: 1;
+        width: 100%;
+    }
+
+    .budgets_page-chart-overview-container {
+        height: fit-content;
+    }
+    
+}

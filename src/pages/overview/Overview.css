@@ -49,7 +49,6 @@
         grid-column: 1;
         grid-row: 4 / 5;
         align-self: flex-start;
-        border: 1px solid red;
         margin-bottom: 0px;
     }
 

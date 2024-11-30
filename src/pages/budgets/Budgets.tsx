@@ -129,7 +129,6 @@ export default function Budgets() {
 
       {showAddBudgetModal && <AddBudgetModal renderCategoryNameOptions={renderCategoryNameOptions} setShowAddBudgetModal={setShowAddBudgetModal} budgets={budgets ? budgets : []}></AddBudgetModal>}
       
-      <div className='budgets_page-content-container'>
         <section className='budgets_page-chart-overview-container'>
           <div className='budgets_page-chart-container'>
             <div className='budgets_page-total-spend-container'>
@@ -146,7 +145,6 @@ export default function Budgets() {
         <section>
           {budgets && transactions ? renderBudgetDetailComponents(budgets, transactions) : <></>}
         </section>
-      </div>
     </div>
   )
 }
