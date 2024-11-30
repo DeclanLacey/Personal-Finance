@@ -125,7 +125,7 @@ export default function BudgetDetail({budget, transactions, budgets} : Props)  {
                     <h3 className='budget_detail-spending-title'>Latest Spending</h3>
                     <div className='see-details-link-container'>
                         {/* You may want to have this link send data that will select the transactions for this category only */}
-                        <NavLink to="/transactions" className='see-details-link'>
+                        <NavLink to="/transactions" state={budget.category} className='see-details-link'>
                             See All
                             <img alt="an arrow pointing right indicating that more can be seen upon clicking" className='see-details-caret' src='./assets/icon-caret-right.svg'/>
                         </NavLink>

@@ -7,9 +7,10 @@ import { Category, Transaction } from '../../types/types';
 import AddTransactionModal from '../../components/addTransactionModal/AddTransactionModal';
 import "./Transactions.css"
 import { useAuthenticator } from '@aws-amplify/ui-react';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 
 export default function Transactions() {
+  const location = useLocation()
   const [categoryNames, setCategoryNames] = useState<Category[]>()
   const [transactions, setTransactions] = useState<Transaction[]>([])
   const [sortBySelection, setSortBySelection] = useState<string>("latest")
@@ -29,6 +30,7 @@ export default function Transactions() {
         const transactionData : any = await getTransactions()
         setCategoryNames(categoryNameData)
         setTransactions(transactionData)
+        setFilterBySelection(location.state ? location.state : "")
         setLoading(false)
       }catch(error) {
         setLoading(false)
@@ -182,13 +184,13 @@ export default function Transactions() {
       <section className='transactions-content-container'>
         <form className='transactions-form'>
           <div className='transactions-search-bar-container'>
-            <input placeholder='Search Transaction' className='rounded-input transactions-search-bar' onChange={changeSearchInput} type='text' />
+            <input placeholder='Search Transaction' className='rounded-input transactions-search-bar' value={currentSearch} onChange={changeSearchInput} type='text' />
             <CiSearch className='transactions-search-bar-icon' />
           </div>
 
             <div className='transactions-sort-select-container'>
               <label className='transactions-select-label'>Sort by</label>
-              <select className='transactions-sort-select rounded-select-input' name='sort' onChange={changeSort}>
+              <select className='transactions-sort-select rounded-select-input' name='sort' value={sortBySelection} onChange={changeSort}>
                 <option className='transactions-sort-option' value="latest">Latest</option>
                 <option className='transactions-sort-option' value="oldest">Oldest</option>
                 <option className='transactions-sort-option' value="a-z">A to Z</option>
@@ -200,7 +202,7 @@ export default function Transactions() {
 
             <div className='transactions-filter-select-container'>
               <label className='transactions-select-label'>Category</label>
-              <select className='transactions-filter-select rounded-select-input' name="filter" onChange={changeFilter}>
+              <select className='transactions-filter-select rounded-select-input' name="filter" value={filterBySelection} onChange={changeFilter}>
                 <option className='transactions-filter-option' value=""> All Transactions</option>
                 {renderCategoryNameOptions()}
               </select>
