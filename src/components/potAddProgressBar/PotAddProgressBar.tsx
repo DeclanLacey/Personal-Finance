@@ -1,5 +1,5 @@
 import { calculatePercentOfTotal } from "../../utils/utils"
-import "./potAddProgressBar.css"
+import "./PotAddProgressBar.css"
 
 interface Props {
     potColor: string,
@@ -7,7 +7,7 @@ interface Props {
     potSaved: number,
     additionAmount: number
 }
-export default function PotAddWithdrawProgressBar({potColor, potTarget, potSaved, additionAmount} : Props) {
+export default function PotAddProgressBar({potColor, potTarget, potSaved, additionAmount} : Props) {
   let originalPercentSaved = calculatePercentOfTotal(potTarget, potSaved)
   
   // -.75 extra to take into account the separator width
