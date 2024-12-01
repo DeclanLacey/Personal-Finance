@@ -1,5 +1,4 @@
 import { Route, Routes, useLocation } from 'react-router'
-import SignIn from './pages/signIn/SignIn'
 import Overview from "./pages/overview/Overview"
 import Budgets from './pages/budgets/Budgets'
 import Pots from './pages/pots/Pots'
@@ -10,6 +9,7 @@ import { Amplify } from 'aws-amplify'
 import Nav from './components/nav/Nav'
 import { useState } from 'react'
 import DesktopNav from './components/desktopNav/DesktopNav'
+import SignIn from './pages/signIn/SignIn'
 
 Amplify.configure(outputs)
 
