@@ -1,9 +1,9 @@
 import { Authenticator, useAuthenticator } from '@aws-amplify/ui-react'
 import { useNavigate } from 'react-router'
 import { useEffect } from 'react'
-import './SignIn.css'
+import './SignInPage.css'
 
-export default function SignIn() {
+export default function SignInPage() {
   const {authStatus} = useAuthenticator((context) => [context.authStatus])
   const navigate = useNavigate()
 

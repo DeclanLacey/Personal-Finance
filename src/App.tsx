@@ -9,7 +9,7 @@ import { Amplify } from 'aws-amplify'
 import Nav from './components/nav/Nav'
 import { useState } from 'react'
 import DesktopNav from './components/desktopNav/DesktopNav'
-import SignIn from './pages/signIn/SignIn'
+import SignInPage from './pages/signInPage/SignInPage'
 
 Amplify.configure(outputs)
 
@@ -19,7 +19,6 @@ function App() {
 
   return (
     <div className={`app ${desktopNavOpen ? 'padding-right' : ""}`}>
-      {/* You will need to remove the nav component from here, it is showing on the sign in screen, instead put it on each page individually */}
       {location.pathname === "/" ? <></> : <Nav></Nav>}
       {location.pathname === "/" ? <></> : <DesktopNav desktopNavOpen={desktopNavOpen} setDesktopNavOpen={setDesktopNavOpen}></DesktopNav>}
 
@@ -31,7 +30,7 @@ function App() {
       }
 
       <Routes>
-        <Route path="/" element={<SignIn />}/>
+        <Route path="/" element={<SignInPage />}/>
         <Route path="/overview" element={<Overview />} />
         <Route path="/budgets" element={<Budgets />} />
         <Route path="/pots" element={<Pots />} />
