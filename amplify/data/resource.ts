@@ -78,7 +78,7 @@ const schema = a.schema({
       name: a.string().required()
     })
     .authorization((allow) => [
-      allow.ownerDefinedIn("profileOwner"),
+      allow.authenticated()
     ]),
 
   Theme: a
