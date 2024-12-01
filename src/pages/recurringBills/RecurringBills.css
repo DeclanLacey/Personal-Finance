@@ -39,6 +39,10 @@
     margin-bottom: 10px;
 }
 
+.recurring_bills_page-searchbar-label {
+    display: none;
+}
+
 .recurring_bills_page-total-title {
     margin: 0px;
     margin-bottom: 5px;

@@ -43,6 +43,10 @@
     margin-left: 10px;
 }
 
+.transactions-search-bar-label {
+    display: none;
+}
+
 select::-ms-expand {
     display: none;
 }

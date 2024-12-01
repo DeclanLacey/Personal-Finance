@@ -184,13 +184,14 @@ export default function Transactions() {
       <section className='transactions-content-container'>
         <form className='transactions-form'>
           <div className='transactions-search-bar-container'>
-            <input placeholder='Search Transaction' className='rounded-input transactions-search-bar' value={currentSearch} onChange={changeSearchInput} type='text' />
+            <label className='transactions-search-bar-label' htmlFor='search-id'>Search</label>
+            <input placeholder='Search Transaction' name='search' id="search-id" className='rounded-input transactions-search-bar' value={currentSearch} onChange={changeSearchInput} type='text' />
             <CiSearch className='transactions-search-bar-icon' />
           </div>
 
             <div className='transactions-sort-select-container'>
-              <label className='transactions-select-label'>Sort by</label>
-              <select className='transactions-sort-select rounded-select-input' name='sort' value={sortBySelection} onChange={changeSort}>
+              <label className='transactions-select-label' htmlFor="sort-id" >Sort by</label>
+              <select className='transactions-sort-select rounded-select-input' name='sort' id="sort-id" value={sortBySelection} onChange={changeSort}>
                 <option className='transactions-sort-option' value="latest">Latest</option>
                 <option className='transactions-sort-option' value="oldest">Oldest</option>
                 <option className='transactions-sort-option' value="a-z">A to Z</option>
@@ -201,8 +202,8 @@ export default function Transactions() {
             </div>
 
             <div className='transactions-filter-select-container'>
-              <label className='transactions-select-label'>Category</label>
-              <select className='transactions-filter-select rounded-select-input' name="filter" value={filterBySelection} onChange={changeFilter}>
+              <label className='transactions-select-label' htmlFor='filter-id'>Category</label>
+              <select className='transactions-filter-select rounded-select-input' name="filter" id="filter-id" value={filterBySelection} onChange={changeFilter}>
                 <option className='transactions-filter-option' value=""> All Transactions</option>
                 {renderCategoryNameOptions()}
               </select>
