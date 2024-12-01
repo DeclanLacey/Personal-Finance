@@ -87,7 +87,7 @@ const schema = a.schema({
       hex: a.string().required()
     })
     .authorization((allow) => [
-      allow.ownerDefinedIn("profileOwner"),
+      allow.authenticated()
     ]),
 })
 .authorization(allow => [allow.resource(postConfirmation)]);
