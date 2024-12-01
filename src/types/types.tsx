@@ -107,7 +107,6 @@ export type Theme = {
     name: string,
     hex: string,
     id: string,
-    profileOwner: string | null,
     createdAt: string,
     updatedAt: string
 }
