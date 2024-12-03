@@ -1,5 +1,6 @@
 import { generateClient } from "aws-amplify/data";
 import { type Schema } from "@/../../amplify/data/resource";
+import initialData from "../data/data.json"
 import { UpdatedBalance, NewBudget, NewPot, NewTransaction, UpdatedBudget, UpdatedPot, UpdatedTotalPot } from "../types/types";
 
 const client = generateClient<Schema>({
@@ -119,6 +120,15 @@ export const updateBalance = async (newTransactionAmount: number) => {
 /////////// Functions for getting all records ///////////////
 /////////////////////////////////////////////////////////////
 
+export const getMadeDataChoice = async () => {
+    const {data, errors} = await client.models.MadeDataChoice.list()
+    if (errors) {
+        console.log(errors)
+    }else {
+        return data
+    }
+}
+
 export const getCategories = async () => {
     const {data, errors} = await client.models.Category.list()
     if (errors) {
@@ -173,3 +183,60 @@ export const getThemes = async () => {
     }
 };
 
+/////////////////////////////////////////////////////////////
+/////////// Functions for populating all records ////////////
+/////////////////////////////////////////////////////////////
+
+export const addSeedTransactions = async () => {
+    try {
+        for (let i = 0; i < initialData.transactions.length; i++) {
+            await client.models.Transaction.create(initialData.transactions[i])
+        }
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+export const addSeedBudgets = async () => {
+    try {
+        for (let i = 0; i < initialData.budgets.length; i++) {
+            await client.models.Budget.create(initialData.budgets[i])
+        }
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+export const addSeedPots = async () => {
+    try {
+        for (let i = 0; i < initialData.pots.length; i++) {
+            await client.models.Pot.create(initialData.pots[i])
+        }
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+export const addSeedBalance = async () => {
+    try {
+        await client.models.Balance.create(initialData.balance)
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+export const addBlankSeedBalance = async () => {
+    try {
+        await client.models.Balance.create({income: 0, expenses: 0, current: 0})
+    }catch(error) {
+        console.log(error)
+    }
+}
+
+export const addMadeDataChoice = async () => {
+    try {
+        await client.models.MadeDataChoice.create({madeChoice: true})
+    }catch(error) {
+        console.log(error)
+    }
+}

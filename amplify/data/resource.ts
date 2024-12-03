@@ -89,6 +89,14 @@ const schema = a.schema({
     .authorization((allow) => [
       allow.authenticated()
     ]),
+
+    MadeDataChoice: a
+      .model({
+        madeChoice: a.boolean().required()
+      })
+      .authorization((allow) => [
+        allow.ownerDefinedIn("profileOwner"),
+      ])
 })
 .authorization(allow => [allow.resource(postConfirmation)]);
 

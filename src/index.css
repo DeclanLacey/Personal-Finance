@@ -244,7 +244,7 @@ cursor: pointer;
     font-size: 1.4rem;
     border: none;
     border-radius: 10px;
-    background-color: var(--black);
+    background-color: var(--grey-900);
     font-weight: 600;
     color: var(--white);
     transition: background-color 350ms;

@@ -25,7 +25,7 @@ function App() {
       {location.pathname === "/" ? <></> : 
         <button className={`show-menu-btn ${desktopNavOpen ? 'hide-nav' : ''}`} onClick={() => setDesktopNavOpen(true)}> 
           <p className='show-menu-text text-3'>Show Menu</p>
-          <img className='show-menu-img' src='./assets/icon-minimize-menu.svg' alt='arrow pointing right'/>
+          <img className='show-menu-img' src='assets/icon-minimize-menu.svg' alt='arrow pointing right'/>
         </button>
       }
 
