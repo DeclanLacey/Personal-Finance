@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { NewTransaction, TransactionType } from "../../types/types"
-import { addTransaction, getBalances, updateBalance } from "../../utils/clientCalls"
+import { addTransaction, updateBalance } from "../../utils/clientCalls"
 import { checkIfStringIsNumber } from "../../utils/utils"
 import "./AddTransactionModal.css"
 
