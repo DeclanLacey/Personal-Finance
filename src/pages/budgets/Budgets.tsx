@@ -4,7 +4,7 @@ import { getBudgets, getCategories, getTransactions } from '../../utils/clientCa
 import { PieChart } from 'chartist'
 import { calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, currencyFormatCents, currencyFormatNoCents, setPieChartColorsAndValues } from '../../utils/utils'
 import BudgetDetail from '../../components/budgetDetail/BudgetDetail'
-import AddBudgetModal from '../../components/addBudgetModal/AddBudgetModal'
+import {AddBudgetModal} from '../../components/addBudgetModal/AddBudgetModal'
 import "./Budgets.css"
 import { useAuthenticator } from '@aws-amplify/ui-react'
 import { useNavigate } from 'react-router-dom'

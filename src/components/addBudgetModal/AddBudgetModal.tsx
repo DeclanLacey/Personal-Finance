@@ -10,7 +10,19 @@ interface Props {
     renderCategoryNameOptions: Function
 }
 
-export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
+export async function getData(setLoading : Function, setThemes: Function, getThemes: Function) {
+    try {
+        setLoading(true)
+        const themeData : any = await getThemes()
+        setThemes(themeData)
+        setLoading(false)
+      }catch(error) {
+        setLoading(false)
+        throw new Error(`There has been an error while getting the data. Error message -> ${error}`)
+      }
+}
+
+export function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
     const [maximum, setMaximum] = useState<string>("")
@@ -18,18 +30,7 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
     const [theme, setTheme] = useState<string>("")
 
     useEffect(() => {
-        async function getData() {
-            try {
-                setLoading(true)
-                const themeData : any = await getThemes()
-                setThemes(themeData)
-                setLoading(false)
-              }catch(error) {
-                setLoading(false)
-                console.log(error)
-              }
-        }
-        getData()
+        getData(setLoading, setThemes, getThemes)
     }, [])
 
     /// Checks if the data is currently loading
@@ -48,16 +49,16 @@ export default function AddBudgetModal({budgets, setShowAddBudgetModal, renderCa
         if (checkIfBudgetExists(budgets, category)) {
             window.alert("There is already a budget for the chosen category")
         }else {
-            const newTransaction: NewBudget = {
+            const newBudget: NewBudget = {
                 category: category,
                 maximum: Number(maximum),
                 theme: theme
             }
     
-            if (!newTransaction.maximum || newTransaction.maximum < 1) {
+            if (!newBudget.maximum || newBudget.maximum < 1) {
                 window.alert("Please enter a valid budget amount. The minimum for a budget is $1")
             }else {
-                await addBudget(newTransaction)
+                await addBudget(newBudget)
                 setShowAddBudgetModal(false)
                 location.reload()
             }
