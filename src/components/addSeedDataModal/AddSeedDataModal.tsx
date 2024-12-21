@@ -1,10 +1,10 @@
 import { addBlankSeedBalance, addMadeDataChoice, addSeedBalance, addSeedBudgets, addSeedPots, addSeedTransactions } from "../../utils/clientCalls"
 import "./AddSeedDataModal.css"
 
-
 export default function AddSeedDataModal() {
 
     async function handleAddSeedData() {
+        ////// You need to add some sort of loading circle here
         await addSeedBalance()
         await addSeedBudgets()
         await addSeedTransactions()
