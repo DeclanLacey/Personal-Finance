@@ -1,7 +1,7 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { getData, handleSubmit } from './AddBudgetModal';
-import { SyntheticEvent } from 'react';
+import { getData, handleMaximumChange, handleSubmit } from './AddBudgetModal';
+import { FormEvent, SyntheticEvent } from 'react';
 
 
 describe('getData()', () => {
@@ -70,5 +70,19 @@ describe('handleSubmit()', () => {
         expect(preventDefault).toHaveBeenCalled()
     }) 
 
+})
+
+describe('handleMaximumChange()', () => {
+    const mockCurrentTarget = { value: "5" } as HTMLInputElement;
+    const syntheticEvent: Partial<FormEvent> = {
+        currentTarget: mockCurrentTarget,
+    };
+    const setMaximum = vi.fn()
+
+    it('should call setMaximum with currentTarget', () => {
+        handleMaximumChange(syntheticEvent as FormEvent<HTMLInputElement>, setMaximum)
+        expect(setMaximum).toHaveBeenCalledWith(mockCurrentTarget.value)
+    })
+    
 })
 

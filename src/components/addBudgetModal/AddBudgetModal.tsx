@@ -49,6 +49,12 @@ export async function handleSubmit(event: React.SyntheticEvent, budgets: Budget[
     
 }
 
+export function handleMaximumChange(e: React.FormEvent<HTMLInputElement>, setMaximum: Function) {
+    if (checkIfStringIsNumber(e.currentTarget.value)) {
+        setMaximum(e.currentTarget.value)
+    }
+}
+
 export function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNameOptions} : Props) {
     const [themes, setThemes] = useState<Theme[]>()
     const [loading, setLoading] = useState<Boolean>()
@@ -70,34 +76,6 @@ export function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNa
         return <div></div>
     }
 
-    // async function handleSubmit(event: React.SyntheticEvent) {
-    //     event.preventDefault()
-        
-    //     if (checkIfBudgetExists(budgets, category)) {
-    //         window.alert("There is already a budget for the chosen category")
-    //     }else {
-    //         const newBudget: NewBudget = {
-    //             category: category,
-    //             maximum: Number(maximum),
-    //             theme: theme
-    //         }
-    
-    //         if (!newBudget.maximum || newBudget.maximum < 1) {
-    //             window.alert("Please enter a valid budget amount. The minimum for a budget is $1")
-    //         }else {
-    //             await addBudget(newBudget)
-    //             setShowAddBudgetModal(false)
-    //             location.reload()
-    //         }
-    //     }
-    // }
-
-    function handleMaximumChange(e: React.FormEvent<HTMLInputElement>) {
-        if (checkIfStringIsNumber(e.currentTarget.value)) {
-            setMaximum(e.currentTarget.value)
-        }
-    }
-
     return (
         <>
             <div className='page-cover'></div>
@@ -111,7 +89,7 @@ export function AddBudgetModal({budgets, setShowAddBudgetModal, renderCategoryNa
                     <div className="add-edit-modal-amount-container">
                         <label htmlFor="maximum" className="add-edit-modal-input-label">Amount</label>
                         <span className="dollar-sign">$</span>
-                        <input required name="maximum" maxLength={9} value={maximum} placeholder="e.g 49.99" className="rounded-input amount-input" onChange={handleMaximumChange}/>
+                        <input required name="maximum" maxLength={9} value={maximum} placeholder="e.g 49.99" className="rounded-input amount-input" onChange={(event) => handleMaximumChange(event, setMaximum)}/>
                     </div>
                     
                     <div className="add-edit-modal-input-container">
