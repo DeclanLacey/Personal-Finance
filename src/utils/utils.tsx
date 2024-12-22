@@ -19,7 +19,7 @@ export function currencyFormatCents(num: number) {
         formattedNum = formattedNum.split("")
         formattedNum[0] = "-"
         formattedNum[1] = "$"
-        formattedNum.join()
+        formattedNum = formattedNum.join("")
     }
     return formattedNum
 }
