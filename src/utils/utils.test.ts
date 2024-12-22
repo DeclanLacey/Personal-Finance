@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate } from './utils';
+import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate, getOrdinalSuffix } from './utils';
 
 describe('checkIfStringIsNumber()', () => {
     it('should return true if whole number string is passed in', () => {
@@ -85,5 +85,44 @@ describe('formatDate()', () => {
         const result = () => formatDate(dateInput);
         expect(result).toThrow(/invalid date string/i);
     });
-})
+});
+
+describe('getOrdinalSuffix()', () => {
+    it('should return the number passed in plus st if the remainder if j is equal to 1 and k is not equal to 11', () => {
+        const input = 1;
+        const expectedOutput = "1st";
+        const result = getOrdinalSuffix(input);
+        expect(result).toBe(expectedOutput);
+    });
+
+    it('should return the number passed in plus nd if the remainder if j is equal to 2 and k is not equal to 12', () => {
+        const input = 2;
+        const expectedOutput = "2nd";
+        const result = getOrdinalSuffix(input);
+        expect(result).toBe(expectedOutput);
+    });
+
+    it('should return the number passed in plus rd if the remainder if j is equal to 3 and k is not equal to 13', () => {
+        const input = 3;
+        const expectedOutput = "3rd";
+        const result = getOrdinalSuffix(input);
+        expect(result).toBe(expectedOutput);
+    });
+
+    it('should return the number passed in plus th if no other statements are true', () => {
+        const input = 5;
+        const expectedOutput = "5th";
+        const result = getOrdinalSuffix(input);
+        expect(result).toBe(expectedOutput);
+    });
+});
+
+describe('capitalizeEachWord', () => {
+    it('should return the same string with every word capitalized', () => {
+        const input = 'this is a string';
+        const expectedOutput = 'This Is A String';
+        const result = capitalizeEachWord(input);
+        expect(result).toBe(expectedOutput);
+    });
+});
 

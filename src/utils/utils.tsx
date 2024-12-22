@@ -92,7 +92,6 @@ export function renderColorOptions(themes: Theme[]) {
 ///////////// Transaction related utils //////////////
 //////////////////////////////////////////////////////
 
-
 export function sortTransactions(sortSelection: string, selectedTransactions : Transaction[]) {
     switch (sortSelection) {
         case "latest":
