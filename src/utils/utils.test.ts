@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, checkIfStringIsNumber, currencyFormatCents } from './utils';
+import { alertToWindow, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents } from './utils';
 
 describe('checkIfStringIsNumber()', () => {
     it('should return true if whole number string is passed in', () => {
@@ -38,7 +38,19 @@ describe('currencyFormatCents()', () => {
     });
 })
 
-describe('', () => {
-  
+describe('currencyFormatNoCents', () => {
+  it('should return a string in the format of $5', () => {
+    const data = 5.34;
+    const formattedData = "$5";
+    const result = currencyFormatNoCents(data);
+    expect(result).toBe(formattedData);
+  });
+
+  it('should return a string in the format of -$5', () => {
+    const data = -45.56;
+    const formattedData = "-$46";
+    const result = currencyFormatNoCents(data);
+    expect(result).toBe(formattedData);
+  });
 })
 
