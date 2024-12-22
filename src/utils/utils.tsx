@@ -47,7 +47,11 @@ export function calculatePercentOfTotal(total: number, num: number) {
 
 //// A function to format the date in this format 02 Jul 2024
 export function formatDate(dateString: string) {
+    
     let date = new Date(dateString)
+    if (isNaN(date.getTime())) {
+        throw new Error("Invalid date string");
+    }
     let dateArray = date.toDateString().split(' ')
     let dateFormat = dateArray[2] + ' ' + dateArray[1] + ' ' + dateArray[3]
 
