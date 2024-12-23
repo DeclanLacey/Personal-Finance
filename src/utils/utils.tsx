@@ -180,11 +180,12 @@ export function filterTransactionsBySearch(search : string, selectedTransactions
 export function calculateTotalBudgetLimit(budgets : Budget[]) {
     let totalBudgetLimit : number = 0
 
-    if (budgets)
-    for (let i = 0; i < budgets.length; i++) {
-        totalBudgetLimit += budgets[i].maximum
+    if (budgets) {
+        for (let i = 0; i < budgets.length; i++) {
+            totalBudgetLimit += budgets[i].maximum
+        }
     }
-
+   
     return totalBudgetLimit
 }
 

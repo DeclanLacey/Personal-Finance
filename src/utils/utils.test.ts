@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getOrdinalSuffix, renderColorOptions, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
+import { alertToWindow, calculatePercentOfTotal, calculateTotalBudgetLimit, calculateTotalBudgetSpend, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getOrdinalSuffix, renderColorOptions, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
 import data from "../data/data.json"
 import { Transaction } from '../types/types';
 
@@ -350,9 +350,129 @@ describe('filter functions for transactions', () => {
             expect(result).toMatchObject([mockTransactionData[0]]);
         });
     });
+});
+
+describe('calculateTotalBudgetLimit()', () => {
+    const mockBudgetData = [
+        {
+            category: "string",
+            createdAt: "string",
+            id: "string",
+            maximum: 200,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        },
+        {
+            category: "string",
+            createdAt: "string",
+            id: "string",
+            maximum: 120,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        }
+    ];
+
+    it('should return the correct total after adding up all of the maximums from the budgets', () => {
+        const result = calculateTotalBudgetLimit(mockBudgetData);
+        const expectedResult = 320;
+        expect(result).toBe(expectedResult);
+    });
+
+    it('should return 0 if no budgets are passed in', () => {
+        const result = calculateTotalBudgetLimit([]);
+        const expectedResult = 0;
+        expect(result).toBe(expectedResult);
+    });
 
 });
 
+describe('calculateTotalBudgetSpend()', () => {
+    const mockBudgetData = [
+        {
+            category: "Dining Out",
+            createdAt: "string",
+            id: "string",
+            maximum: 200,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        },
+        {
+            category: "Personal Care",
+            createdAt: "string",
+            id: "string",
+            maximum: 120,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        }
+    ];
+
+    const mockTransactionData = [
+        {
+            avatar: "./assets/avatars/dining-out.jpg",
+            name: "Savory Bites Bistro",
+            category: "Dining Out",
+            date: "08/19/2024",
+            amount: -55.50,
+            recurring: false,
+            createdAt: "string",
+            id: "string",
+            profileOwner: "string",
+            updatedAt: "string"
+        },
+        {
+            avatar: "./assets/avatars/personal-care.jpg",
+            name: "Serenity Spa & Wellness",
+            category: "Personal Care",
+            date: "08/03/2024",
+            amount: -30.00,
+            recurring: true,
+            createdAt: "string",
+            id: "string",
+            profileOwner: "string",
+            updatedAt: "string"
+        },
+        {
+            avatar: "./assets/avatars/general.jpg",
+            name: "Buzz Marketing Group",
+            category: "General",
+            date: "07/26/2024",
+            amount: 3358.00,
+            recurring: false,
+            createdAt: "string",
+            id: "string",
+            profileOwner: "string",
+            updatedAt: "string"
+        }
+    ]
+
+    it('should return 0 if no budgets are passed in', () => {
+        const result = calculateTotalBudgetSpend([], mockTransactionData)
+        const expectedResult = 0;
+        expect(result).toBe(expectedResult);
+    });
+
+    it('should return 0 if no transactions are passed in', () => {
+        const result = calculateTotalBudgetSpend(mockBudgetData, [])
+        const expectedResult = 0;
+        expect(result).toBe(expectedResult);
+    });
+
+    it('should return 0 if no budgets or transactions are passed in', () => {
+        const result = calculateTotalBudgetSpend([], [])
+        const expectedResult = 0;
+        expect(result).toBe(expectedResult);
+    });
+
+    it('should return the total spent between all budgets based on transactions passed in', () => {
+        const result = calculateTotalBudgetSpend(mockBudgetData, mockTransactionData)
+        const expectedResult = 85.50;
+        expect(result).toBe(expectedResult);
+    });
+})
 
 
 
