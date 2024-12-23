@@ -1,7 +1,8 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate, getOrdinalSuffix, renderColorOptions } from './utils';
+import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate, getOrdinalSuffix, renderColorOptions, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
 import data from "../data/data.json"
+import { Transaction } from '../types/types';
 
 describe('checkIfStringIsNumber()', () => {
     it('should return true if whole number string is passed in', () => {
@@ -150,16 +151,21 @@ describe('renderColorOptions()', () => {
 // })
 
 describe('sorting util functions', () => {
-    let mockData;
+    let mockTransactionData : Transaction[];
+
     beforeEach(() => {
-        mockData = [
+        mockTransactionData = [
             {
                 avatar: "./assets/avatars/dining-out.jpg",
                 name: "Savory Bites Bistro",
                 category: "Dining Out",
                 date: "08/19/2024",
                 amount: -55.50,
-                recurring: false
+                recurring: false,
+                createdAt: "string",
+                id: "string",
+                profileOwner: "string",
+                updatedAt: "string"
             },
             {
                 avatar: "./assets/avatars/personal-care.jpg",
@@ -167,7 +173,11 @@ describe('sorting util functions', () => {
                 category: "Personal Care",
                 date: "08/03/2024",
                 amount: -30.00,
-                recurring: true
+                recurring: true,
+                createdAt: "string",
+                id: "string",
+                profileOwner: "string",
+                updatedAt: "string"
             },
             {
                 avatar: "./assets/avatars/general.jpg",
@@ -175,14 +185,87 @@ describe('sorting util functions', () => {
                 category: "General",
                 date: "07/26/2024",
                 amount: 3358.00,
-                recurring: false
-            },
+                recurring: false,
+                createdAt: "string",
+                id: "string",
+                profileOwner: "string",
+                updatedAt: "string"
+            }
         ]
-    })
+    });
+
 
     describe('sortByLatestDate()', () => {
+        it('should return an array of transactions sorted by the latest date first', () => {
+            let result = sortByLatestDate(mockTransactionData);
+            expect(Number(new Date(result[0].date))).toBeGreaterThanOrEqual(Number(new Date(result[result.length - 1].date)));
+        });
 
+        it('should return an empty array if no transactions are provided', () => {
+            let result = sortByLatestDate([]);
+            expect(result).toEqual([]);
+        });
     })
+
+    describe('sortByOldestDate()', () => {
+        it('should return an array of transactions sorted by the oldest date first', () => {
+            let result = sortByOldestDate(mockTransactionData);
+            expect(Number(new Date(result[0].date))).toBeLessThanOrEqual(Number(new Date(result[result.length - 1].date)));
+        });
+
+        it('should return an empty array if no transactions are provided', () => {
+            let result = sortByOldestDate([]);
+            expect(result).toEqual([]);
+        });
+    });
+
+    describe('sortAToZ()', () => {
+        it('should return an array of transactions sorted from A to Z by their name', () => {
+            let result = sortAToZ(mockTransactionData);
+            expect(result[0].name.localeCompare(result[result.length -1].name)).toBe(-1)
+        });
+
+        it('should return an empty array if no transactions are provided', () => {
+            let result = sortAToZ([]);
+            expect(result).toEqual([]);
+        });
+    });
+
+    describe('sortZToA()', () => {
+        it('should return an array of transactions sorted from Z to A by their name', () => {
+            let result = sortZToA(mockTransactionData);
+            expect(result[0].name.localeCompare(result[result.length -1].name)).toBe(1)
+        });
+
+        it('should return an empty array if no transactions are provided', () => {
+            let result = sortZToA([]);
+            expect(result).toEqual([]);
+        });
+    });
+    
+    describe('sortInDescendingOrderByAbsoluteValue()', () => {
+        it('should return an array sorted in descending order by the absolute value of the amount', () => {
+            let result = sortInDescendingOrderByAbsoluteValue(mockTransactionData);
+            expect(Math.abs(result[0].amount)).toBeGreaterThanOrEqual(Math.abs(result[result.length - 1].amount));
+        });
+
+        it('should return an empty array if no transactions are provided', () => {
+            let result = sortInDescendingOrderByAbsoluteValue([]);
+            expect(result).toEqual([]);
+        });
+    });
+
+    describe('sortInAscendingOrderByAbsoluteValue()', () => {
+        it('should return an array sorted in ascending order by the absolute value of the amount', () => {
+            let result = sortInAscendingOrderByAbsoluteValue(mockTransactionData);
+            expect(Math.abs(result[0].amount)).toBeLessThanOrEqual(Math.abs(result[result.length - 1].amount));
+        });
+
+        it('should return an empty array if no transactions are provided', () => {
+            let result = sortInAscendingOrderByAbsoluteValue([]);
+            expect(result).toEqual([]);
+        });
+    });
 })
 
 

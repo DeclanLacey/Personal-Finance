@@ -112,11 +112,11 @@ export function sortTransactions(sortSelection: string, selectedTransactions : T
 } 
 
 export function sortByLatestDate(selectedTransactions : Transaction[]) {
-    return selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+    return selectedTransactions.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
 }
 
 export function sortByOldestDate(selectedTransactions : Transaction[]) {
-    return selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
+    return selectedTransactions.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
 }
 
 export function sortAToZ(selectedTransactions : Transaction[]) {
