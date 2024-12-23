@@ -163,11 +163,11 @@ export function filterTransactions(filterSelection: string, selectedTransactions
     if (filterSelection) {
         selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.category).toLowerCase() === filterSelection.toLowerCase())
     }
-
     return selectedTransactions
 }
 
 export function filterTransactionsBySearch(search : string, selectedTransactions: Transaction[]) {
+    search = search.trim().replace(/\s+/g, " ")
     selectedTransactions = selectedTransactions?.filter((transaction) => (transaction.name).toLowerCase().includes(search.toLowerCase()))
     return selectedTransactions
 }

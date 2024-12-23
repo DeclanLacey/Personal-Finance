@@ -1,6 +1,6 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate, getOrdinalSuffix, renderColorOptions, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
+import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getOrdinalSuffix, renderColorOptions, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
 import data from "../data/data.json"
 import { Transaction } from '../types/types';
 
@@ -267,6 +267,93 @@ describe('sorting util functions', () => {
         });
     });
 })
+
+describe('filter functions for transactions', () => {
+    let mockTransactionData : Transaction[];
+    
+    beforeEach(() => {
+        mockTransactionData = [
+            {
+                avatar: "./assets/avatars/dining-out.jpg",
+                name: "Savory Bites Bistro",
+                category: "Dining Out",
+                date: "08/19/2024",
+                amount: -55.50,
+                recurring: false,
+                createdAt: "string",
+                id: "string",
+                profileOwner: "string",
+                updatedAt: "string"
+            },
+            {
+                avatar: "./assets/avatars/personal-care.jpg",
+                name: "Serenity Spa & Wellness",
+                category: "Personal Care",
+                date: "08/03/2024",
+                amount: -30.00,
+                recurring: true,
+                createdAt: "string",
+                id: "string",
+                profileOwner: "string",
+                updatedAt: "string"
+            },
+            {
+                avatar: "./assets/avatars/general.jpg",
+                name: "Buzz Marketing Group",
+                category: "General",
+                date: "07/26/2024",
+                amount: 3358.00,
+                recurring: false,
+                createdAt: "string",
+                id: "string",
+                profileOwner: "string",
+                updatedAt: "string"
+            }
+        ]
+    });
+
+    describe('filterTransactions()', () => {
+        it('should return the same transactions if no filterSelection is provided', () => {
+            let result = filterTransactions("", mockTransactionData);
+            expect(result).toBe(mockTransactionData);
+        });
+
+        it('should return only transactions with the category passed in as the filter', () => {
+            let result = filterTransactions('general', mockTransactionData);
+            expect(result[0].category).toBe('General');
+        });
+
+        it('should return no transactions if there are no matches to the category passed in as the filter', () => {
+            let result = filterTransactions('shopping', mockTransactionData);
+            expect(result.length).toBe(0);
+        });
+    });
+
+    describe('filterTransactionsBySearch()', () => {
+        it('should return the same transactions if a string of only spaces are passed in', () => {
+            let result = filterTransactionsBySearch('   ', mockTransactionData);
+            expect(result).toMatchObject(mockTransactionData);
+        });
+
+        it('should return the same transactions if an empty string is passed in', () => {
+            let result = filterTransactionsBySearch('', mockTransactionData);
+            expect(result).toMatchObject(mockTransactionData);
+        });
+
+        it('should return only transactions whos name contains the search input', () => {
+            let result = filterTransactionsBySearch('savory', mockTransactionData);
+            expect(result).toMatchObject([mockTransactionData[0]]);
+        });
+
+        it('should return only transactions whos name contains the search input regardless of extra spaces', () => {
+            let result = filterTransactionsBySearch('  savory  ', mockTransactionData);
+            expect(result).toMatchObject([mockTransactionData[0]]);
+        });
+    });
+
+});
+
+
 
 
 
