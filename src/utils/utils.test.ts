@@ -1,6 +1,7 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate, getOrdinalSuffix } from './utils';
+import { alertToWindow, calculatePercentOfTotal, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, formatDate, getOrdinalSuffix, renderColorOptions } from './utils';
+import data from "../data/data.json"
 
 describe('checkIfStringIsNumber()', () => {
     it('should return true if whole number string is passed in', () => {
@@ -117,7 +118,7 @@ describe('getOrdinalSuffix()', () => {
     });
 });
 
-describe('capitalizeEachWord', () => {
+describe('capitalizeEachWord()', () => {
     it('should return the same string with every word capitalized', () => {
         const input = 'this is a string';
         const expectedOutput = 'This Is A String';
@@ -125,4 +126,64 @@ describe('capitalizeEachWord', () => {
         expect(result).toBe(expectedOutput);
     });
 });
+
+describe('renderColorOptions()', () => {
+    it('should return an HTMLElementCollection', () => {
+        const mockData = [
+            { 
+                name: "green", 
+                hex: "#277C78",
+                id: "string",
+                createdAt: "string",
+                updatedAt: "string"
+            },
+        ];
+
+        const result = renderColorOptions(mockData);
+        expect(result).toBeInstanceOf(Array);
+        expect(result[0].type).toBe('option');
+    });
+});
+
+// describe('sortTransactions()', () => {
+    
+// })
+
+describe('sorting util functions', () => {
+    let mockData;
+    beforeEach(() => {
+        mockData = [
+            {
+                avatar: "./assets/avatars/dining-out.jpg",
+                name: "Savory Bites Bistro",
+                category: "Dining Out",
+                date: "08/19/2024",
+                amount: -55.50,
+                recurring: false
+            },
+            {
+                avatar: "./assets/avatars/personal-care.jpg",
+                name: "Serenity Spa & Wellness",
+                category: "Personal Care",
+                date: "08/03/2024",
+                amount: -30.00,
+                recurring: true
+            },
+            {
+                avatar: "./assets/avatars/general.jpg",
+                name: "Buzz Marketing Group",
+                category: "General",
+                date: "07/26/2024",
+                amount: 3358.00,
+                recurring: false
+            },
+        ]
+    })
+
+    describe('sortByLatestDate()', () => {
+
+    })
+})
+
+
 

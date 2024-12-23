@@ -95,74 +95,69 @@ export function renderColorOptions(themes: Theme[]) {
 export function sortTransactions(sortSelection: string, selectedTransactions : Transaction[]) {
     switch (sortSelection) {
         case "latest":
-        selectedTransactions = selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
-        break;
+            return sortByLatestDate(selectedTransactions);
         case "oldest":
-        selectedTransactions = selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
-        break;
+            return sortByOldestDate(selectedTransactions);
         case "a-z":
-        selectedTransactions = selectedTransactions.sort((a, b) => {
-            if (a.name < b.name) return -1
-            if (a.name > b.name) return 1
-            return 0
-        })
-        break;
+            return sortAToZ(selectedTransactions);
         case "z-a":
-        selectedTransactions = selectedTransactions.sort((a, b) => {
-            if (a.name > b.name) return -1
-            if (a.name < b.name) return 1
-            return 0
-        })
-        break;
+            return sortZToA(selectedTransactions);
         case "highest":
-        selectedTransactions = selectedTransactions.sort((a, b) => {
-            if (a.amount > 0 && b.amount > 0) {
-                if ((a.amount* -1) < (b.amount* -1)) return -1
-                if ((a.amount* -1) > (b.amount* -1)) return 1
-            }
-
-            if (a.amount > 0) {
-                if ((a.amount * -1) < b.amount) return -1
-                if ((a.amount * -1) > b.amount) return 1
-            }
-
-            if (b.amount > 0) {
-                if (a.amount < (b.amount * -1)) return -1
-                if (a.amount > (b.amount * -1)) return 1
-            }
-
-            if (a.amount < b.amount ) return -1
-            if (a.amount > b.amount ) return 1
-            return 0
-        })
-        break;
+            return sortInDescendingOrderByAbsoluteValue(selectedTransactions);
         case "lowest":
-        selectedTransactions = selectedTransactions.sort((a, b) => {
-            if (a.amount > 0 && b.amount > 0) {
-                if ((a.amount* -1) > (b.amount* -1)) return -1
-                if ((a.amount* -1) < (b.amount* -1)) return 1
-            }
-
-            if (a.amount > 0) {
-                if ((a.amount * -1) > b.amount) return -1
-                if ((a.amount * -1) < b.amount) return 1
-            }
-
-            if (b.amount > 0) {
-                if (a.amount > (b.amount * -1)) return -1
-                if (a.amount < (b.amount * -1)) return 1
-            }
-        
-            if (a.amount > b.amount) return -1
-            if (a.amount < b.amount) return 1
-
-            return 0
-        })
-        break;
+            return sortInAscendingOrderByAbsoluteValue(selectedTransactions);
     }
 
     return selectedTransactions
 } 
+
+export function sortByLatestDate(selectedTransactions : Transaction[]) {
+    return selectedTransactions?.sort((a, b) => new Date(b.date).valueOf() - new Date(a.date).valueOf());
+}
+
+export function sortByOldestDate(selectedTransactions : Transaction[]) {
+    return selectedTransactions?.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
+}
+
+export function sortAToZ(selectedTransactions : Transaction[]) {
+    return selectedTransactions.sort((a, b) => {
+        if (a.name < b.name) return -1
+        if (a.name > b.name) return 1
+        return 0
+    })
+}
+
+export function sortZToA(selectedTransactions : Transaction[]) {
+    return selectedTransactions.sort((a, b) => {
+        if (a.name > b.name) return -1
+        if (a.name < b.name) return 1
+        return 0
+    })
+}
+
+export function sortInDescendingOrderByAbsoluteValue(selectedTransactions : Transaction[]) {
+    return selectedTransactions.sort((a, b) => {
+        const absA = Math.abs(a.amount);
+        const absB = Math.abs(b.amount);
+        
+        if (absA > absB) return - 1;
+        if (absA < absB) return 1;
+
+        return 0;
+    });
+}
+
+export function sortInAscendingOrderByAbsoluteValue(selectedTransactions : Transaction[]) {
+    return selectedTransactions.sort((a, b) => {
+        const absA = Math.abs(a.amount);
+        const absB = Math.abs(b.amount);
+        
+        if (absA < absB) return - 1;
+        if (absA > absB) return 1;
+
+        return 0;
+    })
+}
 
 export function filterTransactions(filterSelection: string, selectedTransactions : Transaction[]) {
     if (filterSelection) {
