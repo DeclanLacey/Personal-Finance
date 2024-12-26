@@ -275,6 +275,7 @@ export function calculateTotalBills(transactions: Transaction[]) {
     return totalBills < 0 ? -totalBills : 0
 }
 
+/// Split this into multiple functions? 
 export function getRecurringBillTotals(transactions: Transaction[]) {
     let billTypeCounts = {
         paidBillsAmount: 0,
@@ -284,7 +285,7 @@ export function getRecurringBillTotals(transactions: Transaction[]) {
         dueSoonAmount: 0,
         dueSoonCount: 0
     }
-    
+
     let currentDate = new Date().getDate()
     let recurringTransactions: Transaction[] = []
     transactions.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
