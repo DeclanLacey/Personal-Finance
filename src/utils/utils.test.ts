@@ -1,8 +1,9 @@
 // @vitest-environment jsdom
 import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, calculateSpendPerBudgetCategory, calculateTotalBudgetLimit, calculateTotalBudgetSpend, capitalizeEachWord, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getOrdinalSuffix, renderColorOptions, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
+import { alertToWindow, calculatePercentOfTotal, calculateSpendPerBudgetCategory, calculateTotalBills, calculateTotalBudgetLimit, calculateTotalBudgetSpend, capitalizeEachWord, checkIfBudgetExists, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getBudgetCategoryNamesAndMax, getOrdinalSuffix, renderColorOptions, setPieChartColorsAndValues, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
 import data from "../data/data.json"
 import { Transaction } from '../types/types';
+import { Q } from 'vitest/dist/chunks/reporters.D7Jzd9GS.js';
 
 describe('checkIfStringIsNumber()', () => {
     it('should return true if whole number string is passed in', () => {
@@ -123,6 +124,13 @@ describe('capitalizeEachWord()', () => {
     it('should return the same string with every word capitalized', () => {
         const input = 'this is a string';
         const expectedOutput = 'This Is A String';
+        const result = capitalizeEachWord(input);
+        expect(result).toBe(expectedOutput);
+    });
+
+    it('should return an empty string if an empty string is passed in', () => {
+        const input = '';
+        const expectedOutput = '';
         const result = capitalizeEachWord(input);
         expect(result).toBe(expectedOutput);
     });
@@ -541,11 +549,173 @@ describe('calculateSpendPerBudgetCategory()', () => {
         const result = calculateSpendPerBudgetCategory([], []);
         expect(result.length).toBe(0);
     });
+});
+
+describe('getBudgetCategoryNamesAndMax()', () => {
+    const mockBudgetData = [
+        {
+            category: "Dining Out",
+            createdAt: "string",
+            id: "string",
+            maximum: 200,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        },
+        {
+            category: "Personal Care",
+            createdAt: "string",
+            id: "string",
+            maximum: 120,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        }
+    ];
+
+    it('should return an array of objects with the correct data fro each category', () => {
+        const result = getBudgetCategoryNamesAndMax(mockBudgetData);
+        expect(result[0].name).toBe(mockBudgetData[0].category);
+        expect(result[1].max).toBe(mockBudgetData[1].maximum);
+    });
+
+    it('should return an array of objects with the amount field being 0', () => {
+        const result = getBudgetCategoryNamesAndMax(mockBudgetData);
+        expect(result[0].amount).toBe(0);
+        expect(result[1].amount).toBe(0);
+    });
+
+    it('should return an empty array when it is not passed any budgets', () => {
+        const result = getBudgetCategoryNamesAndMax([]);
+        expect(result.length).toBe(0);
+    });
+});
+
+describe('setPieChartColorsAndValues()', () => {
+    const mockBudgetData = [
+        {
+            category: "Dining Out",
+            createdAt: "string",
+            id: "string",
+            maximum: 200,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        },
+        {
+            category: "Personal Care",
+            createdAt: "string",
+            id: "string",
+            maximum: 120,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        }
+    ];
+
+    it('should return an array of objects with a value and className', () => {
+        const result = setPieChartColorsAndValues(mockBudgetData);
+        expect(result[0].value).toBe(mockBudgetData[0].maximum);
+        expect(result[0].className).toBe(mockBudgetData[0].theme);
+        expect(result[1].value).toBe(mockBudgetData[1].maximum);
+        expect(result[1].className).toBe(mockBudgetData[1].theme);
+    });
+
+    it('should return an empty array when not passed any budgets', () => {
+        const result = setPieChartColorsAndValues([]);
+        expect(result.length).toBe(0);
+    });
+});
+
+describe('checkIfBudgetExists()', () => {
+    const mockBudgetData = [
+        {
+            category: "Dining Out",
+            createdAt: "string",
+            id: "string",
+            maximum: 200,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        },
+        {
+            category: "Personal Care",
+            createdAt: "string",
+            id: "string",
+            maximum: 120,
+            profileOwner: "string",
+            theme: "string",
+            updatedAt: "string"
+        }
+    ];
+
+    it('should return true if newBudgetCategory passed in is found in the current budgets', () => {
+        const newBudgetInput = "Dining Out";
+        const expectedResult = true;
+        const result = checkIfBudgetExists(mockBudgetData, newBudgetInput);
+        expect(result).toBe(expectedResult);
+    });
+
+    it('should return false if the newBudgetCategory passes in is not found in the current budgets', () => {
+        const newBudgetInput = 'Shopping';
+        const expectedResult = false;
+        const result = checkIfBudgetExists(mockBudgetData, newBudgetInput);
+        expect(result).toBe(expectedResult);
+    });
+});
+
+describe('calculateTotalBills()', () => {
+    const mockTransactionData = [
+        {
+            avatar: "./assets/avatars/dining-out.jpg",
+            name: "Savory Bites Bistro",
+            category: "Dining Out",
+            date: "08/19/2024",
+            amount: -55.50,
+            recurring: false,
+            createdAt: "string",
+            id: "string",
+            profileOwner: "string",
+            updatedAt: "string"
+        },
+        {
+            avatar: "./assets/avatars/personal-care.jpg",
+            name: "Serenity Spa & Wellness",
+            category: "Personal Care",
+            date: "08/03/2024",
+            amount: -30.00,
+            recurring: true,
+            createdAt: "string",
+            id: "string",
+            profileOwner: "string",
+            updatedAt: "string"
+        },
+        {
+            avatar: "./assets/avatars/general.jpg",
+            name: "Buzz Marketing Group",
+            category: "General",
+            date: "07/26/2024",
+            amount: 3358.00,
+            recurring: false,
+            createdAt: "string",
+            id: "string",
+            profileOwner: "string",
+            updatedAt: "string"
+        }
+    ];
+
+    it('should return the monthly total of all of the recurring transactions', () => {
+        const expectedResult = 30;
+        const result = calculateTotalBills(mockTransactionData);
+        expect(result).toBe(expectedResult);
+    });
+
+    it('should return 0 if no recurring transactions are found', () => {
+        const expectedResult = 0;
+        const result = calculateTotalBills([mockTransactionData[0], mockTransactionData[2]]);
+        expect(result).toBe(expectedResult);
+    });
 
     
-    
-})
 
-
-
-
+});

@@ -247,7 +247,7 @@ export function setPieChartColorsAndValues(budgets : Budget[] ) {
 
 export function checkIfBudgetExists(budgets: Budget[], newBudgetCategory: string) {
     for (const budget of budgets) {
-        if (budget.category === newBudgetCategory) {
+        if (budget.category.toLowerCase() === newBudgetCategory.toLowerCase()) {
             return true
         }
     }
@@ -272,7 +272,7 @@ export function calculateTotalBills(transactions: Transaction[]) {
             }
         }
     }
-    return -totalBills
+    return totalBills < 0 ? -totalBills : 0
 }
 
 export function getRecurringBillTotals(transactions: Transaction[]) {
