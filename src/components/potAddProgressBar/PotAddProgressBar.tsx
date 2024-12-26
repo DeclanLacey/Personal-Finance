@@ -17,8 +17,8 @@ export default function PotAddProgressBar({potColor, potTarget, potSaved, additi
   return (
     <div aria-hidden="true" className='pot_thin_progress_bar-container'>
         <div className={originalPercentSaved < 100 ? 'pot_thin_progress_bar-value-old right-flat' : 'pot_thin_progress_bar-value-old'} style={{width: `${originalPercentSaved}%`}}></div>
-        <div className="progressBar-separator"></div>
-        <div className={`pot_thin_progress_bar-value-new left-flat ${potColor}`} style={{width: `${newPercentSaved}%`, maxWidth: `${maxNewPercent}`}}></div>
+        <div className={`progressBar-separator ${originalPercentSaved === 0 ? 'hide-separator' : ''}`}></div>
+        <div className={`pot_thin_progress_bar-value-new ${originalPercentSaved === 0 ? '' : 'left-flat'} ${potColor}`} style={{width: `${newPercentSaved}%`, maxWidth: `${maxNewPercent}`}}></div>
     </div>
   )
 }

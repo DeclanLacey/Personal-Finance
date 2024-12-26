@@ -36,15 +36,7 @@ export default function AddToPotModal({currentPot, setShowAddToPotModal} : Props
             setPotAddition(e.currentTarget.value)
         }
     }
-
-    function calculateNewPercentSaved() {
-        let totalPercentSaved = calculatePercentOfTotal(currentPot.target, Number(potAddition) + currentPot.total)
-        if (totalPercentSaved > 100) {
-            return 100
-        }else {
-            return totalPercentSaved
-        }
-    }
+    
     return (
         <div>
             <div className='page-cover'></div>
@@ -62,7 +54,7 @@ export default function AddToPotModal({currentPot, setShowAddToPotModal} : Props
                 <div >
                     <PotAddProgressBar potColor={"green"} potTarget={currentPot.target} potSaved={currentPot.total} additionAmount={Number(potAddition)}/>
                     <div className="add_to_pot-percent-container">
-                        <p className={`text-5-bold ${calculateNewPercentSaved() > originalPercentSaved ?  "add_to_pot-percent-text-green"  : "add_to_pot-percent-text-grey"}` }>{calculateNewPercentSaved().toFixed(2)}%</p>
+                        <p className={`text-5-bold ${calculatePercentOfTotal(currentPot.target, Number(potAddition) + currentPot.total) > originalPercentSaved ?  "add_to_pot-percent-text-green"  : "add_to_pot-percent-text-grey"}` }>{calculatePercentOfTotal(currentPot.target, Number(potAddition) + currentPot.total).toFixed(2)}%</p>
                         <p className="text-5-grey">Target of {currencyFormatCents(currentPot.target)}</p>
                     </div>
                 </div>

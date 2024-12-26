@@ -36,7 +36,8 @@ export default function RemoveFromPotModal({currentPot, setShowRemoveFromPotModa
             total: currentPot.total - Number(potSubtraction) >= 0 ? currentPot.total - Number(potSubtraction) : 0
         }
 
-        if (!updatedPot.total || updatedPot.total < 1 ) {
+        
+        if (updatedPot.total < 0 || currentPot.total === 0 || Number(potSubtraction) > currentPot.total) {
             window.alert("Please enter a valid subtraction amount")
         }else {
             await updatePotTotal(updatedPot)
