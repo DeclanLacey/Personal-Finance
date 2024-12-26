@@ -1,9 +1,7 @@
 // @vitest-environment jsdom
-import {describe, it, expect, beforeEach, vi} from 'vitest'
-import { alertToWindow, calculatePercentOfTotal, calculateSpendPerBudgetCategory, calculateTotalBills, calculateTotalBudgetLimit, calculateTotalBudgetSpend, capitalizeEachWord, checkIfBudgetExists, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getBudgetCategoryNamesAndMax, getOrdinalSuffix, getRecurringBillTotals, renderColorOptions, setPieChartColorsAndValues, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
-import data from "../data/data.json"
+import {describe, it, expect, beforeEach} from 'vitest'
+import {calculatePercentOfTotal, calculateSpendPerBudgetCategory, calculateTotalBills, calculateTotalBudgetLimit, calculateTotalBudgetSpend, capitalizeEachWord, checkIfBudgetExists, checkIfStringIsNumber, currencyFormatCents, currencyFormatNoCents, filterTransactions, filterTransactionsBySearch, formatDate, getBudgetCategoryNamesAndMax, getOrdinalSuffix, renderColorOptions, setPieChartColorsAndValues, sortAToZ, sortByLatestDate, sortByOldestDate, sortInAscendingOrderByAbsoluteValue, sortInDescendingOrderByAbsoluteValue, sortZToA } from './utils';
 import { Transaction } from '../types/types';
-import { Q } from 'vitest/dist/chunks/reporters.D7Jzd9GS.js';
 
 describe('checkIfStringIsNumber()', () => {
     it('should return true if whole number string is passed in', () => {
