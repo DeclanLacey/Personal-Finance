@@ -716,6 +716,11 @@ describe('calculateTotalBills()', () => {
         expect(result).toBe(expectedResult);
     });
 
-    
+    it('should return 0 if no transactions are passed in', () => {
+        const expectedResult = 0;
+        const result = calculateTotalBills([]);
+        expect(result).toBe(expectedResult);
+    });
 
 });
+

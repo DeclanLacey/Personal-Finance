@@ -52,17 +52,17 @@ export default function RecurringBillsOverview() {
       <div className='recurring_bills-content-container'>
         <div className='recurring_bills-total-container green-left-border'>
           <p className='recurring_bills-total-title'>Paid Bills</p>
-          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.paidBills)}</p>
+          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.paidBillsAmount)}</p>
         </div>
 
         <div className='recurring_bills-total-container yellow-left-border'>
           <p className='recurring_bills-total-title'>Total Upcoming</p>
-          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.totalUpcoming)}</p>
+          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.totalUpcomingAmount)}</p>
         </div>
 
         <div className='recurring_bills-total-container cyan-left-border'>
           <p className='recurring_bills-total-title'>Due Soon</p>
-          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.dueSoon)}</p>
+          <p className='recurring_bills-total'>{currencyFormatCents(-recurringBillTotals.dueSoonAmount)}</p>
         </div>
       </div>
     </section>

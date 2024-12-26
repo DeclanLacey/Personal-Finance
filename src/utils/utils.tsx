@@ -276,14 +276,15 @@ export function calculateTotalBills(transactions: Transaction[]) {
 }
 
 export function getRecurringBillTotals(transactions: Transaction[]) {
-    let paidBills : number = 0
-    let totalUpcoming : number = 0
-    let dueSoon : number = 0
     let billTypeCounts = {
+        paidBillsAmount: 0,
         paidBillsCount: 0,
+        totalUpcomingAmount: 0,
         totalUpcomingCount: 0,
+        dueSoonAmount: 0,
         dueSoonCount: 0
     }
+    
     let currentDate = new Date().getDate()
     let recurringTransactions: Transaction[] = []
     transactions.sort((a, b) => new Date(a.date).valueOf() - new Date(b.date).valueOf());
@@ -302,18 +303,18 @@ export function getRecurringBillTotals(transactions: Transaction[]) {
         let transactionDay = new Date(recurringTransactions[i].date).getDate()
 
         if (transactionDay <= currentDate) {
-            paidBills += recurringTransactions[i].amount
+            billTypeCounts.paidBillsAmount += recurringTransactions[i].amount
             billTypeCounts.paidBillsCount += 1
         }else if (transactionDay > currentDate) {
             if (transactionDay - currentDate <= 7) {
-                dueSoon += recurringTransactions[i].amount
+                billTypeCounts.dueSoonAmount += recurringTransactions[i].amount
                 billTypeCounts.dueSoonCount += 1
             }
-            totalUpcoming += recurringTransactions[i].amount
+            billTypeCounts.totalUpcomingAmount += recurringTransactions[i].amount
             billTypeCounts.totalUpcomingCount += 1
         }
     }
 
-    return {paidBills, totalUpcoming, dueSoon, billTypeCounts}
+    return billTypeCounts
 }
 

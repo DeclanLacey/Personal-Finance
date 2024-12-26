@@ -135,17 +135,17 @@ export default function RecurringBills() {
 
         <div className='recurring_bills_page-flex-container border-bottom'>
           <p className='text-5-grey'>Paid Bills</p>
-          <p className='text-5-bold'>{`${recurringBillTotals.billTypeCounts.paidBillsCount} (${currencyFormatCents(-recurringBillTotals.paidBills)})`}</p>
+          <p className='text-5-bold'>{`${recurringBillTotals.paidBillsCount} (${currencyFormatCents(-recurringBillTotals.paidBillsAmount)})`}</p>
         </div>
 
         <div className='recurring_bills_page-flex-container border-bottom'>
           <p className='text-5-grey'>Total Upcoming</p>
-          <p className='text-5-bold'>{`${recurringBillTotals.billTypeCounts.totalUpcomingCount} (${currencyFormatCents(-recurringBillTotals.totalUpcoming)})`}</p>
+          <p className='text-5-bold'>{`${recurringBillTotals.totalUpcomingCount} (${currencyFormatCents(-recurringBillTotals.totalUpcomingAmount)})`}</p>
         </div>
 
         <div className='recurring_bills_page-flex-container'>
           <p className='text-5 red-text'>Due Soon</p>
-          <p className='text-5-bold red-text'>{`${recurringBillTotals.billTypeCounts.dueSoonCount} (${currencyFormatCents(-recurringBillTotals.dueSoon)})`}</p>
+          <p className='text-5-bold red-text'>{`${recurringBillTotals.dueSoonCount} (${currencyFormatCents(-recurringBillTotals.dueSoonAmount)})`}</p>
         </div>
       </section>
 
